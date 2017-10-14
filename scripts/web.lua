@@ -24,8 +24,9 @@ Methods.UpdateStatus = function()
 	 for i = 0, lastPid do
 			if Players[i] ~= nil then
 				 list = list .. "<li class=\"green\">"
-				 list = list .. tostring(Players[i].name)
-				 list = list .. "</li>\n"
+				 list = list .. tostring(Players[i].name) .. " ("
+				 list = list .. tes3mp.GetLevel(Players[i].pid)
+				 list = list .. ")</li>\n"
 			end
 	 end
 

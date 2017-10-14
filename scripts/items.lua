@@ -154,7 +154,8 @@ Methods.IronFork = function(pid)
 			rot[1]  = -3.1416797637939
 
 			if tes3mp.GetCell(pid) == "Vivec, St. Delyn Waist North-Two" then
-				 message = color.LightBlue .. "The sensation of travelling by portkey is universally agreed to be uncomfortable.\n"
+				 message = color.MediumSpringGreen .. "You have entered a storage safezone.\n"
+				 message = message .. color.LightBlue .. "The sensation of travelling by portkey is universally agreed to be uncomfortable.\n"
 				 cell    = "Vivec, Arena Pit"
 				 pos[0]  = "913.79772949219"
 				 pos[1]  = "-12.880634307861"
