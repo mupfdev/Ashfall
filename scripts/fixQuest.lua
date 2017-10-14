@@ -14,13 +14,12 @@ Methods = {}
 -- directly underneath it.
 
 
--- Note: This fix is only needed if Torasa Aram has been permanently
--- removed from the Museum of Artifacts.
+-- Note: This fix is only needed if Torasa Aram from the Museum of
+-- Artifacts has been permanently removed.
 Methods.TR_Blade = function(pid)
 	 local index = GetQuestHighestIndex("tr_blade")
 
 	 if index == 35 then
-			tes3mp.SendMessage(pid, "test\n", false)
 			tes3mp.InitializeJournalChanges(pid)
 			tes3mp.AddJournalEntry(pid, "tr_blade", 40, "torasa aram")
 			tes3mp.AddJournalEntry(pid, "tr_blade", 45, "torasa aram")
