@@ -19,9 +19,10 @@ Methods = {}
 Methods.TR_Blade = function(pid)
 	 local index = GetQuestHighestIndex("tr_blade")
 
-	 if index == 40 then
+	 if index == 35 then
 			tes3mp.SendMessage(pid, "test\n", false)
 			tes3mp.InitializeJournalChanges(pid)
+			tes3mp.AddJournalEntry(pid, "tr_blade", 40, "torasa aram")
 			tes3mp.AddJournalEntry(pid, "tr_blade", 45, "torasa aram")
 			tes3mp.SendJournalChanges(pid)
 			tes3mp.SendJournalChanges(pid, true)
