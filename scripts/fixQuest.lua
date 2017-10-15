@@ -10,7 +10,8 @@ Methods = {}
 
 
 -- Find "function OnPlayerJournal(pid)" inside server.lua and add:
--- [ fixQuest.TR_Blade ]
+-- [ fixQuest.TR_Blade(pid) ]
+-- [ fixQuest.TG_LootAldruhnMG(pid) ]
 -- directly underneath it.
 
 
@@ -27,6 +28,18 @@ Methods.TR_Blade = function(pid)
 			tes3mp.SendJournalChanges(pid, true)
 			tes3mp.AddItem(pid, "dwemer_shield_battle_unique", 1, -1)
 			tes3mp.SendInventoryChanges(pid)
+	 end
+end
+
+
+Methods.TG_LootAldruhnMG = function(pid)
+	 local index = GetQuestHighestIndex("tg_lootaldruhnmg")
+
+	 if index == 10 then
+			tes3mp.InitializeJournalChanges(pid)
+			tes3mp.AddJournalEntry(pid, "tg_lootaldruhnmg", 100, "aengoth")
+			tes3mp.SendJournalChanges(pid)
+			tes3mp.SendJournalChanges(pid, true)
 	 end
 end
 
