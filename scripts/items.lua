@@ -145,7 +145,8 @@ Methods.IronFork = function(pid)
 			local pos = {}
 			local rot = {}
 
-			message = color.CornflowerBlue .. "Even if you don't like portkeys, it feels good to be somewhere familiar.\n"
+			message = color.MediumSpringGreen .. "You have entered a storage safezone.\n"
+			message = message .. color.CornflowerBlue .. "Even if you don't like portkeys, it feels good to be somewhere familiar.\n"
 			cell    = "Vivec, St. Delyn Waist North-Two"
 			pos[0]  = 5.941999912262
 			pos[1]  = 15.234999656677
@@ -154,8 +155,7 @@ Methods.IronFork = function(pid)
 			rot[1]  = -3.1416797637939
 
 			if tes3mp.GetCell(pid) == "Vivec, St. Delyn Waist North-Two" then
-				 message = color.MediumSpringGreen .. "You have entered a storage safezone.\n"
-				 message = message .. color.LightBlue .. "The sensation of travelling by portkey is universally agreed to be uncomfortable.\n"
+				 message = color.LightBlue .. "The sensation of travelling by portkey is universally agreed to be uncomfortable.\n"
 				 cell    = "Vivec, Arena Pit"
 				 pos[0]  = "913.79772949219"
 				 pos[1]  = "-12.880634307861"
