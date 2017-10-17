@@ -28,7 +28,9 @@ Methods.Show = function(pid)
 	 message = f:read("*a")
 	 f:close()
 
-	 message = color.Orange .. message .. color.Default
+	 message = color.Orange .. message
+	 message = message .. color.OrangeRed .. os.date("Now: %A %I:%M %p")
+	 message = message .. color.Default .. "\n"
 	 tes3mp.SendMessage(pid, message, false)
 
 	 return 0
