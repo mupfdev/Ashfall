@@ -14,11 +14,11 @@ Methods = {}
 
 -- Add [ dynamicDifficulty = require("dynamicDifficulty") ] to the top of server.lua
 -- Find "function OnPlayerCellChange(pid)" inside server.lua and add:
--- [ dynamicDifficulty.Set(pid) ]
+-- [ dynamicDifficulty.Update(pid) ]
 -- directly underneath it.
 
 
-Methods.Set = function(pid)
+Methods.Update = function(pid)
 	 local difficulty
 	 local difficultyMin = config.difficulty
 	 local difficultyCap = 150
