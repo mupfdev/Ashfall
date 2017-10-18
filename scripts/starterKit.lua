@@ -218,37 +218,31 @@ Methods.Add = function(pid)
 			table.insert(starterKit, { "p_restore_fatigue_s", 5, -1 })
 			table.insert(starterKit, { "sc_tinurshoptoad",    2, -1 })
 	 end
-
 	 -- Armorer.
 	 if tes3mp.GetSkillBase(pid, skillArmorer) then
 			table.insert(starterKit, { "hammer_repair", 5, -1 })
 	 end
-
 	 -- Athletics.
 	 if tes3mp.GetSkillBase(pid, skillAthletics) then
 			table.insert(starterKit, { "p_restore_fatigue_s", 5, -1 })
 			table.insert(starterKit, { "sc_celerity",         2, -1 })
 			table.insert(starterKit, { "sc_vigor",            2, -1 })
 	 end
-
 	 -- Security.
 	 if tes3mp.GetSkillBase(pid, skillSecurity) then
 			table.insert(starterKit, { "pick_apprentice_01",  5, -1 })
 			table.insert(starterKit, { "probe_apprentice_01", 5, -1 })
 	 end
-
 	 -- Sneak.
 	 if tes3mp.GetSkillBase(pid, skillSneak) then
 			table.insert(starterKit, { "sc_golnaraseyemaze", 2, -1 })
 			table.insert(starterKit, { "sc_invisibility",    2, -1 })
 	 end
-
 	 -- Speechcraft.
 	 if tes3mp.GetSkillBase(pid, skillSpeechcraft) then
 			table.insert(starterKit, { "sc_heartwise", 2, -1 })
 	 end
-
-	 -- Last but not least: Gold.
+	 -- Last but not least: Mercantile/Base gold.
 	 tmp[0] = tes3mp.GetSkillBase(pid, skillMercantile)
 	 if     tmp[0] >= 30 then temp = 500
 	 elseif tmp[0] >= 15 then temp = 250
