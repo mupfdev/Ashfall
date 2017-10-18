@@ -49,11 +49,11 @@ Methods.Add = function(pid)
 	 local tmp   = {}
 	 local temp  = 0
 	 local race  = tes3mp.GetRace(pid)
-	 local preferedArmorClass  = 0
-	 local preferedWeaponClass = 0
+	 local preferredArmorClass  = 0
+	 local preferredWeaponClass = 0
 	 local starterKit = { { "iron fork", 1, -1 } }
 
-	 -- Determine prefered armor class.
+	 -- Determine preferred armor class.
 	 tmp[0] = tes3mp.GetSkillBase(pid, skillUnarmored)
 	 tmp[1] = tes3mp.GetSkillBase(pid, skillLightArmor)
 	 tmp[2] = tes3mp.GetSkillBase(pid, skillMediumArmor)
@@ -61,7 +61,7 @@ Methods.Add = function(pid)
 
 	 while tmp[index] ~=nil do
 			if tmp[index] > temp then
-				 preferedArmorClass = index
+				 preferredArmorClass = index
 				 temp = tmp[index]
 			end
 			index = index + 1
@@ -70,13 +70,13 @@ Methods.Add = function(pid)
 	 temp  = 0
 
 	 -- Unarmored.
-	 if preferedArmorClass == 0 then
+	 if preferredArmorClass == 0 then
 			table.insert(starterKit, { "sc_firstbarrier",  2, -1 })
 			table.insert(starterKit, { "sc_secondbarrier", 2, -1 })
 			table.insert(starterKit, { "sc_thirdbarrier",  2, -1 })
 	 end
 	 -- LightArmor.
-	 if preferedArmorClass == 1 then
+	 if preferredArmorClass == 1 then
 			table.insert(starterKit, { "fur_helm",    1, -1 })
 			table.insert(starterKit, { "fur_greaves", 1, -1 })
 
@@ -89,12 +89,12 @@ Methods.Add = function(pid)
 			end
 	 end
 	 -- MediumArmor.
-	 if preferedArmorClass == 2 then
+	 if preferredArmorClass == 2 then
 			table.insert(starterKit, { "nordic_ringmail_cuirass",  1, -1 })
 			table.insert(starterKit, { "imperial_chain_coif_helm", 1, -1 })
 	 end
 	 -- HeavyArmor.
-	 if preferedArmorClass == 3 then
+	 if preferredArmorClass == 3 then
 			table.insert(starterKit, { "iron_cuirass", 1, -1 })
 			table.insert(starterKit, { "iron_helmet",  1, -1 })
 	 end
@@ -103,7 +103,7 @@ Methods.Add = function(pid)
 			table.insert(starterKit, { "nordic_leather_shield", 1, -1 })
 	 end
 
-	 -- Determine prefered weapon class.
+	 -- Determine preferred weapon class.
 	 tmp[0] = tes3mp.GetSkillBase(pid, skillAxe)
 	 tmp[1] = tes3mp.GetSkillBase(pid, skillBluntWeapon)
 	 tmp[2] = tes3mp.GetSkillBase(pid, skillHandToHand)
@@ -114,7 +114,7 @@ Methods.Add = function(pid)
 
 	 while tmp[index] ~=nil do
 			if tmp[index] > temp then
-				 preferedWeaponClass = index
+				 preferredWeaponClass = index
 				 temp = tmp[index]
 			end
 			index = index + 1
@@ -123,32 +123,32 @@ Methods.Add = function(pid)
 	 temp  = 0
 
 	 -- Axe.
-	 if preferedWeaponClass == 0 then
+	 if preferredWeaponClass == 0 then
 			table.insert(starterKit, { "iron war axe", 1, -1 })
 	 end
 	 -- BluntWeapon.
-	 if preferedWeaponClass == 1 then
+	 if preferredWeaponClass == 1 then
 			table.insert(starterKit, { "iron club", 1, -1 })
 	 end
 	 -- HandToHand.
-	 if preferedWeaponClass == 2 then
+	 if preferredWeaponClass == 2 then
 			table.insert(starterKit, { "p_restore_fatigue_s", 5, -1 })
 	 end
 	 -- LongBlade.
-	 if preferedWeaponClass == 3 then
+	 if preferredWeaponClass == 3 then
 			table.insert(starterKit, { "iron saber", 1, -1 })
 	 end
 	 -- Marksman.
-	 if preferedWeaponClass == 4 then
+	 if preferredWeaponClass == 4 then
 			table.insert(starterKit, { "short bow",   1, -1 })
 			table.insert(starterKit, { "iron arrow", 50, -1 })
 	 end
 	 -- ShortBlade.
-	 if preferedWeaponClass == 5 then
+	 if preferredWeaponClass == 5 then
 			table.insert(starterKit, { "iron shortsword", 1, -1 })
 	 end
 	 -- Spear.
-	 if preferedWeaponClass == 6 then
+	 if preferredWeaponClass == 6 then
 			table.insert(starterKit, { "iron spear", 1, -1 })
 	 end
 
