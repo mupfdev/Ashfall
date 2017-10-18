@@ -122,7 +122,7 @@ Methods.Add = function(pid)
 	 index = 0
 	 temp  = 0
 
-   -- Axe.
+	 -- Axe.
 	 if preferedWeaponClass == 0 then
 			table.insert(starterKit, { "iron war axe", 1, -1 })
 	 end
@@ -214,32 +214,32 @@ Methods.Add = function(pid)
 
 	 -- Miscellaneous.
 	 -- Acrobatics.
-	 if tes3mp.GetSkillBase(pid, skillAcrobatics) then
+	 if tes3mp.GetSkillBase(pid, skillAcrobatics) >= 15 then
 			table.insert(starterKit, { "p_restore_fatigue_s", 5, -1 })
 			table.insert(starterKit, { "sc_tinurshoptoad",    2, -1 })
 	 end
 	 -- Armorer.
-	 if tes3mp.GetSkillBase(pid, skillArmorer) then
+	 if tes3mp.GetSkillBase(pid, skillArmorer) >= 15 then
 			table.insert(starterKit, { "hammer_repair", 5, -1 })
 	 end
 	 -- Athletics.
-	 if tes3mp.GetSkillBase(pid, skillAthletics) then
+	 if tes3mp.GetSkillBase(pid, skillAthletics) >= 15 then
 			table.insert(starterKit, { "p_restore_fatigue_s", 5, -1 })
 			table.insert(starterKit, { "sc_celerity",         2, -1 })
 			table.insert(starterKit, { "sc_vigor",            2, -1 })
 	 end
 	 -- Security.
-	 if tes3mp.GetSkillBase(pid, skillSecurity) then
+	 if tes3mp.GetSkillBase(pid, skillSecurity) >= 15 then
 			table.insert(starterKit, { "pick_apprentice_01",  5, -1 })
 			table.insert(starterKit, { "probe_apprentice_01", 5, -1 })
 	 end
 	 -- Sneak.
-	 if tes3mp.GetSkillBase(pid, skillSneak) then
+	 if tes3mp.GetSkillBase(pid, skillSneak) >= 15 then
 			table.insert(starterKit, { "sc_golnaraseyemaze", 2, -1 })
 			table.insert(starterKit, { "sc_invisibility",    2, -1 })
 	 end
 	 -- Speechcraft.
-	 if tes3mp.GetSkillBase(pid, skillSpeechcraft) then
+	 if tes3mp.GetSkillBase(pid, skillSpeechcraft) >= 15 then
 			table.insert(starterKit, { "sc_heartwise", 2, -1 })
 	 end
 	 -- Last but not least: Mercantile/Base gold.
