@@ -15,10 +15,15 @@ Methods = {}
 
 -- Add [ ircBridge = require("ircBridge") ] to the top of server.lua
 
--- Find "return true -- default behavior, chat messages should not" inside server.lua and insert:
--- [ ircBridge.SendMessage(myMod.GetChatName(pid) .. ": " .. message) ] -- directly above it.
+-- Find
+-- "return true -- default behavior, chat messages should not"
+-- inside server.lua and insert:
+-- [ ircBridge.SendMessage(myMod.GetChatName(pid) .. ": " .. message) ]
+-- directly above it.
 
--- Find "function UpdateTime()" inside server.lua and insert [ ircBridge.RecvMessage() ] directly underneath it.
+-- Find "function UpdateTime()" inside server.lua and insert
+-- [ ircBridge.RecvMessage() ]
+-- directly underneath it.
 
 
 local nick     = "DagothUr"
@@ -27,12 +32,12 @@ local nspasswd = "pleasedonttellanyone"
 local channel  = "#tes3mp"
 
 
-lastMessage = ""
 local s = irc.new { nick = nick }
 s:connect(server)
 nspasswd = "identify " .. nspasswd
 s:sendChat("NickServ", nspasswd)
 s:join(channel)
+local lastMessage = ""
 
 
 Methods.RecvMessage = function()
@@ -46,11 +51,11 @@ Methods.RecvMessage = function()
 
 								for pid = 0, lastPid do
 									 if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
-											tes3mp.SendMessage(lastPid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
-											lastMessage = message
+											tes3mp.SendMessage(pid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
 									 end
 								end
 						 end
+						 lastMessage = message
 	 end)
 end
 
