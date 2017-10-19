@@ -99,7 +99,7 @@ Methods.Add = function(pid)
 			table.insert(starterKit, { "iron_helmet",  1, -1 })
 	 end
 	 -- Block.
-	 if tes3mp.GetSkillBase(pid, skillBlock) then
+	 if tes3mp.GetSkillBase(pid, skillBlock) >= 15 then
 			table.insert(starterKit, { "nordic_leather_shield", 1, -1 })
 	 end
 
