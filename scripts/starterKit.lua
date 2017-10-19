@@ -49,6 +49,7 @@ Methods.Add = function(pid)
 	 local tmp   = {}
 	 local temp  = 0
 	 local race  = tes3mp.GetRace(pid)
+	 local spell = {}
 	 local preferredArmorClass  = 0
 	 local preferredWeaponClass = 0
 	 local starterKit = { { "iron fork", 1, -1 } }
@@ -173,27 +174,33 @@ Methods.Add = function(pid)
 
 	 -- Alteration.
 	 if tmp[0] >= 15 then
-			tes3mp.AddSpell(pid, "strong levitate")
+			spell = { spellId = "strong levitate" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 -- Conjuration.
 	 if tmp[1] >= 15 then
-			tes3mp.AddSpell(pid, "summon least bonewalker")
+			spell = { spellId = "summon least bonewalker" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 -- Destruction.
 	 if tmp[2] then
-			tes3mp.AddSpell(pid, "clench")
+			spell = { spellId = "clench" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 -- Illusion.
 	 if tmp[3] >= 15 then
-			tes3mp.AddSpell(pid, "calm creature")
+			spell = { spellId = "summon least bonewalker" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 -- Mysticism.
 	 if tmp[4] >= 15 then
-			tes3mp.AddSpell(pid, "righteousness")
+			spell = { spellId = "summon least bonewalker" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 -- Restoration.
 	 if tmp[5] >= 15 then
-			tes3mp.AddSpell(pid, "cure common disease")
+			spell = { spellId = "summon least bonewalker" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 -- Alchemy.
 	 if tes3mp.GetSkillBase(pid, skillAlchemy) >= 15 then
@@ -206,7 +213,8 @@ Methods.Add = function(pid)
 	 temp = tes3mp.GetSkillBase(pid, skillEnchant)
 	 if temp >= 15 then
 			table.insert(starterKit, { "misc_soulgem_petty", 5, -1 })
-			tes3mp.AddSpell(pid, "soul trap")
+			spell = { spellId = "soul trap" }
+			table.insert(Players[pid].data.spellbook, spell)
 	 end
 	 if temp >= 30 then
 			table.insert(starterKit, { "misc_soulgem_lesser", 5, -1 })
@@ -253,10 +261,10 @@ Methods.Add = function(pid)
 			local structuredItem = { refId = item[1], count = item[2], charge = item[3] }
 			table.insert(Players[pid].data.inventory, structuredItem)
 	 end
+
 	 Players[pid]:LoadInventory()
 	 Players[pid]:LoadEquipment()
-	 tes3mp.SendSpellbookChanges(pid)
-	 tes3mp.SendSpellbookChanges(pid, true)
+	 Players[pid]:LoadSpellbook()
 end
 
 
