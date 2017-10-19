@@ -52,10 +52,11 @@ Methods.RecvMessage = function()
 								for pid = 0, lastPid do
 									 if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
 											tes3mp.SendMessage(pid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
+											lastMessage = message
+											break
 									 end
 								end
 						 end
-						 lastMessage = message
 	 end)
 end
 
