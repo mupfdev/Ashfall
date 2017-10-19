@@ -86,10 +86,10 @@ Methods.UnequipBannedItems = function(pid)
 	 -- Ridiculously over-powerful items which can be obtained without
 	 -- difficulty. Or items that simply destroy the overall balance:
 
-	 -- Helm.
+	 -- Helmet.
 	 itemList = { "daedric_fountain_helm", "daedric_terrifying_helm", "daedric_god_helm" }
 	 if PlayerHasItemEquipped(pid, itemList) then
-			tes3mp.UnequipItem(pid, slotHelm)
+			tes3mp.UnequipItem(pid, slotHelmet)
 			c = c + 1
 	 end
 
