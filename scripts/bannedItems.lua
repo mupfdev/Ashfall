@@ -9,15 +9,11 @@
 Methods = {}
 
 
--- Add [ items = require("items") ] to the top of server.lua
+-- Add [ items = require("items") ] to the top of myMod.lua
 
--- Find "OnPlayerEquipment(pid)" inside server.lua and insert:
+-- Find "OnPlayerInventory(pid)" inside myMod.lua and insert:
 -- [ bannedItems.Remove(pid) ]
--- directly underneath it.
-
--- Find "OnPlayerInventory(pid)" inside server.lua and insert:
--- [ bannedItems.Remove(pid) ]
--- directly underneath it.
+-- directly underneath [ Players[pid]:SaveInventory() ].
 
 
 Methods.Remove = function(pid)
