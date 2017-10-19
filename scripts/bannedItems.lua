@@ -9,7 +9,7 @@
 Methods = {}
 
 
--- Add [ items = require("items") ] to the top of myMod.lua
+-- Add [ bannedItems = require("bannedItems") ] to the top of myMod.lua
 
 -- Find "OnPlayerInventory(pid)" inside myMod.lua and insert:
 -- [ bannedItems.Remove(pid) ]
