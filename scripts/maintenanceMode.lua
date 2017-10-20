@@ -9,6 +9,17 @@
 Methods = {}
 
 
+-- Add [ maintenanceMode = require("maintenanceMode") ] to the top of server.lua
+
+-- Find "function UpdateTime()" inside server.lua and insert
+-- [ maintenanceMode.CheckIfActive() ]
+-- directly underneath it.
+
+-- Find "myMod.OnPlayerConnect(pid, playerName)" inside server.lua and insert:
+-- [ maintenanceMode.Bouncer(pid) ]
+-- directly underneath it.
+
+
 local maintenanceFile = "/path/to/maintenance.lock"
 local lastMessage = ""
 

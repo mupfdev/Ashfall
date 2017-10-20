@@ -13,6 +13,7 @@ Methods = {}
 
 
 -- Add [ mailbox = require("mailbox") ] to the top of server.lua
+
 -- Find "myMod.OnPlayerConnect(pid, playerName)" inside server.lua and insert:
 -- [ mailbox.Init(pid) ]
 -- [ mailbox.CheckInbox(pid) ]
