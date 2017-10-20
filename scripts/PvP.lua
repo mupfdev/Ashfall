@@ -22,35 +22,34 @@ Methods = {}
 
 
 Methods.IsPvP = function(pid)
-	 if tes3mp.GetCell(pid) == "Vivec, Arena Pit" then return true end
-	 if tes3mp.GetCell(pid) == "ToddTest" then return true end
+   if tes3mp.GetCell(pid) == "Vivec, Arena Pit" then return true end
 
-	 return false
+   return false
 end
 
 
 Methods.Resurrect = function(pid)
-	 local respawnTime = time.seconds(10)
+   local respawnTime = time.seconds(10)
 
-	 local timer = tes3mp.CreateTimerEx("RespawnTimerExpired", respawnTime, "i", pid)
-	 local message = color.Crimson .. "You have lost consciousness." .. color.Default
+   local timer = tes3mp.CreateTimerEx("RespawnTimerExpired", respawnTime, "i", pid)
+   local message = color.Crimson .. "You have lost consciousness." .. color.Default
 
-	 tes3mp.SendMessage(pid, message, false)
-	 tes3mp.StartTimer(timer)
+   tes3mp.SendMessage(pid, message, false)
+   tes3mp.StartTimer(timer)
 end
 
 
 Methods.ShowMessage = function(pid)
-	 local message = color.Crimson .. "You have entered a PvP safezone.\n" .. color.Default
-	 tes3mp.SendMessage(pid, message, false)
+   local message = color.Crimson .. "You have entered a PvP safezone.\n" .. color.Default
+   tes3mp.SendMessage(pid, message, false)
 end
 
 
 function RespawnTimerExpired(pid)
-	 local health = (tes3mp.GetHealthBase(pid)/100)*25
-	 tes3mp.Resurrect(pid, 0)
-	 tes3mp.SetHealthCurrent(pid, health)
-	 tes3mp.SendStatsDynamic(pid)
+   local health = (tes3mp.GetHealthBase(pid)/100)*25
+   tes3mp.Resurrect(pid, 0)
+   tes3mp.SetHealthCurrent(pid, health)
+   tes3mp.SendStatsDynamic(pid)
 end
 
 

@@ -19,24 +19,24 @@ Methods = {}
 
 
 Methods.Update = function(pid)
-	 local difficulty
-	 local difficultyMin = config.difficulty
-	 local difficultyCap = 150
+   local difficulty
+   local difficultyMin = config.difficulty
+   local difficultyCap = 150
 
-	 -- Level cap without abusing skill drain:
-	 -- Major skills: (100 - 30) * 5 = 350 / 10 = 35
-	 -- Minor skills: (100 - 15) * 5 = 425 / 10 ≈ 42
-	 local endgameLevel = 77
-	 local currentLevel = tes3mp.GetLevel(pid)
+   -- Level cap without abusing skill drain:
+   -- Major skills: (100 - 30) * 5 = 350 / 10 = 35
+   -- Minor skills: (100 - 15) * 5 = 425 / 10 ≈ 42
+   local endgameLevel = 77
+   local currentLevel = tes3mp.GetLevel(pid)
 
-	 difficulty = difficultyMin + (currentLevel * (difficultyCap - difficultyMin) / endgameLevel)
-	 difficulty = math.floor(difficulty)
+   difficulty = difficultyMin + (currentLevel * (difficultyCap - difficultyMin) / endgameLevel)
+   difficulty = math.floor(difficulty)
 
-	 if difficulty < difficultyMin then difficulty = difficultyMin end
-	 if difficulty > difficultyCap then difficulty = difficultyCap end
+   if difficulty < difficultyMin then difficulty = difficultyMin end
+   if difficulty > difficultyCap then difficulty = difficultyCap end
 
-	 tes3mp.SetDifficulty(pid, difficulty)
-	 tes3mp.SendSettings(pid)
+   tes3mp.SetDifficulty(pid, difficulty)
+   tes3mp.SendSettings(pid)
 end
 
 

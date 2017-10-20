@@ -41,88 +41,87 @@ local slotCarriedRight  = 16;
 
 
 function PlayerHasItemEquipped(pid, list)
-	 local c = 0
-	 local i = 1
+   local c = 0
+   local i = 1
 
-	 while list[i] ~= nil do
-			if tes3mp.HasItemEquipped(pid, tostring(list[i])) then c = c + 1 end
-			i = i + 1
-	 end
+   while list[i] ~= nil do
+      if tes3mp.HasItemEquipped(pid, tostring(list[i])) then c = c + 1 end
+      i = i + 1
+   end
 
-	 if c > 0 then return true else return false end
+   if c > 0 then return true else return false end
 end
 
 
 
 Methods.IronFork = function(pid)
-	 if tes3mp.HasItemEquipped(pid, "iron fork") then
-			local message = color.CornflowerBlue .. ""
-			local cell
-			local pos = {}
-			local rot = {}
+   if tes3mp.HasItemEquipped(pid, "iron fork") then
+      local message = color.CornflowerBlue .. ""
+      local cell
+      local pos = {}
+      local rot = {}
 
-			message = color.MediumSpringGreen .. "You have entered a storage safezone.\n"
-			message = message .. color.CornflowerBlue .. "Even if you don't like portkeys, it feels good to be somewhere familiar.\n"
-			cell    = "Vivec, St. Delyn Waist North-Two"
-			pos[0]  = 5.941999912262
-			pos[1]  = 15.234999656677
-			pos[2]  = -127
-			rot[0]  = -0.000152587890625
-			rot[1]  = -3.1416797637939
+      message = color.MediumSpringGreen .. "You have entered a storage safezone.\n"
+      message = message .. color.CornflowerBlue .. "Even if you don't like portkeys, it feels good to be somewhere familiar.\n"
+      cell    = "Vivec, St. Delyn Waist North-Two"
+      pos[0]  = 5.941999912262
+      pos[1]  = 15.234999656677
+      pos[2]  = -127
+      rot[0]  = -0.000152587890625
+      rot[1]  = -3.1416797637939
 
-			if tes3mp.GetCell(pid) == "Vivec, St. Delyn Waist North-Two" then
-				 message = color.LightBlue .. "The sensation of travelling by portkey is universally agreed to be uncomfortable.\n"
-				 cell    = "Vivec, Arena Pit"
-				 pos[0]  = "913.79772949219"
-				 pos[1]  = "-12.880634307861"
-				 pos[2]  = "-459.41949462891"
-				 rot[0]  = "-0.15609979629517"
-				 rot[1]  = "-1.569390296936"
-			end
+      if tes3mp.GetCell(pid) == "Vivec, St. Delyn Waist North-Two" then
+         message = color.LightBlue .. "The sensation of travelling by portkey is universally agreed to be uncomfortable.\n"
+         cell    = "Vivec, Arena Pit"
+         pos[0]  = "913.79772949219"
+         pos[1]  = "-12.880634307861"
+         pos[2]  = "-459.41949462891"
+         rot[0]  = "-0.15609979629517"
+         rot[1]  = "-1.569390296936"
+      end
 
+      if tes3mp.GetCell(pid) == "Vivec, Arena Pit" then
+         message = color.CornflowerBlue .. "It feels quite unpleasent to travel by portkey.\n"
+         cell    = "-2, -9"
+         pos[0]  = -11150.272460938
+         pos[1]  = -70746.1796875
+         pos[2]  = 235.42088317871
+         rot[0]  = -0.057221055030823
+         rot[1]  = -0.22354483604431
+      end
 
-			if tes3mp.GetCell(pid) == "Vivec, Arena Pit" then
-				 message = color.CornflowerBlue .. "It feels quite unpleasent to travel by portkey.\n"
-				 cell    = "-2, -9"
-				 pos[0]  = -11150.272460938
-				 pos[1]  = -70746.1796875
-				 pos[2]  = 235.42088317871
-				 rot[0]  = -0.057221055030823
-				 rot[1]  = -0.22354483604431
-			end
+      if tes3mp.GetHealthCurrent(pid) <= (tes3mp.GetHealthBase(pid)/100)*10 then
+         message = color.CornflowerBlue .. "Suddenly you found yourself floating in the air. Uh-oh!\n"
+         cell    = "-2, -9"
+         pos[0]  = -11150.272460938
+         pos[1]  = -70746.1796875
+         pos[2]  = 10235.42088317871
+         rot[0]  = -0.057221055030823
+         rot[1]  = -0.22354483604431
+      end
 
-			if tes3mp.GetHealthCurrent(pid) <= (tes3mp.GetHealthBase(pid)/100)*10 then
-				 message = color.CornflowerBlue .. "Suddenly you found yourself floating in the air. Uh-oh!\n"
-				 cell    = "-2, -9"
-				 pos[0]  = -11150.272460938
-				 pos[1]  = -70746.1796875
-				 pos[2]  = 10235.42088317871
-				 rot[0]  = -0.057221055030823
-				 rot[1]  = -0.22354483604431
-			end
+      tes3mp.UnequipItem(pid, slotCarriedRight)
+      tes3mp.SendEquipment(pid)
 
-			tes3mp.UnequipItem(pid, slotCarriedRight)
-			tes3mp.SendEquipment(pid)
+      tes3mp.SetPos(pid, pos[0], pos[1], pos[2])
+      tes3mp.SetRot(pid, rot[0], rot[1])
+      tes3mp.SetCell(pid, cell)
+      tes3mp.SendCell(pid)
+      tes3mp.SendPos(pid)
 
-			tes3mp.SetPos(pid, pos[0], pos[1], pos[2])
-			tes3mp.SetRot(pid, rot[0], rot[1])
-			tes3mp.SetCell(pid, cell)
-			tes3mp.SendCell(pid)
-			tes3mp.SendPos(pid)
-
-			message = message .. color.Default
-			tes3mp.SendMessage(pid, message, false)
-	 end
+      message = message .. color.Default
+      tes3mp.SendMessage(pid, message, false)
+   end
 end
 
 
 Methods.TsiyasRing = function(pid)
-	 local tsiyasRingModel = "mudcrab"
+   local tsiyasRingModel = "mudcrab"
 
-	 if tes3mp.HasItemEquipped(pid, "common_ring_tsiya") then
-			tes3mp.SetCreatureModel(pid, tsiyasRingModel, false)
-			tes3mp.SendBaseInfo(pid)
-	 end
+   if tes3mp.HasItemEquipped(pid, "common_ring_tsiya") then
+      tes3mp.SetCreatureModel(pid, tsiyasRingModel, false)
+      tes3mp.SendBaseInfo(pid)
+   end
 end
 
 

@@ -16,25 +16,25 @@ Methods = {}
 
 
 Methods.UpdateStatus = function()
-	 local playerList = "/srv/http/yourdomain.com/api/players_online.txt"
-	 local lastPid = tes3mp.GetLastPlayerId()
-	 local list = ""
-	 local f = nil
+   local playerList = "/srv/http/yourdomain.com/api/players_online.txt"
+   local lastPid = tes3mp.GetLastPlayerId()
+   local list = ""
+   local f = nil
 
-	 for i = 0, lastPid do
-			if Players[i] ~= nil then
-				 list = list .. "<li class=\"green\">"
-				 list = list .. tostring(Players[i].name) .. " ("
-				 list = list .. tes3mp.GetLevel(Players[i].pid)
-				 list = list .. ")</li>\n"
-			end
-	 end
+   for i = 0, lastPid do
+      if Players[i] ~= nil then
+         list = list .. "<li class=\"green\">"
+         list = list .. tostring(Players[i].name) .. " ("
+         list = list .. tes3mp.GetLevel(Players[i].pid)
+         list = list .. ")</li>\n"
+      end
+   end
 
-	 f = io.open(playerList, "w+")
-	 if f ~= nil then
-			f:write(list)
-	 end
-	 f:close()
+   f = io.open(playerList, "w+")
+   if f ~= nil then
+      f:write(list)
+   end
+   f:close()
 end
 
 

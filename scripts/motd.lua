@@ -19,21 +19,21 @@ Methods = {}
 
 
 Methods.Show = function(pid)
-	 local motd = "/path/to/motd.txt"
-	 local message
+   local motd = "/path/to/motd.txt"
+   local message
 
-	 local f = io.open(motd, "r")
-	 if f == nil then return -1 end
+   local f = io.open(motd, "r")
+   if f == nil then return -1 end
 
-	 message = f:read("*a")
-	 f:close()
+   message = f:read("*a")
+   f:close()
 
-	 message = color.Orange .. message
-	 message = message .. color.OrangeRed .. os.date("Now: %A %I:%M %p")
-	 message = message .. color.Default .. "\n"
-	 tes3mp.SendMessage(pid, message, false)
+   message = color.Orange .. message
+   message = message .. color.OrangeRed .. os.date("Now: %A %I:%M %p")
+   message = message .. color.Default .. "\n"
+   tes3mp.SendMessage(pid, message, false)
 
-	 return 0
+   return 0
 end
 
 

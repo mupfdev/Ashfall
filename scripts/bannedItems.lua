@@ -17,31 +17,38 @@ Methods = {}
 
 
 Methods.Remove = function(pid)
-	 local message = color.Crimson .. "Banned item has been removed.\n" .. color.Default
+   local message = color.Crimson .. "Banned item has been removed.\n" .. color.Default
 
-	 -- Ridiculously over-powerful items which can be obtained without
-	 -- difficulty. Or items that simply destroy the overall balance:
-	 local bannedItems = {
-			"daedric_fountain_helm", "daedric_terrifying_helm",
-			"daedric_god_helm", "daedric_cuirass", "daedric_cuirass_htab",
-			"daedric_greaves", "daedric_greaves_htab",
-			"daedric_pauldron_left", "daedric_pauldron_right",
-			"gauntlet_fists_l_unique", "gauntlet_fists_r_unique",
-			"daedric_gauntlet_left", "daedric_gauntlet_right",
-			"daedric_boots", "Helseth's Ring", "towershield_eleidon_unique",
-			"azura's servant", "spell_breaker_unique", "daedric_shield",
-			"daedric_towershield", "Gravedigger", "boots of blinding speed[unique]"
-	 }
+   -- Ridiculously over-powerful items which can be obtained without
+   -- difficulty. Or items that simply destroy the overall balance:
+   local bannedItems = {
+      "daedric_fountain_helm", "daedric_terrifying_helm",
+      "daedric_god_helm", "daedric_cuirass", "daedric_cuirass_htab",
+      "daedric_greaves", "daedric_greaves_htab",
+      "daedric_pauldron_left", "daedric_pauldron_right",
+      "gauntlet_fists_l_unique", "gauntlet_fists_r_unique",
+      "daedric_gauntlet_left", "daedric_gauntlet_right",
+      "daedric_boots", "Helseth's Ring", "towershield_eleidon_unique",
+      "azura's servant", "spell_breaker_unique", "daedric_shield",
+      "daedric_towershield", "Gravedigger", "boots of blinding speed[unique]"
+   }
 
-	 for index, item in pairs(bannedItems) do
-			if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", item, true) then
-				 local itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", item)
-				 Players[pid].data.inventory[itemIndex] = nil
-				 Players[pid]:Save()
-				 Players[pid]:LoadInventory()
-				 tes3mp.SendMessage(pid, message, false)
-			end
-	 end
+   local hadBannedItem = false
+
+   for index, item in pairs(bannedItems) do
+      if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", item, true) then
+         hadBannedItem = true
+         local itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", item)
+         Players[pid].data.inventory[itemIndex] = nil
+      end
+   end
+
+   if hadBannedItem == true then
+      Players[pid]:Save()
+      Players[pid]:LoadInventory()
+      Players[pid]:LoadEquipment()
+      tes3mp.SendMessage(pid, message, false)
+   end
 end
 
 
