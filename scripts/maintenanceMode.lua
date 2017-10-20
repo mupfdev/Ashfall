@@ -9,7 +9,7 @@
 Methods = {}
 
 
-local maintenanceFile = "/home/tes3mp/server/keepers/maintenance.lock"
+local maintenanceFile = "/path/to/maintenance.lock"
 local lastMessage = ""
 
 
