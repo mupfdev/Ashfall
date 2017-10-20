@@ -40,7 +40,7 @@ end
 
 
 Methods.ShowMessage = function(pid)
-   local message = color.Crimson .. "You have entered a PvP safezone.\n" .. color.Default
+   local message = color.MediumSpringGreen .. "You have entered a PvP safezone.\n" .. color.Default
    tes3mp.SendMessage(pid, message, false)
 end
 
