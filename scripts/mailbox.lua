@@ -130,6 +130,7 @@ Methods.SendMessage = function(pid, args)
         if i == 2 then text = substr end
         i = i + 1
     end
+    user = string.lower(user)
 
     local playerName = string.lower(tes3mp.GetName(pid))
     local mbox = mailboxPath .. user .. ".txt"
