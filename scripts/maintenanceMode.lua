@@ -25,49 +25,49 @@ local lastMessage = ""
 
 
 Methods.CheckIfActive = function()
-   local lastPid
+    local lastPid
 
-   local f = io.open(maintenanceFile, "r")
+    local f = io.open(maintenanceFile, "r")
 
-   if f ~= nil and tableHelper.getCount(Players) > 0 then
-      local timer = tes3mp.CreateTimerEx("WarningTimerExpired", time.seconds(10), "i", 0)
-      tes3mp.StartTimer(timer)
+    if f ~= nil and tableHelper.getCount(Players) > 0 then
+        local timer = tes3mp.CreateTimerEx("WarningTimerExpired", time.seconds(10), "i", 0)
+        tes3mp.StartTimer(timer)
 
-      local message = color.Crimson
-      message = message .. "The server is going into maintenance mode.\n"
-      message = message .. "To prevent file corruption, you will be kicked within 10 seconds.\n"
-      message = message .. color.Default
+        local message = color.Crimson
+        message = message .. "The server is going into maintenance mode.\n"
+        message = message .. "To prevent file corruption, you will be kicked within 10 seconds.\n"
+        message = message .. color.Default
 
-      lastPid = tes3mp.GetLastPlayerId()
-      for pid = 0, lastPid do
-         if Players[pid] ~= nil and Players[pid]:IsLoggedIn() and message ~= lastMessage then
-            tes3mp.SendMessage(pid, message, true)
-            lastMessage = message
-            break
-         end
-      end
-   end
+        lastPid = tes3mp.GetLastPlayerId()
+        for pid = 0, lastPid do
+            if Players[pid] ~= nil and Players[pid]:IsLoggedIn() and message ~= lastMessage then
+                tes3mp.SendMessage(pid, message, true)
+                lastMessage = message
+                break
+            end
+        end
+    end
 end
 
 
 Methods.Bouncer = function(pid)
-   local f = io.open(maintenanceFile, "r")
-   if f ~= nil then Players[pid]:Kick() end
+    local f = io.open(maintenanceFile, "r")
+    if f ~= nil then Players[pid]:Kick() end
 end
 
 
 function WarningTimerExpired()
-   local lastPid
+    local lastPid
 
-   if tableHelper.getCount(Players) > 0 then
-      lastPid = tes3mp.GetLastPlayerId()
+    if tableHelper.getCount(Players) > 0 then
+        lastPid = tes3mp.GetLastPlayerId()
 
-      for pid = 0, lastPid do
-         if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
-            Players[pid]:Kick()
-         end
-      end
-   end
+        for pid = 0, lastPid do
+            if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
+                Players[pid]:Kick()
+            end
+        end
+    end
 end
 
 

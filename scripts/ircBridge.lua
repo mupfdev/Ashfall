@@ -41,34 +41,34 @@ local lastMessage = ""
 
 
 Methods.RecvMessage = function()
-   local message
-   local lastPid
+    local message
+    local lastPid
 
-   s:think()
-   s:hook("OnChat", function(user, channel, message)
-             if lastMessage ~= message and tableHelper.getCount(Players) > 0 then
-                lastPid = tes3mp.GetLastPlayerId()
+    s:think()
+    s:hook("OnChat", function(user, channel, message)
+               if lastMessage ~= message and tableHelper.getCount(Players) > 0 then
+                   lastPid = tes3mp.GetLastPlayerId()
 
-                for pid = 0, lastPid do
-                   if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
-                      tes3mp.SendMessage(pid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
-                      lastMessage = message
-                      break
+                   for pid = 0, lastPid do
+                       if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
+                           tes3mp.SendMessage(pid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
+                           lastMessage = message
+                           break
+                       end
                    end
-                end
-             end
-   end)
+               end
+    end)
 end
 
 
 Methods.SendMessage = function(message)
-   s:sendChat(channel, message)
-   s:think()
+    s:sendChat(channel, message)
+    s:think()
 end
 
 
 Methods.KeepAlive = function()
-   s:think()
+    s:think()
 end
 
 
