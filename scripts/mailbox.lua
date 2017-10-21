@@ -32,7 +32,7 @@ local messageLimit = 10
 
 
 Methods.Init = function(pid)
-    local playerName = tes3mp.GetName(pid)
+    local playerName = string.lower(tes3mp.GetName(pid))
     local mbox  = mailboxPath .. playerName .. ".txt"
     local message
 
@@ -48,7 +48,7 @@ end
 
 
 Methods.CheckInbox = function(pid)
-    local playerName = tes3mp.GetName(pid)
+    local playerName = string.lower(tes3mp.GetName(pid))
     local mbox  = mailboxPath .. playerName .. ".txt"
     local message = color.MediumSpringGreen .. "You have "
     local c = 0
@@ -73,7 +73,7 @@ Methods.ReadMessage = function(pid, id)
     id = tonumber(id)
     if not math.floor(id) then return -1 end
 
-    local playerName = tes3mp.GetName(pid)
+    local playerName = string.lower(tes3mp.GetName(pid))
     local mbox  = mailboxPath .. playerName .. ".txt"
     local message = ""
     local line
@@ -131,7 +131,7 @@ Methods.SendMessage = function(pid, args)
         i = i + 1
     end
 
-    local playerName = tes3mp.GetName(pid)
+    local playerName = string.lower(tes3mp.GetName(pid))
     local mbox = mailboxPath .. user .. ".txt"
     local message = ""
     local err = 0
@@ -173,7 +173,7 @@ Methods.DeleteMessage = function(pid, id)
     id = tonumber(id)
     if not math.floor(id) then return -1 end
 
-    local playerName = tes3mp.GetName(pid)
+    local playerName = string.lower(tes3mp.GetName(pid))
     local mbox = mailboxPath .. playerName .. ".txt"
     local message = ""
     local line = {}
