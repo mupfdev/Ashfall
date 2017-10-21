@@ -1,0 +1,8 @@
+root = /home/tes3mp/server/keepers/cells/
+root = /home/tes3mp/server/keepers/server_data/data/cell/
+
+confirmbigdel = false
+force = /home/tes3mp/server/keepers/cells/
+ignore = Name Vivec, St. Delyn Waist North-Two.json
+log = false
+silent = true
