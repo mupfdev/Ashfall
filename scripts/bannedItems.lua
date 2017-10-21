@@ -30,7 +30,10 @@ Methods.Remove = function(pid)
         "daedric_gauntlet_left", "daedric_gauntlet_right",
         "daedric_boots", "Helseth's Ring", "towershield_eleidon_unique",
         "azura's servant", "spell_breaker_unique", "daedric_shield",
-        "daedric_towershield", "Gravedigger", "boots of blinding speed[unique]"
+        "daedric_towershield", "Gravedigger", "boots of blinding
+        speed[unique]", "bound_shield", "bound_boots",
+        "bound_gauntlet_right", "bound_gauntlet_left", "bound_cuirass",
+        "bound_helm"
     }
 
     local hadBannedItem = false
@@ -40,6 +43,12 @@ Methods.Remove = function(pid)
             hadBannedItem = true
             local itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", item)
             Players[pid].data.inventory[itemIndex] = nil
+        end
+
+        if tableHelper.containsKeyValue(Players[pid].data.equipment, "refId", item, true) then
+            hadBannedItem = true
+            local itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.equipment, "refId", item)
+            Players[pid].data.equipment[itemIndex] = nil
         end
     end
 
