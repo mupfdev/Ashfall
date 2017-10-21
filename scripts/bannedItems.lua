@@ -30,10 +30,9 @@ Methods.Remove = function(pid)
         "daedric_gauntlet_left", "daedric_gauntlet_right",
         "daedric_boots", "Helseth's Ring", "towershield_eleidon_unique",
         "azura's servant", "spell_breaker_unique", "daedric_shield",
-        "daedric_towershield", "Gravedigger", "boots of blinding
-        speed[unique]", "bound_shield", "bound_boots",
-        "bound_gauntlet_right", "bound_gauntlet_left", "bound_cuirass",
-        "bound_helm"
+        "daedric_towershield", "Gravedigger", "boots of blinding speed[unique]",
+        "bound_shield", "bound_boots", "bound_gauntlet_right",
+        "bound_gauntlet_left", "bound_cuirass", "bound_helm"
     }
 
     local hadBannedItem = false
