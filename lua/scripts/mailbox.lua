@@ -19,7 +19,7 @@ Methods = {}
 -- [ mailbox.CheckInbox(pid) ]
 -- directly underneath it.
 
--- Find "elseif cmd[1] == "difficulty" and adminthen" inside server.lua and insert:
+-- Find "elseif cmd[1] == "difficulty" and admin then" inside server.lua and insert:
 -- [ elseif cmd[1] == "mbcheck" then mailbox.CheckInbox(pid) ]
 -- [ elseif cmd[1] == "mbread" then mailbox.ReadMessage(pid, cmd[2]) ]
 -- [ elseif cmd[1] == "mbsend" then mailbox.SendMessage(pid, tableHelper.concatenateFromIndex(cmd, 2)) ]

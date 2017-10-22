@@ -13,6 +13,7 @@ Methods = {}
 
 
 -- Add [ dynamicDifficulty = require("dynamicDifficulty") ] to the top of server.lua
+
 -- Find "function OnPlayerCellChange(pid)" inside server.lua and add:
 -- [ dynamicDifficulty.Update(pid) ]
 -- directly underneath it.
