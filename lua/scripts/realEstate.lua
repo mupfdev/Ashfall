@@ -25,11 +25,12 @@ Methods = {}
 -- Move 'player_houses.txt' into your 'real_estate' directory and make
 -- sure the listed cells aren't affected by your cell reset routine (if
 -- required). To add more houses, just add cell descriptions to the file
--- (one per line).
+-- (one per line). To set specific price, add a colon followed by a number.
+-- E.g. An Abandoned Shack:200000
 
 
 local realEstatePath = "/path/to/real_estate/"
-local price = 500000
+local basePrice = 500000
 
 
 Methods.CheckCell = function(pid)
@@ -40,6 +41,7 @@ Methods.CheckCell = function(pid)
     local playerName   = string.lower(tes3mp.GetName(pid))
     local currentCell  = tes3mp.GetCell(pid)
     local previousCell = Players[pid].data.location.cell
+    local housePrice
 
     cellOwner    = GetCellOwner(currentCell)
     playerHouses = GetPlayerHouses()
@@ -63,8 +65,11 @@ Methods.CheckCell = function(pid)
                     sendMessage = true
                 end
             else
-                message = color.Yellow .. "This house is for sale. "
-                message = message .. "Enter /claim to buy it.\n" .. color.Default
+                housePrice = GetHousePrice(currentCell)
+                if housePrice == -1 then housePrice = basePrice end
+
+                message = color.Yellow .. "This house is for sale. " .. "Enter /claim to buy it for "
+                message = message .. housePrice .. " Septims.\n" .. color.Default
                 sendMessage = true
             end
         end
@@ -86,6 +91,7 @@ function Methods.ClaimCell(pid)
     local playerName   = string.lower(tes3mp.GetName(pid))
     local currentCell  = tes3mp.GetCell(pid)
     local playerGold   = 0
+    local housePrice
     local goldIndex
 
     cellOwner    = GetCellOwner(currentCell)
@@ -99,8 +105,12 @@ function Methods.ClaimCell(pid)
 
     for index, cell in pairs(playerHouses) do
         if currentCell == cell and cellOwner == nil then
-            if playerGold < price then
-                message = color.Crimson .. "You need at least " .. tostring(price)
+
+            housePrice = GetHousePrice(currentCell)
+            if housePrice == -1 then housePrice = basePrice end
+
+            if playerGold < housePrice then
+                message = color.Crimson .. "You need at least " .. tostring(housePrice)
                 message = message .. " Septims to buy this house.\n" .. color.Default
                 sendMessage = true
             else
@@ -110,7 +120,7 @@ function Methods.ClaimCell(pid)
                     message = message .. playerName .. ".\n" .. color.Default
 
                     f:write(playerName)
-                    Players[pid].data.inventory[goldIndex].count = playerGold - price
+                    Players[pid].data.inventory[goldIndex].count = playerGold - housePrice
                     Players[pid]:Save()
                     Players[pid]:LoadInventory()
                     Players[pid]:LoadEquipment()
@@ -143,15 +153,52 @@ function GetCellOwner(cell)
 end
 
 
+function GetHousePrice(cell)
+    local price = 0
+    local tmp   = {}
+    local hit   = false
+
+    local flist = io.open(realEstatePath .. "player_houses.txt", "r")
+    if flist ~= nil then
+        for line in flist:lines() do
+            table.insert(tmp, line)
+        end
+        flist:close()
+
+        for index, item in pairs(tmp) do
+            for substr in string.gmatch(item, '([^:]+)') do
+                if hit == true then
+                    price = tonumber(substr)
+                    if price then return price end
+                end
+                if substr == cell then hit = true end
+            end
+            if hit == true then break end
+        end
+    end
+
+    return -1
+end
+
+
 function GetPlayerHouses()
+    local tmp = {}
     local playerHouses = {}
 
     local flist = io.open(realEstatePath .. "player_houses.txt", "r")
     if flist ~= nil then
         for line in flist:lines() do
-            table.insert(playerHouses, line)
+            table.insert(tmp, line)
         end
         flist:close()
+
+        for index, item in pairs(tmp) do
+            for substr in string.gmatch(item, '([^:]+)') do
+                table.insert(playerHouses, substr)
+                break
+            end
+        end
+
         return playerHouses
     end
 
