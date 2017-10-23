@@ -189,17 +189,17 @@ Methods.Add = function(pid)
     end
     -- Illusion.
     if tmp[3] >= 15 then
-        spell = { spellId = "summon least bonewalker" }
+        spell = { spellId = "demoralize creature" }
         table.insert(Players[pid].data.spellbook, spell)
     end
     -- Mysticism.
     if tmp[4] >= 15 then
-        spell = { spellId = "summon least bonewalker" }
+        spell = { spellId = "detect key" }
         table.insert(Players[pid].data.spellbook, spell)
     end
     -- Restoration.
     if tmp[5] >= 15 then
-        spell = { spellId = "summon least bonewalker" }
+        spell = { spellId = "cure common disease on other" }
         table.insert(Players[pid].data.spellbook, spell)
     end
     -- Alchemy.
