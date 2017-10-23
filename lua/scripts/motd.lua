@@ -12,8 +12,13 @@ require("color")
 Methods = {}
 
 
--- Add [ motd = require("motd") ] to the top of server.lua
--- Find "myMod.OnPlayerConnect(pid, playerName)" inside server.lua and insert:
+-- Add [ motd = require("motd") ] to the top of myMod.lua
+
+-- Find "Players[pid]:Message("You have successfully logged in.\n")" inside myMod.lua and add:
+-- [ motd.Show(pid) ]
+-- directly underneath it.
+
+-- Find "Players[pid]:Registered(data)" inside myMod.lua and add:
 -- [ motd.Show(pid) ]
 -- directly underneath it.
 
@@ -29,9 +34,8 @@ Methods.Show = function(pid)
     f:close()
 
     message = color.Orange .. message
-    message = message .. color.OrangeRed .. os.date("Now: %A %I:%M %p")
-    message = message .. color.Default .. "\n"
-    tes3mp.SendMessage(pid, message, false)
+    message = message .. color.OrangeRed .. os.date("Current time: %A %I:%M %p") .. color.Default .. "\n"
+    tes3mp.MessageBox(pid, -1, message)
 
     return 0
 end
