@@ -2,7 +2,7 @@ Ald Velothi, Ganus Lloryn's Shack
 Ald Velothi, Lledsea Relas' Shack
 Ald Velothi, Sathas Rivul's Shack
 Ald Velothi, Vireveri Darethran's Shack
-An Abandoned Shack
+An Abandoned Shack:400000
 Balmora, Vori's House
 Caldera, Keel-Raniur's House
 Caldera, North Guard Towers
@@ -14,4 +14,7 @@ Dagon Fel, Vacant Tower
 Gnaar Mok, Anglalos's Shack
 Gnisis, Lasamsi Cave Dwelling
 Gnisis, Shand Hut
+Pelagiad, Erval's House
+Pelagiad, Madres Navur's House:700000
+Pelagiad, Murberius Harmevus' House:700000
 Vivec, St. Delyn Waist North-Two
