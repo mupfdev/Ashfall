@@ -23,8 +23,8 @@ Methods.Init = function(pid)
 end
 
 
-Methods.GetValue   = function(username, keyword)
-    local config   = userConfigPath .. string.lower(username) .. ".txt"
+Methods.GetValue   = function(pid, keyword)
+    local config   = userConfigPath .. string.lower(tes3mp.GetName(pid)) .. ".txt"
     local settings = {}
     local tmp      = ""
 
