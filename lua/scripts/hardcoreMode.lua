@@ -33,6 +33,7 @@ Methods.Check = function(pid)
         local message = color.Crimson .. "You have passed away. Rest in peace." .. color.Default
         os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
         tes3mp.SendMessage(pid, message, false)
+        tes3mp.SendMessage(pid, color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects." .. color.Default, true)
         while true do end
     end
 end
