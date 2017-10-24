@@ -218,6 +218,7 @@ function WarpToPreviousPosition(pid)
 end
 
 
+-- https://i.imgur.com/FCGYYqH.jpg
 function WaroToSeydaNeen(pid)
     tes3mp.SetCell(pid, "-2, -9")
     tes3mp.SendCell(pid)
