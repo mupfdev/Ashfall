@@ -30,10 +30,9 @@ local configKeyword  = "hardcore"
 
 Methods.Check = function(pid)
     if userConfig.GetValue(pid, configKeyword) == "true" then
-        local message = color.Crimson .. "You have passed away. Rest in peace." .. color.Default
+        local message = color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects.\n" .. color.Default
         os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
-        tes3mp.SendMessage(pid, message, false)
-        tes3mp.SendMessage(pid, color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects." .. color.Default, true)
+        tes3mp.SendMessage(pid, message, true)
         while true do end
     end
 end
