@@ -30,7 +30,7 @@ local nick       = "DagothUr"
 local server     = "irc.freenode.net"
 local nspasswd   = "pleasedonttellanyone"
 local channel    = "#tes3mp"
-local nickfilter = "Discord_Bridge: "
+local nickfilter = "Discord_Bridge"
 
 
 local s = irc.new { nick = nick }
