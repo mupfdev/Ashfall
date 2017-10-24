@@ -9,7 +9,7 @@
 Methods = {}
 
 
-local userConfigPath = "/home/tes3mp/server/keepers/user_config/"
+local userConfigPath = "/path/to/user_config/"
 
 
 Methods.Init = function(pid)
@@ -23,21 +23,16 @@ Methods.Init = function(pid)
 end
 
 
-Methods.GetValue   = function(pid, keyword)
-    local config   = userConfigPath .. string.lower(tes3mp.GetName(pid)) .. ".txt"
+Methods.AddKeyword = function(pid, keyword)
     local settings = {}
-    local tmp      = ""
+end
 
-    local f = io.open(config)
-    if f == nil then
-        return -1
-    else
-        for line in f:lines() do
-            tmp = string.gsub(line, " ", "")
-            table.insert(settings, tmp)
-        end
-        f:close()
-    end
+
+Methods.GetValue = function(pid, keyword)
+    local settings = {}
+
+    settings = ReadSettings(pid)
+    if settings == nil then return -1 end
 
     local i   = 0
     local hit = false
@@ -45,12 +40,72 @@ Methods.GetValue   = function(pid, keyword)
         for substr in string.gmatch(item, '([^=]+)') do
             if substr == keyword then hit = true end
             if hit == true and i %2 ~= 0 then return substr end
-
             i = i + 1
         end
     end
 
     return -1
+end
+
+
+Methods.SetValue = function(pid, keyword, value)
+    local settings = {}
+    local tmp      = {}
+
+    tmp = ReadSettings(pid)
+    if tmp == nil then return -1 end
+
+    local i = 0
+    for index, item in pairs(tmp) do
+        for substr in string.gmatch(item, '([^=]+)') do
+            if substr ~= keyword and i %2 == 0 then
+                settings[index] = item
+            end
+            i = i + 1
+        end
+    end
+
+    table.insert(settings, keyword .. "=" .. value)
+    WriteSettings(pid, settings)
+
+    return 0
+end
+
+
+function ReadSettings(pid)
+    local config = userConfigPath .. string.lower(tes3mp.GetName(pid)) .. ".txt"
+    local settings = {}
+    local tmp      = ""
+
+    local f = io.open(config, "r")
+    if f == nil then
+        return nil
+    else
+        for line in f:lines() do
+            tmp = string.gsub(line, " ", "")
+            table.insert(settings, tmp)
+        end
+        f:close()
+        return settings
+    end
+
+    return 0
+end
+
+
+function WriteSettings(pid, settings)
+    local config = userConfigPath .. string.lower(tes3mp.GetName(pid)) .. ".txt"
+
+    local f = io.open(config, "w+")
+    if f == nil then
+        return -1
+    else
+        for index, item in pairs(settings) do
+            f:write(item .. "\n")
+        end
+        f:close()
+        return 0
+    end
 end
 
 

@@ -6,6 +6,7 @@
 -- in return.  Michael Fitzmayer
 
 
+require("color")
 userConfig = require("userConfig")
 
 
@@ -15,19 +16,40 @@ Methods = {}
 -- Add [ hardcoreMode = require("hardcoreMode") ] to the top of myMod.lua
 -- Find "Players[pid]:ProcessDeath()" inside myMod.lua and add:
 -- [ hardcoreMode.Check(pid) ]
--- above it.
+-- directly above it.
+
+-- Add [ hardcoreMode = require("hardcoreMode") ] to the top of server.lua
+-- Find "elseif cmd[1] == "difficulty" and admin then" inside server.lua and insert:
+-- [ elseif cmd[1] == "hardcore" then hardcoreMode.Toggle(pid) ]
+-- directly above it.
 
 
 local playerFilePath = "/path/to/data/player/"
+local configKeyword  = "hardcore"
 
 
 Methods.Check = function(pid)
-    if userConfig.GetValue(pid, "hardcore") == "true" then
+    if userConfig.GetValue(pid, configKeyword) == "true" then
         local message = color.Crimson .. "You have passed away. Rest in peace." .. color.Default
         os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
         tes3mp.SendMessage(pid, message, false)
         while true do end
     end
+end
+
+
+Methods.Toggle = function(pid)
+    local message = ""
+
+    if userConfig.GetValue(pid, configKeyword) == "true" then
+        message = message .. color.MediumSpringGreen .. "Hardcore mode disabled.\n"
+        userConfig.SetValue(pid, configKeyword, "false")
+    else
+        message = message .. color.Crimson .. "Hardcore mode enabled. Be careful, death is now permanent!\n"
+        userConfig.SetValue(pid, configKeyword, "true")
+    end
+
+    tes3mp.SendMessage(pid, message, false)
 end
 
 
