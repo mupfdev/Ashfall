@@ -109,7 +109,6 @@ Methods.TsiyasRing = function(pid)
 
     if tes3mp.HasItemEquipped(pid, "common_ring_tsiya") then
         tes3mp.SetCreatureModel(pid, tsiyasRingModel, false)
-        tes3mp.SendBaseInfo(pid)
     end
 end
 

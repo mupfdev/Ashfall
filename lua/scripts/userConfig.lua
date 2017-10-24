@@ -9,7 +9,7 @@
 Methods = {}
 
 
-local userConfigPath = "/path/to/user_config/"
+local userConfigPath = "/home/tes3mp/server/keepers/user_config/"
 
 
 Methods.Init = function(pid)
@@ -23,8 +23,8 @@ Methods.Init = function(pid)
 end
 
 
-Methods.GetValue   = function(pid, keyword)
-    local config   = userConfigPath .. string.lower(tes3mp.GetName(pid)) .. ".txt"
+Methods.GetValue   = function(username, keyword)
+    local config   = userConfigPath .. string.lower(username) .. ".txt"
     local settings = {}
     local tmp      = ""
 
