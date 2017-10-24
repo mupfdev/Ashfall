@@ -26,10 +26,11 @@ Methods = {}
 -- directly underneath it.
 
 
-local nick     = "DagothUr"
-local server   = "irc.freenode.net"
-local nspasswd = "pleasedonttellanyone"
-local channel  = "#tes3mp"
+local nick       = "DagothUr"
+local server     = "irc.freenode.net"
+local nspasswd   = "pleasedonttellanyone"
+local channel    = "#tes3mp"
+local nickfilter = "Discord_Bridge: "
 
 
 local s = irc.new { nick = nick }
@@ -51,6 +52,7 @@ Methods.RecvMessage = function()
 
                    for pid = 0, lastPid do
                        if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
+                           user.nick = string.gsub(user.nick, nickfilter, "")
                            tes3mp.SendMessage(pid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
                            lastMessage = message
                            break
