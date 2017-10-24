@@ -23,7 +23,7 @@ Methods = {}
 -- directly above it.
 
 
-local playerFilePath = "/home/tes3mp/test-server/keepers/server_data/data/player/"
+local playerFilePath = "/path/to/data/player/"
 local configKeyword  = "hardcore"
 
 
