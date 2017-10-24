@@ -14,9 +14,8 @@ Methods = {}
 
 
 -- Add [ hardcoreMode = require("hardcoreMode") ] to the top of myMod.lua
--- Find "Players[pid]:ProcessDeath()" inside myMod.lua and add:
--- [ hardcoreMode.Check(pid) ]
--- directly above it.
+-- Find "Players[pid]:ProcessDeath()" inside myMod.lua and replace it with:
+-- [ if hardcoreMode.Check(pid) then hardcoreMode.DeletePlayer(pid) else Players[pid]:ProcessDeath() end ]
 
 -- Add [ hardcoreMode = require("hardcoreMode") ] to the top of server.lua
 -- Find "elseif cmd[1] == "difficulty" and admin then" inside server.lua and insert:
@@ -24,17 +23,23 @@ Methods = {}
 -- directly above it.
 
 
-local playerFilePath = "/path/to/data/player/"
+local playerFilePath = "/home/tes3mp/test-server/keepers/server_data/data/player/"
 local configKeyword  = "hardcore"
+
+
+Methods.DeletePlayer = function(pid)
+    local message = color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects.\n" .. color.Default
+    os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
+    tes3mp.SendMessage(pid, message, true)
+end
 
 
 Methods.Check = function(pid)
     if userConfig.GetValue(pid, configKeyword) == "true" then
-        local message = color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects.\n" .. color.Default
-        os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
-        tes3mp.SendMessage(pid, message, true)
-        while true do end
+        return true
     end
+
+    return false
 end
 
 
