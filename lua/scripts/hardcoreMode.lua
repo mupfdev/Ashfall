@@ -32,7 +32,7 @@ Methods.DeletePlayer = function(pid)
     userConfig.SetValue(pid, configKeyword, "false")
     os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
     tes3mp.SendMessage(pid, message, true)
-    while true do end
+    Players[pid]:Kick()
 end
 
 
