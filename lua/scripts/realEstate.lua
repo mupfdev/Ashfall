@@ -34,11 +34,6 @@ Methods = {}
 -- [ realEstate.Portkey(pid) ]
 -- directly underneath it.
 
--- Add [ realEstate = require("realEstate") ] to the top of myMod.lua
--- Find "OnPlayerInventory(pid)" inside myMod.lua and insert:
--- [ realEstate.OnTheft(pid) ]
--- directly underneath [ Players[pid]:SaveInventory() ].
-
 
 local realEstatePath = "/path/to/real_estate/"
 local basePrice      = 500000
@@ -149,31 +144,6 @@ function Methods.ClaimCell(pid)
     end
 
     return 0
-end
-
-
-Methods.OnTheft = function(pid)
-    local playerHouses = {}
-    local cellOwner    = nil
-    local playerName   = string.lower(tes3mp.GetName(pid))
-    local currentCell  = tes3mp.GetCell(pid)
-
-    cellOwner    = GetCellOwner(currentCell)
-    playerHouses = GetPlayerHouses()
-    if playerHouses == -1 then return -1 end
-
-    for index, cell in pairs(playerHouses) do
-        if currentCell == cell then
-            if cellOwner == nil then
-                Players[pid].data.inventory = nil
-                Players[pid]:Save()
-                Players[pid]:LoadInventory()
-                Players[pid]:LoadEquipment()
-                tes3mp.SetHealthCurrent(pid, 0)
-                tes3mp.SendStatsDynamic(pid)
-            end
-        end
-    end
 end
 
 
