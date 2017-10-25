@@ -23,11 +23,6 @@ Methods.Init = function(pid)
 end
 
 
-Methods.AddKeyword = function(pid, keyword)
-    local settings = {}
-end
-
-
 Methods.GetValue = function(pid, keyword)
     local settings = {}
 
@@ -75,15 +70,13 @@ end
 function ReadSettings(pid)
     local config = userConfigPath .. string.lower(tes3mp.GetName(pid)) .. ".txt"
     local settings = {}
-    local tmp      = ""
 
     local f = io.open(config, "r")
     if f == nil then
         return nil
     else
         for line in f:lines() do
-            tmp = string.gsub(line, " ", "")
-            table.insert(settings, tmp)
+            table.insert(settings, line)
         end
         f:close()
         return settings

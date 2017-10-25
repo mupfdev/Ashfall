@@ -7,13 +7,13 @@
 
 
 require("color")
+userConfig = require("userConfig")
 
 
 Methods = {}
 
 
 -- Add [ realEstate = require("realEstate") ] to the top of server.lua
-
 -- Find "function OnPlayerCellChange(pid)" inside server.lua and add:
 -- [ realEstate.CheckCell(pid) ]
 -- directly underneath it.
@@ -28,9 +28,21 @@ Methods = {}
 -- (one per line). To set specific price, add a colon followed by a number.
 -- E.g. An Abandoned Shack:200000
 
+-- Optional:
+
+-- Find "OnPlayerEquipment(pid)" inside server.lua and insert:
+-- [ realEstate.Portkey(pid) ]
+-- directly underneath it.
+
+-- Add [ realEstate = require("realEstate") ] to the top of myMod.lua
+-- Find "OnPlayerInventory(pid)" inside myMod.lua and insert:
+-- [ realEstate.OnTheft(pid) ]
+-- directly underneath [ Players[pid]:SaveInventory() ].
+
 
 local realEstatePath = "/path/to/real_estate/"
-local basePrice = 500000
+local basePrice      = 500000
+local configKeyword  = "house"
 
 
 Methods.CheckCell = function(pid)
@@ -71,6 +83,7 @@ Methods.CheckCell = function(pid)
                 message = color.Yellow .. "This house is for sale. " .. "Enter /claim to buy it for "
                 message = message .. housePrice .. " Septims.\n" .. color.Default
                 sendMessage = true
+                tes3mp.MessageBox(pid, -1, color.Crimson .. "WARNING\nThis house is currently for sale. Any attempts to steal will be met with death and loss of all your items.\n" .. color.Default)
             end
         end
     end
@@ -118,7 +131,7 @@ function Methods.ClaimCell(pid)
                 if f ~= nil then
                     message = color.MediumSpringGreen .. "Welcome home, "
                     message = message .. playerName .. ".\n" .. color.Default
-
+                    userConfig.SetValue(pid, configKeyword, currentCell)
                     f:write(playerName)
                     Players[pid].data.inventory[goldIndex].count = playerGold - housePrice
                     Players[pid]:Save()
@@ -136,6 +149,55 @@ function Methods.ClaimCell(pid)
     end
 
     return 0
+end
+
+
+Methods.OnTheft = function(pid)
+    local playerHouses = {}
+    local cellOwner    = nil
+    local playerName   = string.lower(tes3mp.GetName(pid))
+    local currentCell  = tes3mp.GetCell(pid)
+
+    cellOwner    = GetCellOwner(currentCell)
+    playerHouses = GetPlayerHouses()
+    if playerHouses == -1 then return -1 end
+
+    for index, cell in pairs(playerHouses) do
+        if currentCell == cell then
+            if cellOwner == nil then
+                Players[pid].data.inventory = nil
+                Players[pid]:Save()
+                Players[pid]:LoadInventory()
+                Players[pid]:LoadEquipment()
+                tes3mp.SetHealthCurrent(pid, 0)
+                tes3mp.SendStatsDynamic(pid)
+            end
+        end
+    end
+end
+
+
+Methods.Portkey = function(pid)
+    if tes3mp.HasItemEquipped(pid, "iron fork") then
+        local message     = ""
+        local sendMessage = false
+        local playerName  = string.lower(tes3mp.GetName(pid))
+        local playerHouse = userConfig.GetValue(pid, configKeyword)
+
+        if playerHouse == -1 or playerHouse == "false" then
+            message = message .. color.Crimson .. "You do not own a house yet.\n" .. color.Default
+            sendMessage = true
+        else
+            tes3mp.UnequipItem(pid, 16)
+            tes3mp.SendEquipment(pid)
+            tes3mp.SetCell(pid, playerHouse)
+            tes3mp.SendCell(pid)
+        end
+
+        if sendMessage == true then
+            tes3mp.SendMessage(pid, message, false)
+        end
+    end
 end
 
 
@@ -222,6 +284,19 @@ end
 function WaroToSeydaNeen(pid)
     tes3mp.SetCell(pid, "-2, -9")
     tes3mp.SendCell(pid)
+end
+
+
+function PlayerHasItemEquipped(pid, list)
+    local c = 0
+    local i = 1
+
+    while list[i] ~= nil do
+        if tes3mp.HasItemEquipped(pid, tostring(list[i])) then c = c + 1 end
+        i = i + 1
+    end
+
+    if c > 0 then return true else return false end
 end
 
 
