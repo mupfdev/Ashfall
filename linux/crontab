@@ -11,7 +11,6 @@
   0    0    * * 5 /home/tes3mp/bin/reset.sh
   */2  *    * * * /home/tes3mp/bin/failsafe.sh
   3    *    * * * /home/tes3mp/bin/backup_player.sh
-  1    */24 * * * /home/tes3mp/bin/backup_data.sh
   1    */24 * * * /home/tes3mp/bin/backup_logs.sh
   1    0    * * * /home/tes3mp/bin/cleanup_daily.sh
   2    0    1 * * /home/tes3mp/bin/cleanup_monthly.sh
