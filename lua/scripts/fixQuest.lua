@@ -11,7 +11,8 @@ Methods = {}
 
 -- Find "function OnPlayerJournal(pid)" inside server.lua and add:
 -- [ fixQuest.TR_Blade(pid) ]
--- [ fixQuest.TG_LootAldruhnMG(pid) ]
+-- [ fixQuest.MV_TraderLate(pid) ]
+-- [ fixQuest.TT_SanctusShrine(pid) ]
 -- directly underneath it.
 
 
@@ -32,15 +33,32 @@ Methods.TR_Blade = function(pid)
 end
 
 
-Methods.TG_LootAldruhnMG = function(pid)
-    local index = GetQuestHighestIndex("tg_lootaldruhnmg")
+Methods.MV_TraderLate = function(pid)
+    local index = GetQuestHighestIndex("mv_traderlate")
 
     if index == 10 then
         tes3mp.InitializeJournalChanges(pid)
-        tes3mp.AddJournalEntry(pid, "tg_lootaldruhnmg", 100, "aengoth")
+        tes3mp.AddJournalEntry(pid, "mv_traderlate", 20, "rasha")
+        tes3mp.AddJournalEntry(pid, "mv_traderlate", 40, "rasha")
         tes3mp.SendJournalChanges(pid)
         tes3mp.SendJournalChanges(pid, true)
     end
+end
+
+
+Methods.TT_SanctusShrine = function(pid)
+    local index = GetQuestHighestIndex("tt_sanctusshrine")
+
+    if index == 10 then
+        tes3mp.InitializeJournalChanges(pid)
+        tes3mp.AddJournalEntry(pid, "mv_traderlate", 20, "endryn llethan")
+        tes3mp.AddJournalEntry(pid, "mv_traderlate", 50, "endryn llethan")
+        tes3mp.AddJournalEntry(pid, "mv_traderlate", 100, "endryn llethan")
+        tes3mp.SendJournalChanges(pid)
+        tes3mp.SendJournalChanges(pid, true)
+    end
+
+
 end
 
 
