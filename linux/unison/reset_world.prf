@@ -1,7 +1,0 @@
-root = /home/tes3mp/server/keepers/world/
-root = /home/tes3mp/server/keepers/server_data/data/world/
-
-confirmbigdel = false
-force = /home/tes3mp/server/keepers/world/
-log = false
-silent = true
