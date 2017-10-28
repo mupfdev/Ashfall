@@ -20,17 +20,6 @@ s:sendChat("NickServ", "identify " .. Config.IrcBridge.nickservPassword)
 s:join(Config.IrcBridge.channel)
 
 
-Event.register(Events.ON_POST_INIT, function()
-                   timer = TimerCtrl.create(RecvMessage, 1000, {timer})
-                   timer:start()
-end)
-
-
-Event.register(Events.ON_PLAYER_SENDMESSAGE, function(player, message)
-                   SendMessage(string.sub(message, 8))
-end)
-
-
 function RecvMessage()
     s:think()
     s:hook("OnChat", function(user, channel, message)
@@ -50,3 +39,14 @@ function SendMessage(message)
     s:sendChat(Config.IrcBridge.channel, message)
     s:think()
 end
+
+
+Event.register(Events.ON_POST_INIT, function()
+                   timer = TimerCtrl.create(RecvMessage, 1000, {timer})
+                   timer:start()
+end)
+
+
+Event.register(Events.ON_PLAYER_SENDMESSAGE, function(player, message)
+                   SendMessage(string.sub(message, 8))
+end)

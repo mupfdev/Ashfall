@@ -9,7 +9,7 @@
 local userConfigPath = getModFolder() .. "users" .. package.config:sub(1,1)
 
 
-Event.register(Events.ON_PLAYER_CONNECT, function(player)
+function Init(player)
     local config = userConfigPath .. string.lower(player.name) .. ".cfg"
 
     local f = io.open(config, "r")
@@ -17,7 +17,7 @@ Event.register(Events.ON_PLAYER_CONNECT, function(player)
         f = io.open(config, "w+")
         f:close()
     end
-end)
+end
 
 
 function GetValue(player, keyword)
@@ -97,3 +97,9 @@ function WriteSettings(player, settings)
         return 0
     end
 end
+
+
+Event.register(Events.ON_PLAYER_CONNECT, function(player)
+                   Init(player)
+                   return true
+end)
