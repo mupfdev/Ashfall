@@ -30,7 +30,7 @@ end
 
 
 function CheckInbox(player)
-    local message = color.MediumSpringGreen .. "You have "
+    local message
     local mbox = getModFolder() .. "users" .. package.config:sub(1,1) .. string.lower(player.name) .. ".txt"
     local c = 0
 
@@ -39,7 +39,7 @@ function CheckInbox(player)
     for _ in io.lines(mbox) do c = c + 1 end
     f:close()
 
-    message = message .. tostring(c) .. " message"
+    message = color.MediumSpringGreen .. "You have " .. tostring(c) .. " message"
     if c > 1 or c == 0 then message = message .. "s" end
 
     message = message .. " in your Inbox.\n" .. color.Default
@@ -77,9 +77,9 @@ function ReadMessage(player, args)
             if line == nil then break end
 
             if i % 2 == 0 then
-                message = message .. color.PaleGreen .. line .. "\n" .. color.Default
+                message = message .. color.LightSalmon .. line .. "\n" .. color.Default
             else
-                message = message .. color.PaleTurquoise .. line .. "\n" .. color.Default
+                message = message .. color.LightSkyBlue .. line .. "\n" .. color.Default
             end
             i = i + 1
         end
@@ -87,11 +87,12 @@ function ReadMessage(player, args)
 
     -- Show specific message.
     if id > c or id < 0 then
-        message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Defaul    else
+        message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Default
+    else
         i = 0
         for line in f:lines() do
             if i == id - 1 then
-                message = message .. color.PaleGreen .. line .. "\n" .. color.Default
+                message = message .. color.LightSalmon .. line .. "\n" .. color.Default
             end
             i = i + 1
         end

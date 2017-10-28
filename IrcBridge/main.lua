@@ -12,10 +12,12 @@ require("irc")
 
 Config.IrcBridge = dofile(getModFolder() .. "config.lua")
 
+local timer
 local lastMessage = ""
 local s = irc.new { nick = Config.IrcBridge.nick }
-s:connect(Config.IrcBridge.server)
 
+
+s:connect(Config.IrcBridge.server)
 s:sendChat("NickServ", "identify " .. Config.IrcBridge.nickservPassword)
 s:join(Config.IrcBridge.channel)
 
@@ -26,7 +28,7 @@ function RecvMessage()
                if lastMessage ~= message then
                    user.nick = string.gsub(user.nick, Config.IrcBridge.nickFilter, "")
                    Players.for_each(function(player)
-                           player:message(color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n")
+                           player:message(color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", false)
                    end)
                    lastMessage = message
                end
@@ -42,7 +44,7 @@ end
 
 
 Event.register(Events.ON_POST_INIT, function()
-                   timer = TimerCtrl.create(RecvMessage, 1000, {timer})
+                   timer = TimerCtrl.create(RecvMessage, 1000, { timer })
                    timer:start()
 end)
 
