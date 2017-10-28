@@ -1,4 +1,4 @@
--- TES3MP UserConfig -*-lua-*-
+-- userSettTES3MP UserConfig -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -9,8 +9,8 @@
 local userConfigPath = getModFolder() .. "users" .. package.config:sub(1,1)
 
 
-function Init(player)
-    local config = userConfigPath .. string.lower(player.name) .. ".cfg"
+function Init(playerName)
+    local config = userConfigPath .. string.lower(playerName) .. ".cfg"
 
     local f = io.open(config, "r")
     if f == nil then
@@ -20,10 +20,10 @@ function Init(player)
 end
 
 
-function GetValue(player, keyword)
+function GetValue(playerName, keyword)
     local settings = {}
 
-    settings = ReadSettings(player)
+    settings = ReadSettings(string.lower(playerName))
     if settings == nil then return -1 end
 
     local i   = 0
@@ -40,11 +40,11 @@ function GetValue(player, keyword)
 end
 
 
-function SetValue(player, keyword, value)
+function SetValue(playerName, keyword, value)
     local settings = {}
     local tmp      = {}
 
-    tmp = ReadSettings(player)
+    tmp = ReadSettings(string.lower(playerName))
     if tmp == nil then return -1 end
 
     local i = 0
@@ -64,8 +64,8 @@ function SetValue(player, keyword, value)
 end
 
 
-function ReadSettings(player)
-    local config   = userConfigPath .. string.lower(player.name) .. ".cfg"
+function ReadSettings(playerName)
+    local config   = userConfigPath .. string.lower(playerName) .. ".cfg"
     local settings = {}
 
     local f = io.open(config, "r")
@@ -83,8 +83,8 @@ function ReadSettings(player)
 end
 
 
-function WriteSettings(player, settings)
-    local config = userConfigPath .. string.lower(player.name) .. ".cfg"
+function WriteSettings(playerName, settings)
+    local config = userConfigPath .. string.lower(playerName) .. ".cfg"
 
     local f = io.open(config, "w+")
     if f == nil then
@@ -100,6 +100,6 @@ end
 
 
 Event.register(Events.ON_PLAYER_CONNECT, function(player)
-                   Init(player)
+                   Init(player.name)
                    return true
 end)
