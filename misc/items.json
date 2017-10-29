@@ -38,7 +38,7 @@
         "name": "Flin",
         "weight": "1",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -58,7 +58,7 @@
         "name": "Shein",
         "weight": "3",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Endurance (5)",
@@ -78,7 +78,7 @@
         "name": "Cyrodiilic Brandy",
         "weight": "1",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -98,7 +98,7 @@
         "name": "Greef",
         "weight": "5",
         "value": "30",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -118,7 +118,7 @@
         "name": "Mazte",
         "weight": "5",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -145,7 +145,7 @@
         "name": "Sujamma",
         "weight": "3",
         "value": "30",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -165,7 +165,7 @@
         "name": "Telvanni Bug Musk",
         "weight": "1.5",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Personality (6)",
@@ -178,7 +178,7 @@
         "name": "Standard Potion of Burden",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Burden (7)",
             "range": "Self (0)",
@@ -190,7 +190,7 @@
         "name": "Standard Potion of Fire Shield",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fire Shield (4)",
             "range": "Self (0)",
@@ -202,7 +202,7 @@
         "name": "Standard Fortify Endurance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Endurance (5)",
@@ -215,7 +215,7 @@
         "name": "Standard Fortify Personality",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Personality (6)",
@@ -228,7 +228,7 @@
         "name": "Standard Fortify Speed",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
@@ -241,7 +241,7 @@
         "name": "Standard Fortify Strength",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -254,7 +254,7 @@
         "name": "Standard Fortify Health Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Health (80)",
             "range": "Self (0)",
@@ -266,7 +266,7 @@
         "name": "Standard Potion of Invisibility",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Invisibility (39)",
             "range": "Self (0)",
@@ -278,7 +278,7 @@
         "name": "Standard Potion of Light",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Light (41)",
             "range": "Self (0)",
@@ -290,7 +290,7 @@
         "name": "Standard Lightning Shield",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Lightning Shield (5)",
             "range": "Self (0)",
@@ -302,7 +302,7 @@
         "name": "Standard Potion of Night-Eye",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Night Eye (43)",
             "range": "Self (0)",
@@ -314,7 +314,7 @@
         "name": "Standard Potion of Paralyze",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Paralyze (45)",
             "range": "Self (0)",
@@ -326,7 +326,7 @@
         "name": "Standard Potion of Reflection",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Reflect (68)",
             "range": "Self (0)",
@@ -338,7 +338,7 @@
         "name": "Standard Fire Resistance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Fire (90)",
             "range": "Self (0)",
@@ -350,7 +350,7 @@
         "name": "Standard Magicka Resistance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Magicka (93)",
             "range": "Self (0)",
@@ -362,7 +362,7 @@
         "name": "Standard Poison Resistance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Poison (97)",
             "range": "Self (0)",
@@ -374,7 +374,7 @@
         "name": "Standard Shock Resistance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Shock (92)",
             "range": "Self (0)",
@@ -386,7 +386,7 @@
         "name": "Standard Restore Agility",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Agility (3)",
@@ -399,7 +399,7 @@
         "name": "Standard Restore Endurance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Endurance (5)",
@@ -412,7 +412,7 @@
         "name": "Standard Restore Intelligence",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Intelligence (1)",
@@ -425,7 +425,7 @@
         "name": "Standard Potion of Restore Luck",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Luck (7)",
@@ -438,7 +438,7 @@
         "name": "Standard Restore Personality",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Personality (6)",
@@ -451,7 +451,7 @@
         "name": "Standard Restore Speed",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Speed (4)",
@@ -464,7 +464,7 @@
         "name": "Standard Restore Strength",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Strength (0)",
@@ -477,7 +477,7 @@
         "name": "Standard Restore Willpower",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Willpower (2)",
@@ -490,7 +490,7 @@
         "name": "Standard Restore Fatigue",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Fatigue (77)",
             "range": "Self (0)",
@@ -502,7 +502,7 @@
         "name": "Standard Potion of Silence",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Silence (46)",
             "range": "Self (0)",
@@ -514,7 +514,7 @@
         "name": "Standard Spell Absorption",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Spell Absorption (67)",
             "range": "Self (0)",
@@ -526,7 +526,7 @@
         "name": "Standard Rising Force Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Levitate (10)",
             "range": "Self (0)",
@@ -538,7 +538,7 @@
         "name": "Standard Fortify Fatigue Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Fatigue (82)",
             "range": "Self (0)",
@@ -550,7 +550,7 @@
         "name": "Cheap Potion of Burden",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Burden (7)",
             "range": "Self (0)",
@@ -562,7 +562,7 @@
         "name": "Bargain Potion of Burden",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Burden (7)",
             "range": "Self (0)",
@@ -574,7 +574,7 @@
         "name": "Quality Potion of Burden",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Burden (7)",
             "range": "Self (0)",
@@ -586,7 +586,7 @@
         "name": "Exclusive Potion of Burden",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Burden (7)",
             "range": "Self (0)",
@@ -598,7 +598,7 @@
         "name": "Spoiled SlowFall Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Agility (3)",
@@ -617,7 +617,7 @@
         "name": "Spoiled SlowFall Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Endurance (5)",
@@ -636,7 +636,7 @@
         "name": "Spoiled Potion of Swift Swim",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Intelligence (1)",
@@ -655,7 +655,7 @@
         "name": "Spoiled Cure Disease Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Luck (7)",
@@ -674,7 +674,7 @@
         "name": "Spoiled Cure Poison Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Magicka (19)",
             "range": "Self (0)",
@@ -692,7 +692,7 @@
         "name": "Spoiled Potion of Swift Swim",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Personality (6)",
@@ -711,7 +711,7 @@
         "name": "Spoiled Cure Poison Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Speed (4)",
@@ -730,7 +730,7 @@
         "name": "Spoiled Cure Disease Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Strength (0)",
@@ -749,7 +749,7 @@
         "name": "Spoiled Cure Disease Potion",
         "weight": "1",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Drain Attribute (17)",
             "attribute": "Willpower (2)",
@@ -768,7 +768,7 @@
         "name": "Cheap Potion of Feather",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Feather (8)",
             "range": "Self (0)",
@@ -780,7 +780,7 @@
         "name": "Bargain Potion of Feather",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Feather (8)",
             "range": "Self (0)",
@@ -792,7 +792,7 @@
         "name": "Exclusive Potion of Feather",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Feather (8)",
             "range": "Self (0)",
@@ -804,7 +804,7 @@
         "name": "Quality Potion of Feather",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Feather (8)",
             "range": "Self (0)",
@@ -816,7 +816,7 @@
         "name": "Cheap Potion of Fire Shield",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fire Shield (4)",
             "range": "Self (0)",
@@ -828,7 +828,7 @@
         "name": "Bargain Potion of Fire Shield",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fire Shield (4)",
             "range": "Self (0)",
@@ -840,7 +840,7 @@
         "name": "Exclusive Potion of Fire Shield",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fire Shield (4)",
             "range": "Self (0)",
@@ -852,7 +852,7 @@
         "name": "Quality Potion of Fire Shield",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fire Shield (4)",
             "range": "Self (0)",
@@ -864,7 +864,7 @@
         "name": "Cheap Fortify Agility",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Agility (3)",
@@ -877,7 +877,7 @@
         "name": "Bargain Fortify Agility",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Agility (3)",
@@ -890,7 +890,7 @@
         "name": "Quality Fortify Agility",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Agility (3)",
@@ -903,7 +903,7 @@
         "name": "Exclusive Fortify Agility",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Agility (3)",
@@ -916,7 +916,7 @@
         "name": "Cheap Fortify Endurance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Endurance (5)",
@@ -929,7 +929,7 @@
         "name": "Bargain Fortify Endurance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Endurance (5)",
@@ -942,7 +942,7 @@
         "name": "Quality Fortify Endurance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Endurance (5)",
@@ -955,7 +955,7 @@
         "name": "Exclusive Fortify Endurance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Endurance (5)",
@@ -968,7 +968,7 @@
         "name": "Cheap Fortify Fatigue",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Fatigue (82)",
             "range": "Self (0)",
@@ -980,7 +980,7 @@
         "name": "Bargain Fortify Fatigue",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Fatigue (82)",
             "range": "Self (0)",
@@ -992,7 +992,7 @@
         "name": "Exclusive Fortify Fatigue",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Fatigue (82)",
             "range": "Self (0)",
@@ -1004,7 +1004,7 @@
         "name": "Quality Fortify Fatigue",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Fatigue (82)",
             "range": "Self (0)",
@@ -1016,7 +1016,7 @@
         "name": "Cheap Potion of Fortify Health",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Health (80)",
             "range": "Self (0)",
@@ -1028,7 +1028,7 @@
         "name": "Exclusive Fortify Health",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Health (80)",
             "range": "Self (0)",
@@ -1040,7 +1040,7 @@
         "name": "Quality Fortify Health",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Health (80)",
             "range": "Self (0)",
@@ -1052,7 +1052,7 @@
         "name": "Cheap Fortify Intelligence",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Intelligence (1)",
@@ -1065,7 +1065,7 @@
         "name": "Bargain Fortify Intelligence",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Intelligence (1)",
@@ -1078,7 +1078,7 @@
         "name": "Exclusive Fortify Intelligence",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Intelligence (1)",
@@ -1091,7 +1091,7 @@
         "name": "Quality Fortify Intelligence",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Intelligence (1)",
@@ -1104,7 +1104,7 @@
         "name": "Cheap Potion of Fortify Luck",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Luck (7)",
@@ -1117,7 +1117,7 @@
         "name": "Bargain Potion of Fortify Luck",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Luck (7)",
@@ -1130,7 +1130,7 @@
         "name": "Quality Potion of Fortify Luck",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Luck (7)",
@@ -1143,7 +1143,7 @@
         "name": "Exclusive Fortify Luck",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Luck (7)",
@@ -1156,7 +1156,7 @@
         "name": "Cheap Potion of Fortify Magicka",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Magicka (81)",
             "range": "Self (0)",
@@ -1168,7 +1168,7 @@
         "name": "Exclusive Fortify Magicka",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Magicka (81)",
             "range": "Self (0)",
@@ -1180,7 +1180,7 @@
         "name": "Quality Fortify Magicka",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Magicka (81)",
             "range": "Self (0)",
@@ -1192,7 +1192,7 @@
         "name": "Bargain Fortify Magicka",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Magicka (81)",
             "range": "Self (0)",
@@ -1204,7 +1204,7 @@
         "name": "Cheap Fortify Personality",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Personality (6)",
@@ -1217,7 +1217,7 @@
         "name": "Exclusive Fortify Personality",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Personality (6)",
@@ -1230,7 +1230,7 @@
         "name": "Bargain Fortify Personality",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Personality (6)",
@@ -1243,7 +1243,7 @@
         "name": "Quality Fortify Personality",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Personality (6)",
@@ -1256,7 +1256,7 @@
         "name": "Cheap Potion of Fortify Speed",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
@@ -1269,7 +1269,7 @@
         "name": "Bargain Potion of Fortify Speed",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
@@ -1282,7 +1282,7 @@
         "name": "Quality Potion of Fortify Speed",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
@@ -1295,7 +1295,7 @@
         "name": "Exclusive Fortify Speed",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
@@ -1308,7 +1308,7 @@
         "name": "Cheap Fortify Strength",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -1321,7 +1321,7 @@
         "name": "Bargain Fortify Strength",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -1334,7 +1334,7 @@
         "name": "Exclusive Fortify Strength",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -1347,7 +1347,7 @@
         "name": "Quality Fortify Strength",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -1360,7 +1360,7 @@
         "name": "Cheap Fortify Willpower",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -1373,7 +1373,7 @@
         "name": "Bargain Fortify Willpower",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -1386,7 +1386,7 @@
         "name": "Quality Fortify Willpower",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -1399,7 +1399,7 @@
         "name": "Exclusive Fortify Willpower",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -1412,7 +1412,7 @@
         "name": "Cheap Potion of Frost Shield",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Frost Shield (6)",
             "range": "Self (0)",
@@ -1424,7 +1424,7 @@
         "name": "Bargain Potion of Frost Shield",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Frost Shield (6)",
             "range": "Self (0)",
@@ -1436,7 +1436,7 @@
         "name": "Exclusive Frost Shield",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Frost Shield (6)",
             "range": "Self (0)",
@@ -1448,7 +1448,7 @@
         "name": "Quality Frost Shield",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Frost Shield (6)",
             "range": "Self (0)",
@@ -1460,7 +1460,7 @@
         "name": "Cheap Potion of Invisibility",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Invisibility (39)",
             "range": "Self (0)",
@@ -1472,7 +1472,7 @@
         "name": "Bargain Potion of Invisibility",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Invisibility (39)",
             "range": "Self (0)",
@@ -1484,7 +1484,7 @@
         "name": "Quality Potion of Invisibility",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Invisibility (39)",
             "range": "Self (0)",
@@ -1496,7 +1496,7 @@
         "name": "Exclusive Invisibility",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Invisibility (39)",
             "range": "Self (0)",
@@ -1508,7 +1508,7 @@
         "name": "Cheap Potion of Jump",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Jump (9)",
             "range": "Self (0)",
@@ -1520,7 +1520,7 @@
         "name": "Bargain Potion of Jump",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Jump (9)",
             "range": "Self (0)",
@@ -1532,7 +1532,7 @@
         "name": "Exclusive Potion of Jump",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Jump (9)",
             "range": "Self (0)",
@@ -1544,7 +1544,7 @@
         "name": "Standard Potion of Jump",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Jump (9)",
             "range": "Self (0)",
@@ -1556,7 +1556,7 @@
         "name": "Quality Potion of Jump",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Jump (9)",
             "range": "Self (0)",
@@ -1568,7 +1568,7 @@
         "name": "Cheap Rising Force Potion",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Levitate (10)",
             "range": "Self (0)",
@@ -1580,7 +1580,7 @@
         "name": "Bargain Rising Force Potion",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Levitate (10)",
             "range": "Self (0)",
@@ -1592,7 +1592,7 @@
         "name": "Quality Rising Force Potion",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Levitate (10)",
             "range": "Self (0)",
@@ -1604,7 +1604,7 @@
         "name": "Exclusive Rising Force Potion",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Levitate (10)",
             "range": "Self (0)",
@@ -1616,7 +1616,7 @@
         "name": "Cheap Potion of Light",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Light (41)",
             "range": "Self (0)",
@@ -1628,7 +1628,7 @@
         "name": "Bargain Potion of Light",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Light (41)",
             "range": "Self (0)",
@@ -1640,7 +1640,7 @@
         "name": "Exclusive Potion of Light",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Light (41)",
             "range": "Self (0)",
@@ -1652,7 +1652,7 @@
         "name": "Quality Potion of Light",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Light (41)",
             "range": "Self (0)",
@@ -1664,7 +1664,7 @@
         "name": "Cheap Lightning Shield",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Lightning Shield (5)",
             "range": "Self (0)",
@@ -1676,7 +1676,7 @@
         "name": "Exclusive Lightning Shield",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Lightning Shield (5)",
             "range": "Self (0)",
@@ -1688,7 +1688,7 @@
         "name": "Quality Lightning Shield",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Lightning Shield (5)",
             "range": "Self (0)",
@@ -1700,7 +1700,7 @@
         "name": "Bargain Lightning Shield",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Lightning Shield (5)",
             "range": "Self (0)",
@@ -1712,7 +1712,7 @@
         "name": "Cheap Potion of Night-Eye",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Night Eye (43)",
             "range": "Self (0)",
@@ -1724,7 +1724,7 @@
         "name": "Bargain Potion of Night-Eye",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Night Eye (43)",
             "range": "Self (0)",
@@ -1736,7 +1736,7 @@
         "name": "Quality Potion of Night-Eye",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Night Eye (43)",
             "range": "Self (0)",
@@ -1748,7 +1748,7 @@
         "name": "Exclusive Potion of Night-Eye",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Night Eye (43)",
             "range": "Self (0)",
@@ -1760,7 +1760,7 @@
         "name": "Cheap Potion of Paralyze",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Paralyze (45)",
             "range": "Self (0)",
@@ -1772,7 +1772,7 @@
         "name": "Bargain Potion of Paralyze",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Paralyze (45)",
             "range": "Self (0)",
@@ -1784,7 +1784,7 @@
         "name": "Exclusive Potion of Paralyze",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Paralyze (45)",
             "range": "Self (0)",
@@ -1796,7 +1796,7 @@
         "name": "Quality Potion of Paralyze",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Paralyze (45)",
             "range": "Self (0)",
@@ -1808,7 +1808,7 @@
         "name": "Cheap Potion of Reflection",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Reflect (68)",
             "range": "Self (0)",
@@ -1820,7 +1820,7 @@
         "name": "Bargain Potion of Reflection",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Reflect (68)",
             "range": "Self (0)",
@@ -1832,7 +1832,7 @@
         "name": "Quality Potion of Reflection",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Reflect (68)",
             "range": "Self (0)",
@@ -1844,7 +1844,7 @@
         "name": "Exclusive Potion of Reflection",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Reflect (68)",
             "range": "Self (0)",
@@ -1856,7 +1856,7 @@
         "name": "Cheap Disease Resistance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Common Disease (94)",
             "range": "Self (0)",
@@ -1868,7 +1868,7 @@
         "name": "Standard Disease Resistance",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Common Disease (94)",
             "range": "Self (0)",
@@ -1880,7 +1880,7 @@
         "name": "Bargain Disease Resistance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Common Disease (94)",
             "range": "Self (0)",
@@ -1892,7 +1892,7 @@
         "name": "Quality Disease Resistance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Common Disease (94)",
             "range": "Self (0)",
@@ -1904,7 +1904,7 @@
         "name": "Exclusive Disease Resistance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Common Disease (94)",
             "range": "Self (0)",
@@ -1916,7 +1916,7 @@
         "name": "Cheap Fire Resistance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Fire (90)",
             "range": "Self (0)",
@@ -1928,7 +1928,7 @@
         "name": "Bargain Fire Resistance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Fire (90)",
             "range": "Self (0)",
@@ -1940,7 +1940,7 @@
         "name": "Quality Fire Resistance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Fire (90)",
             "range": "Self (0)",
@@ -1952,7 +1952,7 @@
         "name": "Exclusive Fire Resistance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Fire (90)",
             "range": "Self (0)",
@@ -1964,7 +1964,7 @@
         "name": "Cheap Frost Resistance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Frost (91)",
             "range": "Self (0)",
@@ -1976,7 +1976,7 @@
         "name": "Bargain Frost Resistance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Frost (91)",
             "range": "Self (0)",
@@ -1988,7 +1988,7 @@
         "name": "Exclusive Frost Resistance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Frost (91)",
             "range": "Self (0)",
@@ -2000,7 +2000,7 @@
         "name": "Quality Frost Resistance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Frost (91)",
             "range": "Self (0)",
@@ -2012,7 +2012,7 @@
         "name": "Cheap Magicka Resistance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Magicka (93)",
             "range": "Self (0)",
@@ -2024,7 +2024,7 @@
         "name": "Bargain Magicka Resistance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Magicka (93)",
             "range": "Self (0)",
@@ -2036,7 +2036,7 @@
         "name": "Exclusive Magicka Resistance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Magicka (93)",
             "range": "Self (0)",
@@ -2048,7 +2048,7 @@
         "name": "Quality Magicka Resistance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Magicka (93)",
             "range": "Self (0)",
@@ -2060,7 +2060,7 @@
         "name": "Cheap Poison Resistance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Poison (97)",
             "range": "Self (0)",
@@ -2072,7 +2072,7 @@
         "name": "Bargain Poison Resistance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Poison (97)",
             "range": "Self (0)",
@@ -2084,7 +2084,7 @@
         "name": "Exclusive Poison Resistance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Poison (97)",
             "range": "Self (0)",
@@ -2096,7 +2096,7 @@
         "name": "Quality Poison Resistance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Poison (97)",
             "range": "Self (0)",
@@ -2108,7 +2108,7 @@
         "name": "Cheap Shock Resistance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Shock (92)",
             "range": "Self (0)",
@@ -2120,7 +2120,7 @@
         "name": "Bargain Shock Resistance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Shock (92)",
             "range": "Self (0)",
@@ -2132,7 +2132,7 @@
         "name": "Exclusive Shock Resistance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Shock (92)",
             "range": "Self (0)",
@@ -2144,7 +2144,7 @@
         "name": "Quality Shock Resistance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Shock (92)",
             "range": "Self (0)",
@@ -2156,7 +2156,7 @@
         "name": "Cheap Restore Agility",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Agility (3)",
@@ -2169,7 +2169,7 @@
         "name": "Bargain Restore Agility",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Agility (3)",
@@ -2182,7 +2182,7 @@
         "name": "Quality Restore Agility",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Agility (3)",
@@ -2195,7 +2195,7 @@
         "name": "Exclusive Restore Agility",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Agility (3)",
@@ -2208,7 +2208,7 @@
         "name": "Cheap Restore Endurance",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Endurance (5)",
@@ -2221,7 +2221,7 @@
         "name": "Bargain Restore Endurance",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Endurance (5)",
@@ -2234,7 +2234,7 @@
         "name": "Quality Restore Endurance",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Endurance (5)",
@@ -2247,7 +2247,7 @@
         "name": "Exclusive Restore Endurance",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Endurance (5)",
@@ -2260,7 +2260,7 @@
         "name": "Cheap Restore Fatigue",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Fatigue (77)",
             "range": "Self (0)",
@@ -2272,7 +2272,7 @@
         "name": "Bargain Restore Fatigue",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Fatigue (77)",
             "range": "Self (0)",
@@ -2284,7 +2284,7 @@
         "name": "Quality Restore Fatigue",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Fatigue (77)",
             "range": "Self (0)",
@@ -2296,7 +2296,7 @@
         "name": "Exclusive Restore Fatigue",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Fatigue (77)",
             "range": "Self (0)",
@@ -2308,7 +2308,7 @@
         "name": "Cheap Restore Health",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -2320,7 +2320,7 @@
         "name": "Cheap Restore Intelligence",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Intelligence (1)",
@@ -2333,7 +2333,7 @@
         "name": "Exclusive Restore Intelligence",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Intelligence (1)",
@@ -2346,7 +2346,7 @@
         "name": "Quality Restore Intelligence",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Intelligence (1)",
@@ -2359,7 +2359,7 @@
         "name": "Bargain Restore Intelligence",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Intelligence (1)",
@@ -2372,7 +2372,7 @@
         "name": "Bargain Restore Luck",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Luck (7)",
@@ -2385,7 +2385,7 @@
         "name": "Quality Restore Luck",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Luck (7)",
@@ -2398,7 +2398,7 @@
         "name": "Exclusive Restore Luck",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Luck (7)",
@@ -2411,7 +2411,7 @@
         "name": "Cheap Restore Luck",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Luck (7)",
@@ -2424,7 +2424,7 @@
         "name": "Bargain Restore Personality",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Personality (6)",
@@ -2437,7 +2437,7 @@
         "name": "Cheap Restore Personality",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Personality (6)",
@@ -2450,7 +2450,7 @@
         "name": "Exclusive Restore Personality",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Personality (6)",
@@ -2463,7 +2463,7 @@
         "name": "Quality Restore Personality",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Personality (6)",
@@ -2476,7 +2476,7 @@
         "name": "Cheap Restore Speed",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Speed (4)",
@@ -2489,7 +2489,7 @@
         "name": "Bargain Restore Speed",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Speed (4)",
@@ -2502,7 +2502,7 @@
         "name": "Quality Restore Speed",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Speed (4)",
@@ -2515,7 +2515,7 @@
         "name": "Exclusive Restore Speed",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Speed (4)",
@@ -2528,7 +2528,7 @@
         "name": "Cheap Restore Magicka",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Magicka (76)",
             "range": "Self (0)",
@@ -2540,7 +2540,7 @@
         "name": "Bargain Restore Magicka",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Magicka (76)",
             "range": "Self (0)",
@@ -2552,7 +2552,7 @@
         "name": "Quality Restore Magicka",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Magicka (76)",
             "range": "Self (0)",
@@ -2564,7 +2564,7 @@
         "name": "Exclusive Restore Magicka",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Magicka (76)",
             "range": "Self (0)",
@@ -2576,7 +2576,7 @@
         "name": "Cheap Restore Strength",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Strength (0)",
@@ -2589,7 +2589,7 @@
         "name": "Bargain Restore Strength",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Strength (0)",
@@ -2602,7 +2602,7 @@
         "name": "Quality Restore Strength",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Strength (0)",
@@ -2615,7 +2615,7 @@
         "name": "Exclusive Restore Strength",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Strength (0)",
@@ -2628,7 +2628,7 @@
         "name": "Cheap Restore Willpower",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Willpower (2)",
@@ -2641,7 +2641,7 @@
         "name": "Bargain Restore Willpower",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Willpower (2)",
@@ -2654,7 +2654,7 @@
         "name": "Quality Restore Willpower",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Willpower (2)",
@@ -2667,7 +2667,7 @@
         "name": "Exclusive Restore Willpower",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Attribute (74)",
             "attribute": "Willpower (2)",
@@ -2680,7 +2680,7 @@
         "name": "Cheap Potion of Shadow",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Chameleon (40)",
             "range": "Self (0)",
@@ -2692,7 +2692,7 @@
         "name": "Bargain Potion of Shadow",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Chameleon (40)",
             "range": "Self (0)",
@@ -2704,7 +2704,7 @@
         "name": "Standard Potion of Shadow",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Chameleon (40)",
             "range": "Self (0)",
@@ -2716,7 +2716,7 @@
         "name": "Quality Potion of Shadow",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Chameleon (40)",
             "range": "Self (0)",
@@ -2728,7 +2728,7 @@
         "name": "Exclusive Potion of Shadow",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Chameleon (40)",
             "range": "Self (0)",
@@ -2740,7 +2740,7 @@
         "name": "Cheap Potion of Silence",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Silence (46)",
             "range": "Self (0)",
@@ -2752,7 +2752,7 @@
         "name": "Bargain Potion of Silence",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Silence (46)",
             "range": "Self (0)",
@@ -2764,7 +2764,7 @@
         "name": "Quality Potion of Silence",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Silence (46)",
             "range": "Self (0)",
@@ -2776,7 +2776,7 @@
         "name": "Exclusive Potion of Silence",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Silence (46)",
             "range": "Self (0)",
@@ -2788,7 +2788,7 @@
         "name": "Cheap Spell Absorption",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Spell Absorption (67)",
             "range": "Self (0)",
@@ -2800,7 +2800,7 @@
         "name": "Bargain Spell Absorption",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Spell Absorption (67)",
             "range": "Self (0)",
@@ -2812,7 +2812,7 @@
         "name": "Quality Spell Absorption",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Spell Absorption (67)",
             "range": "Self (0)",
@@ -2824,7 +2824,7 @@
         "name": "Exclusive Spell Absorption",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Spell Absorption (67)",
             "range": "Self (0)",
@@ -2836,7 +2836,7 @@
         "name": "Cheap Potion of Swift Swim",
         "weight": "1",
         "value": "15",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Swift Swim (1)",
             "range": "Self (0)",
@@ -2848,7 +2848,7 @@
         "name": "Bargain Potion of Swift Swim",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Swift Swim (1)",
             "range": "Self (0)",
@@ -2860,7 +2860,7 @@
         "name": "Quality Potion of Swift Swim",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Swift Swim (1)",
             "range": "Self (0)",
@@ -2872,7 +2872,7 @@
         "name": "Exclusive Potion of Swift Swim",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Swift Swim (1)",
             "range": "Self (0)",
@@ -2884,7 +2884,7 @@
         "name": "Bargain Restore Health",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -2896,7 +2896,7 @@
         "name": "Quality Restore Health",
         "weight": "0.5",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -2908,7 +2908,7 @@
         "name": "Exclusive Restore Health",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -2920,7 +2920,7 @@
         "name": "Ancient Dagoth Brandy",
         "weight": "0.5",
         "value": "1500",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Damage Attribute (22)",
             "attribute": "Intelligence (1)",
@@ -2940,7 +2940,7 @@
         "name": "Potion of Fools Luck",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Almsivi Intervention (63)",
             "range": "Self (0)",
@@ -2952,7 +2952,7 @@
         "name": "Potion of Detect Creatures",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Detect Animal (64)",
             "range": "Self (0)",
@@ -2964,7 +2964,7 @@
         "name": "Potion of Cure Common Disease",
         "weight": "0.5",
         "value": "20",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Cure Common Disease (69)",
             "range": "Self (0)",
@@ -2976,7 +2976,7 @@
         "name": "Potion of Cure Blight Disease",
         "weight": "0.5",
         "value": "30",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Cure Blight Disease (70)",
             "range": "Self (0)",
@@ -2988,7 +2988,7 @@
         "name": "Potion of Cure Paralyzation",
         "weight": "1",
         "value": "20",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Cure Paralyzation (73)",
             "range": "Self (0)",
@@ -3000,7 +3000,7 @@
         "name": "Potion of Cure Poison",
         "weight": "1",
         "value": "20",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Cure Poison (72)",
             "range": "Self (0)",
@@ -3012,7 +3012,7 @@
         "name": "Potion of Detect Key",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Detect Key (66)",
             "range": "Self (0)",
@@ -3024,7 +3024,7 @@
         "name": "Potion of Dispel",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Dispel (57)",
             "range": "Self (0)",
@@ -3036,7 +3036,7 @@
         "name": "Standard Fortify Agility Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Agility (3)",
@@ -3049,7 +3049,7 @@
         "name": "Standard Fortify Intelligence",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Intelligence (1)",
@@ -3062,7 +3062,7 @@
         "name": "Standard Fortify Luck Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Luck (7)",
@@ -3075,7 +3075,7 @@
         "name": "Standard Fortify Willpower",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Willpower (2)",
@@ -3088,7 +3088,7 @@
         "name": "Bargain Fortify Health Potion",
         "weight": "1.5",
         "value": "5",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Health (80)",
             "range": "Self (0)",
@@ -3100,7 +3100,7 @@
         "name": "Standard Fortify Magicka Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Magicka (81)",
             "range": "Self (0)",
@@ -3112,7 +3112,7 @@
         "name": "Potion of Marking",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Mark (60)",
             "range": "Self (0)",
@@ -3124,7 +3124,7 @@
         "name": "Standard Resist Frost Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Resist Frost (91)",
             "range": "Self (0)",
@@ -3136,7 +3136,7 @@
         "name": "Potion of Slowfalling",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "SlowFall (11)",
             "range": "Self (0)",
@@ -3148,7 +3148,7 @@
         "name": "Potion of Telekinesis",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Telekinesis (59)",
             "range": "Self (0)",
@@ -3160,7 +3160,7 @@
         "name": "Potion of Water Breathing",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Water Breathing (0)",
             "range": "Self (0)",
@@ -3172,7 +3172,7 @@
         "name": "Potion of Water Walking",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Water Walking (2)",
             "range": "Self (0)",
@@ -3184,7 +3184,7 @@
         "name": "Vintage Brandy",
         "weight": "1",
         "value": "500",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -3204,7 +3204,7 @@
         "name": "Standard Potion of Frost Shield",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Frost Shield (6)",
             "range": "Self (0)",
@@ -3216,7 +3216,7 @@
         "name": "Standard Restore Magicka Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Magicka (76)",
             "range": "Self (0)",
@@ -3228,7 +3228,7 @@
         "name": "Exclusive Fortify Attack",
         "weight": "0.25",
         "value": "175",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attack (117)",
             "range": "Self (0)",
@@ -3240,7 +3240,7 @@
         "name": "Trebonius Potion of Curing",
         "weight": "1",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Cure Common Disease (69)",
             "range": "Self (0)",
@@ -3252,7 +3252,7 @@
         "name": "Standard Restore Health Potion",
         "weight": "0.75",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -3264,7 +3264,7 @@
         "name": "Potion of Detect Enchantments",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Detect Enchantment (65)",
             "range": "Self (0)",
@@ -3276,7 +3276,7 @@
         "name": "Blood of the Quarra Masters",
         "weight": "0.5",
         "value": "5000",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Telekinesis (59)",
             "range": "Self (0)",
@@ -3301,7 +3301,7 @@
         "name": "Sinyaramens Potion",
         "weight": "0.5",
         "value": "1502",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Cure Common Disease (69)",
             "range": "Self (0)",
@@ -3326,7 +3326,7 @@
         "name": "Potion of Heroism",
         "weight": "0.5",
         "value": "1456",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Health (80)",
             "range": "Self (0)",
@@ -3368,7 +3368,7 @@
         "name": "Love Potion",
         "weight": "1.5",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -3386,7 +3386,7 @@
         "name": "Potion of Recall",
         "weight": "1",
         "value": "35",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Recall (61)",
             "range": "Self (0)",
@@ -3398,7 +3398,7 @@
         "name": "Mazte",
         "weight": "5",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -3425,7 +3425,7 @@
         "name": "Pyroil Tar",
         "weight": "1",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fire Damage (14)",
             "range": "Self (0)",
@@ -3437,7 +3437,7 @@
         "name": "Spoiled Dwemer Oil",
         "weight": "2",
         "value": "200",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Skill (83)",
             "skill": "Acrobatics (20)",
@@ -3456,7 +3456,7 @@
         "name": "Verminous Fabricant Elixir",
         "weight": "5",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
@@ -3469,7 +3469,7 @@
         "name": "Hulking Fabricant Elixir",
         "weight": "5",
         "value": "100",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -3482,7 +3482,7 @@
         "name": "Elixir of the Imperfect",
         "weight": "1",
         "value": "661",
-        "autoCalc": "1"
+        "autoCalc": "1",
         "effect0": {
             "effect": "Restore Health (75)",
             "range": "Self (0)",
@@ -3506,7 +3506,7 @@
         "name": "Mazte",
         "weight": "5",
         "value": "10",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
@@ -3533,7 +3533,7 @@
         "name": "Nord Mead",
         "weight": "1",
         "value": "80",
-        "autoCalc": "0"
+        "autoCalc": "0",
         "effect0": {
             "effect": "Fortify Attribute (79)",
             "attribute": "Strength (0)",
