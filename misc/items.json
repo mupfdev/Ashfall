@@ -6,7 +6,7 @@
         "value": "500",
         "autoCalc": "0",
         "effect0": {
-            "effect": "Fortify Attribute (79)"
+            "effect": "Fortify Attribute (79)",
             "attribute": "Speed (4)",
             "range": "Self (0)",
             "duration": "60",
@@ -22556,7 +22556,7 @@
         "isKey": "1"
     },{
         "refId": "key_Venim",
-        "name": "Key engraved "Venim"",
+        "name": "Key engraved \"Venim\"",
         "weight": "0",
         "value": "300",
         "isKey": "1"
