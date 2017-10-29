@@ -1,5 +1,5 @@
 {
-    "items": {
+    "items": [{
         "refId": "potion_skooma_01",
         "name": "Skooma",
         "weight": "1",
@@ -33601,5 +33601,5 @@
         "chop": "12-15",
         "slash": "12-15",
         "thrust": "40-60"
-    }
+    }]
 }
