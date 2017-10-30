@@ -11,6 +11,7 @@ local userConfigPath = getModFolder() .. "users" .. package.config:sub(1,1)
 
 local tblUserConfig = {
     value    = nil,
+    GetValue = Event.create()
     SetValue = Event.create()
 }
 Data["UserConfig"] = tblUserConfig
