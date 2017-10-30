@@ -9,6 +9,13 @@
 local userConfigPath = getModFolder() .. "users" .. package.config:sub(1,1)
 
 
+local tblUserConfig = {
+    value    = nil,
+    SetValue = Event.create()
+}
+Data["UserConfig"] = tblUserConfig
+
+
 function Init(playerName)
     local config = userConfigPath .. string.lower(playerName) .. ".cfg"
 
@@ -36,7 +43,7 @@ function GetValue(playerName, keyword)
         end
     end
 
-    return -1
+    return -2
 end
 
 
@@ -58,7 +65,7 @@ function SetValue(playerName, keyword, value)
     end
 
     table.insert(settings, keyword .. "=" .. value)
-    WriteSettings(player, settings)
+    WriteSettings(playerName, settings)
 
     return 0
 end
@@ -102,4 +109,18 @@ end
 Event.register(Events.ON_PLAYER_CONNECT, function(player)
                    Init(player.name)
                    return true
+end)
+
+
+Event.register(Data.UserConfig.SetValue, function(data)
+                   if #data >= 3 then
+                       SetValue(data[1], data[2], data[3])
+                   end
+end)
+
+
+Event.register(Data.UserConfig.GetValue, function(data)
+                   if #data >= 2 then
+                       Data.UserConfig.value = GetValue(data[1], data[2])
+                   end
 end)

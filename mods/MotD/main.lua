@@ -15,6 +15,7 @@ local motd = getModFolder() .. "motd.txt"
 function Show(player, onConnect)
     onConnect = onConnect or false
 
+    local userConfig
     local message
 
     local f = io.open(motd, "r")
@@ -24,10 +25,17 @@ function Show(player, onConnect)
     f:close()
 
     message = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
+
+    Event.raise(Data.UserConfig.GetValue, { player.name, "motd" })
+    userConfig = Data.UserConfig.value
+
     if onConnect == true then
-        player:getGUI():customMessageBox(1, message, "Agree;Leave")
+        if userConfig == "1" then
+            player:getGUI():customMessageBox(1, message, "OK;Disable MotD")
+        end
     else
-    player:getGUI():messageBox(1, message)
+        Event.raise(Data.UserConfig.SetValue, { player.name, "motd", "1" })
+        player:getGUI():customMessageBox(2, message, "OK")
     end
 
     return true
@@ -43,7 +51,7 @@ end)
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 1 then
                        if tonumber(data) == 1 then
-                           player:kick()
+                           Event.raise(Data.UserConfig.SetValue, { player.name, "motd", "0" })
                        end
                    end
 end)
