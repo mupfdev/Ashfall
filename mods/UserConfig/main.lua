@@ -1,4 +1,4 @@
--- userSettTES3MP UserConfig -*-lua-*-
+-- TES3MP UserConfig -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -7,14 +7,6 @@
 
 
 local userConfigPath = getModFolder() .. "users" .. package.config:sub(1,1)
-
-
-local tblUserConfig = {
-    value    = nil,
-    GetValue = Event.create(),
-    SetValue = Event.create()
-}
-Data["UserConfig"] = tblUserConfig
 
 
 function Init(playerName)
@@ -113,15 +105,6 @@ Event.register(Events.ON_PLAYER_CONNECT, function(player)
 end)
 
 
-Event.register(Data.UserConfig.SetValue, function(data)
-                   if #data >= 3 then
-                       SetValue(data[1], data[2], data[3])
-                   end
-end)
-
-
-Event.register(Data.UserConfig.GetValue, function(data)
-                   if #data >= 2 then
-                       Data.UserConfig.value = GetValue(data[1], data[2])
-                   end
-end)
+Data["UserConfig"] = {}
+Data.UserConfig["GetValue"] = GetValue
+Data.UserConfig["SetValue"] = SetValue

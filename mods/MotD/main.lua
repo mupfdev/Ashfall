@@ -9,7 +9,8 @@
 require("color")
 
 
-local motd = getModFolder() .. "motd.txt"
+Config.MotD = dofile(getModFolder() .. "config.lua")
+local motd  = getModFolder() .. "motd.txt"
 
 
 function Show(player, onConnect)
@@ -24,17 +25,21 @@ function Show(player, onConnect)
     message = f:read("*a")
     f:close()
 
-    message = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
-
-    Event.raise(Data.UserConfig.GetValue, { player.name, "motd" })
-    userConfig = Data.UserConfig.value
+    message  = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
 
     if onConnect == true then
+        userConfig = Data.UserConfig.GetValue(string.lower(player.name), Config.MotD.configKeyword)
+
+        if userConfig == -2 then
+            Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
+            userConfig = "1"
+        end
+
         if userConfig == "1" then
             player:getGUI():customMessageBox(1, message, "OK;Disable MotD")
         end
     else
-        Event.raise(Data.UserConfig.SetValue, { player.name, "motd", "1" })
+        Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
         player:getGUI():customMessageBox(2, message, "OK")
     end
 
@@ -51,7 +56,7 @@ end)
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 1 then
                        if tonumber(data) == 1 then
-                           Event.raise(Data.UserConfig.SetValue, { player.name, "motd", "0" })
+                           Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "0")
                        end
                    end
 end)

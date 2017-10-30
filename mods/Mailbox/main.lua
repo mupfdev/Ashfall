@@ -14,7 +14,7 @@ Config.Mailbox = dofile(getModFolder() .. "config.lua")
 
 function Init(player)
     local message
-    local mbox = getModFolder() .. "users" .. package.config:sub(1,1) .. string.lower(player.name) .. ".txt"
+    local mbox = getModFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
 
     local f = io.open(mbox, "r")
     if f == nil then
@@ -31,7 +31,7 @@ end
 
 function CheckInbox(player)
     local message
-    local mbox = getModFolder() .. "users" .. package.config:sub(1,1) .. string.lower(player.name) .. ".txt"
+    local mbox = getModFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
     local c = 0
 
     local f = io.open(mbox, "r")
@@ -60,7 +60,7 @@ function ReadMessage(player, args)
     if not math.floor(id) then return false end
 
     local message = ""
-    local mbox = getModFolder() .. "users" .. package.config:sub(1,1) .. string.lower(player.name) .. ".txt"
+    local mbox = getModFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
     local line
     local c = 0
     local i = 0
@@ -114,7 +114,7 @@ function SendMessage(player, args)
     local text = args[2]
     local i = 0
 
-    local mbox = getModFolder() .. "users" .. package.config:sub(1,1) .. string.lower(user) .. ".txt"
+    local mbox = getModFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(user) .. ".txt"
     local message = ""
     local err = 0
     local c = 0
@@ -161,7 +161,7 @@ function DeleteMessage(player, args)
     if not math.floor(id) then return false end
 
     local message = ""
-    local mbox = getModFolder() .. "users" .. package.config:sub(1,1) .. string.lower(player.name) .. ".txt"
+    local mbox = getModFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
     local line = {}
     local content = {}
     local c = 0
