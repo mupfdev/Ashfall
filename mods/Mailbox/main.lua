@@ -29,6 +29,20 @@ function Init(player)
 end
 
 
+function InboxGUI(player)
+    local message
+
+    message = ReadMessage(player, {0, 1})
+    if message ~= false then
+        player:getGUI():customMessageBox(1, color.Orange .. "Messages\n\n" .. color.Default .. message, "Close;Delete all")
+    else
+        CheckInbox(player)
+    end
+
+    return true
+end
+
+
 function CheckInbox(player)
     local message
     local mbox = getModFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
@@ -84,7 +98,6 @@ function ReadMessage(player, args)
             i = i + 1
         end
     end
-
     -- Show specific message.
     if id > c or id < 0 then
         message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Default
@@ -99,9 +112,13 @@ function ReadMessage(player, args)
     end
 
     f:close()
-    player:message(message, false)
 
-    return true
+    if tonumber(args[2]) == 1 then
+        return message
+    else
+        player:message(message, false)
+        return true
+    end
 end
 
 
@@ -212,6 +229,15 @@ Event.register(Events.ON_PLAYER_CONNECT, function(player)
 end)
 
 
+Event.register(Events.ON_GUI_ACTION, function(player, id, data)
+                   if id == 1 then
+                       DeleteMessage(player, { 0 })
+                       CheckInbox(player)
+                   end
+end)
+
+
+CommandController.registerCommand("mailbox",  InboxGUI,      color.Salmon .. "/mailbox" .. color.Default .. " - Open your mailbox")
 CommandController.registerCommand("mbcheck",  CheckInbox,    color.Salmon .. "/mbcheck" .. color.Default .. " - Check your inbox")
 CommandController.registerCommand("mbread",   ReadMessage,   color.Salmon .. "/mbread [id]" .. color.Default .. " - Read mailbox message (id 0 for all)")
 CommandController.registerCommand("mbsend",   SendMessage,   color.Salmon .. "/mbsend \"[user]\" \"[message]\"" .. color.Default .. " - Send mailbox message")
