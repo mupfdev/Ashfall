@@ -83,7 +83,7 @@ Methods.Add = function(pid)
 
 
         if race ~= "argonian" and race ~= "khajiit" then
-            table.insert(starterKit, { "fur_boots",   1  -1 })
+            table.insert(starterKit, { "fur_boots",   1, -1 })
             table.insert(starterKit, { "fur_cuirass", 1, -1 })
         else
             table.insert(starterKit, { "imperial_studded_cuirass", 1, -1 })
