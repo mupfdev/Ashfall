@@ -231,8 +231,10 @@ end)
 
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 1 then
-                       DeleteMessage(player, { 0 })
-                       CheckInbox(player)
+                       if tonumber(data) == 1 then
+                           DeleteMessage(player, { 0 })
+                           CheckInbox(player)
+                       end
                    end
 end)
 
