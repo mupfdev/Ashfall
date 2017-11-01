@@ -7,6 +7,7 @@
 
 
 require("color")
+require("valid-email")
 
 
 Config.Mailbox = dofile(getModFolder() .. "config.lua")
@@ -40,6 +41,20 @@ function InboxGUI(player)
     end
 
     return true
+end
+
+
+function SetEmail(player, args)
+    if #args < 1 then
+        return false
+    else
+        if tonumber(args[1]) == 0 or validemail(args[1]) == true then
+            Data.UserConfig.SetValue(string.lower(player.name), Config.Mailbox.configKeyword, args[1])
+            return true
+        end
+    end
+
+    return false
 end
 
 
@@ -244,3 +259,4 @@ CommandController.registerCommand("mbcheck",  CheckInbox,    color.Salmon .. "/m
 CommandController.registerCommand("mbread",   ReadMessage,   color.Salmon .. "/mbread [id]" .. color.Default .. " - Read mailbox message (id 0 for all)")
 CommandController.registerCommand("mbsend",   SendMessage,   color.Salmon .. "/mbsend \"[user]\" \"[message]\"" .. color.Default .. " - Send mailbox message")
 CommandController.registerCommand("mbdelete", DeleteMessage, color.Salmon .. "/mbdelete [id]" .. color.Default .. " - Delete mailbox message (id 0 for all)")
+--CommandController.registerCommand("email",    SetEmail,      color.Salmon .. "/email [email]" .. color.Default .. " - Enable message forwarding (email 0 to disable)")
