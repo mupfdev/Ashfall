@@ -6,7 +6,7 @@ Custom scripts and configuration from [Ashfall](https://ashfall.de). A
 ## Note
 
 These scripts are intended to use with version `0.7.0-alpha` and are
-therefore for testing purposes only. All scripts for version 0.6.1 can
+therefore for testing purposes only. All scripts for version `0.6.1` can
 be found in the `0.6.1` subdirectory.
 
 ## Installation instructions
