@@ -39,7 +39,6 @@ function Show(player, onConnect)
             player:getGUI():customMessageBox(1, message, "OK;Disable MotD")
         end
     else
-        Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
         player:getGUI():customMessageBox(2, message, "OK")
     end
 
@@ -57,6 +56,12 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 1 then
                        if tonumber(data) == 1 then
                            Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "0")
+                       end
+                   end
+
+                   if id == 2 then
+                       if tonumber(data) == 0 then
+                           Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
                        end
                    end
 end)
