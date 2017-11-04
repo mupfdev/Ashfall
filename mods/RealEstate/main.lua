@@ -9,7 +9,7 @@
 require("color")
 
 
-Config.RealEstate = dofile(getModFolder() .. "config.lua")
+Config.RealEstate = import(getModFolder() .. "config.lua")
 
 
 function CellCheck(player)
@@ -82,7 +82,7 @@ function CellBuy(player)
                 message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " Septims to buy this house.\n" .. color.Default
                 sendMessage = true
             else
-                local f = io.open(getModFolder() .. "cells" .. package.config:sub(1, 1) .. cellCurrent .. ".txt", "w+")
+                local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cellCurrent .. ".txt", "w+")
                 if f ~= nil then
                     message = color.MediumSpringGreen .. "Welcome home, " .. player.name .. ".\n" .. color.Default
                     Data.UserConfig.SetValue(string.lower(player.name), Config.RealEstate.configKeyword, cellCurrent)
@@ -135,7 +135,7 @@ end
 function GetCellOwner(cell)
     local cellOwner
 
-    local fcell = io.open(getModFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
+    local fcell = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
     if fcell ~= nil then
         cellOwner = fcell:read()
         fcell:close()
@@ -151,7 +151,7 @@ function GetHousePrice(cell)
     local tmp   = {}
     local hit   = false
 
-    local flist = io.open(getModFolder() .. "houses.txt", "r")
+    local flist = io.open(getDataFolder() .. "houses.txt", "r")
     if flist ~= nil then
         for line in flist:lines() do
             table.insert(tmp, line)
@@ -178,7 +178,7 @@ function GetHouses()
     local tmp = {}
     local houses = {}
 
-    local flist = io.open(getModFolder() ..  package.config:sub(1, 1) .. "houses.txt", "r")
+    local flist = io.open(getDataFolder() ..  package.config:sub(1, 1) .. "houses.txt", "r")
     if flist ~= nil then
         for line in flist:lines() do
             table.insert(tmp, line)

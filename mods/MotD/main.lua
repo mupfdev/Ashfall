@@ -9,8 +9,7 @@
 require("color")
 
 
-Config.MotD = dofile(getModFolder() .. "config.lua")
-local motd  = getModFolder() .. "motd.txt"
+Config.MotD = import(getModFolder() .. "config.lua")
 
 
 function Show(player, onConnect)
@@ -19,7 +18,7 @@ function Show(player, onConnect)
     local userConfig
     local message
 
-    local f = io.open(motd, "r")
+    local f = io.open(getDataFolder() .. "motd.txt", "r")
     if f == nil then return false end
 
     message = f:read("*a")

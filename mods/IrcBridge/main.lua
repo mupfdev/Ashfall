@@ -10,7 +10,7 @@ require("color")
 require("irc")
 
 
-Config.IrcBridge = dofile(getModFolder() .. "config.lua")
+Config.IrcBridge = import(getModFolder() .. "config.lua")
 
 local timer
 local lastMessage = ""
