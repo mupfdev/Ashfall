@@ -30,7 +30,7 @@ local configKeyword  = "hardcore"
 Methods.DeletePlayer = function(pid)
     local message = color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects.\n" .. color.Default
     userConfig.SetValue(pid, configKeyword, "false")
-    os.remove(playerFilePath .. tes3mp.GetName(pid) .. ".json")
+    os.remove(playerFilePath .. Players[pid].data.login.name .. ".json")
     tes3mp.SendMessage(pid, message, true)
     Players[pid]:Kick()
 end
