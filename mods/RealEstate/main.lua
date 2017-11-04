@@ -34,18 +34,26 @@ function CellCheck(player)
                         WaroToSeydaNeen(player)
                     end
                     sendMessage = true
-                else
+                elseif playerName == cellOwner or WhitelistCheck(cell, player) then
                     message = color.MediumSpringGreen .. "Welcome home, " .. playerName .. ".\n" .. color.Default
                     sendMessage = true
                 end
             else
                 local housePrice = GetHousePrice(cellCurrent)
-                if housePrice == -1 then housePrice = Config.RealEstate.basePrice end
+                if housePrice == -1 then
+                    housePrice = Config.RealEstate.basePrice
+                end
 
-                player:getGUI():customMessageBox(1, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
+                local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+                if playerHouse == nil then
+                    player:getGUI():customMessageBox(231, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
+                else
+                    player:getGUI():customMessageBox(232, "This house is for sale, but you already own " .. playerHouse .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
+                end
             end
         end
     end
+
 
     if sendMessage == true then
         player:message(message, false)
@@ -76,7 +84,9 @@ function CellBuy(player)
         if cellCurrent == cell and cellOwner == nil then
 
             local housePrice = GetHousePrice(cellCurrent)
-            if housePrice == -1 then housePrice = Config.RealEstate.basePrice end
+            if housePrice == -1 then
+                housePrice = Config.RealEstate.basePrice
+            end
 
             if playerGold < housePrice then
                 message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " Septims to buy this house.\n" .. color.Default
@@ -106,6 +116,14 @@ function CellBuy(player)
 end
 
 
+function CellRelease(cell)
+    local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "w+")
+    if f ~= nil then
+        f:close()
+    end
+end
+
+
 --[[
 function Portkey(pid)
     if tes3mp.HasItemEquipped(pid, "iron fork") then
@@ -120,7 +138,7 @@ function Portkey(pid)
         else
             tes3mp.UnequipItem(pid, 16)
             tes3mp.SendEquipment(pid)
-            tes3mp.SetCell(pid, playerHouse)
+            tes3mp.SetCellll(pid, playerHouse)
             tes3mp.SendCell(pid)
         end
 
@@ -129,7 +147,7 @@ function Portkey(pid)
         end
     end
 end
---]]
+---]]
 
 
 function GetCellOwner(cell)
@@ -199,6 +217,13 @@ function GetHouses()
 end
 
 
+function WhitelistCheck(cell, player)
+
+
+    return false
+end
+
+
 function WarpToPreviousPosition(player)
     player:message("WaroToPreviousPosition()\n", false)
     --local posx = tes3mp.GetPreviousCellPosX(pid)
@@ -233,7 +258,7 @@ function PlayerHasItemEquipped(pid, list)
 
     if c > 0 then return true else return false end
 end
---]]
+---]]
 
 
 Event.register(Events.ON_PLAYER_CELLCHANGE, function(player)
@@ -242,8 +267,15 @@ end)
 
 
 Event.register(Events.ON_GUI_ACTION, function(player, id, button)
-                   if id == 1 then
+                   if id == 231 then
                        if tonumber(button) == 1 then
+                           CellBuy(player)
+                       end
+                   end
+                   if id == 232 then
+                       if tonumber(button) == 1 then
+                           local cell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+                           CellRelease(cell)
                            CellBuy(player)
                        end
                    end
