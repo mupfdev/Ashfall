@@ -17,8 +17,8 @@ function CellCheck(player)
     local sendMessage  = false
     local cellCurrent  = player:getCell().description
     local cellPrevious = "" -- TODO -- local previousCell = Players[pid].data.location.cell
-    local cellOwner    = GetCellOwner(cellCurrent)
-    local houses       = GetHouses()
+    local cellOwner    = CellGetOwner(cellCurrent)
+    local houses       = CellGetList()
     local playerName   = string.lower(player.name)
 
     if houses == -1 then return -1 end
@@ -26,7 +26,7 @@ function CellCheck(player)
     for index, cell in pairs(houses) do
         if cellCurrent == cell then
             if cellOwner ~= nil then
-                if playerName ~= cellOwner then
+                if playerName ~= cellOwner and WhitelistCheck(cellCurrent, playerName) == false then
                     message = color.Crimson .. "This house is owned by " .. cellOwner .. ".\n" .. color.Default
                     if previousCell ~= cellCurrent then
                         WarpToPreviousPosition(player)
@@ -34,12 +34,15 @@ function CellCheck(player)
                         WaroToSeydaNeen(player)
                     end
                     sendMessage = true
-                elseif playerName == cellOwner or WhitelistCheck(cell, player) then
+                elseif playerName == cellOwner then
                     message = color.MediumSpringGreen .. "Welcome home, " .. playerName .. ".\n" .. color.Default
+                    sendMessage = true
+                elseif WhitelistCheck(cellCurrent, playerName) then
+                    message = color.MediumSpringGreen .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n" .. color.Default
                     sendMessage = true
                 end
             else
-                local housePrice = GetHousePrice(cellCurrent)
+                local housePrice = CellGetPrice(cellCurrent)
                 if housePrice == -1 then
                     housePrice = Config.RealEstate.basePrice
                 end
@@ -67,8 +70,8 @@ function CellBuy(player)
     local message     = ""
     local sendMessage = false
     local cellCurrent = player:getCell().description
-    local cellOwner   = GetCellOwner(cellCurrent)
-    local houses      = GetHouses()
+    local cellOwner   = CellGetOwner(cellCurrent)
+    local houses      = CellGetList()
     --local playerGold  = 0
     local playerGold  = 1000000
     --local goldIndex
@@ -83,7 +86,7 @@ function CellBuy(player)
     for index, cell in pairs(houses) do
         if cellCurrent == cell and cellOwner == nil then
 
-            local housePrice = GetHousePrice(cellCurrent)
+            local housePrice = CellGetPrice(cellCurrent)
             if housePrice == -1 then
                 housePrice = Config.RealEstate.basePrice
             end
@@ -150,13 +153,38 @@ end
 ---]]
 
 
-function GetCellOwner(cell)
+function CellGetList()
+    local tmp = {}
+    local houses = {}
+
+    local f = io.open(getDataFolder() ..  package.config:sub(1, 1) .. "houses.txt", "r")
+    if f ~= nil then
+        for line in f:lines() do
+            table.insert(tmp, line)
+        end
+        f:close()
+
+        for index, item in pairs(tmp) do
+            for substr in string.gmatch(item, '([^:]+)') do
+                table.insert(houses, substr)
+                break
+            end
+        end
+
+        return houses
+    end
+
+    return -1
+end
+
+
+function CellGetOwner(cell)
     local cellOwner
 
-    local fcell = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
-    if fcell ~= nil then
-        cellOwner = fcell:read()
-        fcell:close()
+    local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
+    if f ~= nil then
+        cellOwner = f:read()
+        f:close()
         return cellOwner
     end
 
@@ -164,17 +192,17 @@ function GetCellOwner(cell)
 end
 
 
-function GetHousePrice(cell)
+function CellGetPrice(cell)
     local price = 0
     local tmp   = {}
     local hit   = false
 
-    local flist = io.open(getDataFolder() .. "houses.txt", "r")
-    if flist ~= nil then
-        for line in flist:lines() do
+    local f = io.open(getDataFolder() .. "houses.txt", "r")
+    if f ~= nil then
+        for line in f:lines() do
             table.insert(tmp, line)
         end
-        flist:close()
+        f:close()
 
         for index, item in pairs(tmp) do
             for substr in string.gmatch(item, '([^:]+)') do
@@ -192,35 +220,102 @@ function GetHousePrice(cell)
 end
 
 
-function GetHouses()
-    local tmp = {}
-    local houses = {}
+function WhitelistGetList(cell)
+    local whitelist = {}
 
-    local flist = io.open(getDataFolder() ..  package.config:sub(1, 1) .. "houses.txt", "r")
-    if flist ~= nil then
-        for line in flist:lines() do
-            table.insert(tmp, line)
+    local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
+    if f ~= nil then
+        for line in f:lines() do
+            table.insert(whitelist, line)
         end
-        flist:close()
-
-        for index, item in pairs(tmp) do
-            for substr in string.gmatch(item, '([^:]+)') do
-                table.insert(houses, substr)
-                break
-            end
-        end
-
-        return houses
+        f:close()
+    else
+        return nil
     end
+    table.remove(whitelist, 1)
 
-    return -1
+    if whitelist[1] ~= nil then
+        return whitelist
+    else
+        return nil
+    end
 end
 
 
-function WhitelistCheck(cell, player)
+function WhitelistCheck(cell, playerName)
+    local whitelist = WhitelistGetList(cell)
 
+    if whitelist == nil then
+        return false
+    end
+
+    for substr in string.gmatch(whitelist[1], '([^:]+)') do
+        if substr == playerName then
+            return true
+        end
+    end
 
     return false
+end
+
+
+function WhitelistAdd(player, args)
+    if #args < 1 then
+        return false
+    end
+
+    local message
+    local friendName = string.lower(args[1])
+    local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+
+    if playerHouse == nil then
+        message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
+    else
+        if WhitelistCheck(playerHouse, friendName) then
+            message = color.Orange .. friendName .. " is already on your house's whitelist.\n" .. color.Default
+        else
+            message = color.MediumSpringGreen .. friendName .. " is now considered a guest.\n" .. color.Default
+
+
+            -- Magic.
+
+
+        end
+    end
+
+    player:message(message, false)
+
+    return true
+end
+
+
+function WhitelistRemove(player, args)
+    if #args < 1 then
+        return false
+    end
+
+    local message
+    local friendName = string.lower(args[1])
+    local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+
+    if playerHouse == nil then
+        message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
+    else
+        if WhitelistCheck(playerHouse, friendName) then
+            message = color.MediumSpringGreen .. friendName .. " is no longer welcome in your house.\n" .. color.Default
+
+
+            -- Magic.
+
+
+        else
+            message = color.Orange .. friendName .. " is not on your house's whitelist.\n" .. color.Default
+        end
+    end
+
+    player:message(message, false)
+
+    return true
 end
 
 
@@ -280,3 +375,7 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, button)
                        end
                    end
 end)
+
+
+CommandController.registerCommand("wl_add", WhitelistAdd, color.Salmon .. "/wl_add \"[name]\"" .. color.Default .. " - Add friend to your house's whitelist.")
+CommandController.registerCommand("wl_remove", WhitelistRemove, color.Salmon .. "/wl_remove \"[name]\"" .. color.Default .. " - Remove friend from your house's whitelist.")
