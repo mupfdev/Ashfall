@@ -28,9 +28,9 @@ Methods.Remove = function(pid)
         "daedric_pauldron_left", "daedric_pauldron_right",
         "gauntlet_fists_l_unique", "gauntlet_fists_r_unique",
         "daedric_gauntlet_left", "daedric_gauntlet_right",
-        "daedric_boots", "Helseth's Ring", "towershield_eleidon_unique",
+        "daedric_boots", "helseth's ring", "towershield_eleidon_unique",
         "azura's servant", "spell_breaker_unique", "daedric_shield",
-        "daedric_towershield", "Gravedigger", "boots of blinding speed[unique]",
+        "daedric_towershield", "gravedigger", "boots of blinding speed[unique]",
         "bound_shield", "bound_boots", "bound_gauntlet_right",
         "bound_gauntlet_left", "bound_cuirass", "bound_helm"
     }
