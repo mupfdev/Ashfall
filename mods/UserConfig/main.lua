@@ -6,11 +6,8 @@
 -- in return.  Michael Fitzmayer
 
 
-local userConfigPath = getModFolder() .. "users" .. package.config:sub(1,1)
-
-
 function Init(playerName)
-    local config = userConfigPath .. string.lower(playerName) .. ".cfg"
+    local config = getDataFolder() .. "users" .. package.config:sub(1,1) .. string.lower(playerName) .. ".cfg"
 
     local f = io.open(config, "r")
     if f == nil then
@@ -24,9 +21,9 @@ function GetValue(playerName, keyword)
     local settings = {}
 
     settings = ReadSettings(string.lower(playerName))
-    if settings == nil then return -1 end
+    if settings == nil then return 0 end
 
-    local i   = 0
+    local i = 0
     local hit = false
     for index, item in pairs(settings) do
         for substr in string.gmatch(item, '([^=]+)') do
@@ -36,7 +33,7 @@ function GetValue(playerName, keyword)
         end
     end
 
-    return -2
+    return 0
 end
 
 
@@ -45,7 +42,7 @@ function SetValue(playerName, keyword, value)
     local tmp      = {}
 
     tmp = ReadSettings(string.lower(playerName))
-    if tmp == nil then return -1 end
+    if tmp == nil then return false end
 
     local i = 0
     for index, item in pairs(tmp) do
@@ -60,12 +57,12 @@ function SetValue(playerName, keyword, value)
     table.insert(settings, keyword .. "=" .. value)
     WriteSettings(playerName, settings)
 
-    return 0
+    return true
 end
 
 
 function ReadSettings(playerName)
-    local config   = userConfigPath .. string.lower(playerName) .. ".cfg"
+    local config   = getDataFolder() .. "users" .. package.config:sub(1,1) .. string.lower(playerName) .. ".cfg"
     local settings = {}
 
     local f = io.open(config, "r")
@@ -84,7 +81,7 @@ end
 
 
 function WriteSettings(playerName, settings)
-    local config = userConfigPath .. string.lower(playerName) .. ".cfg"
+    local config = getDataFolder() .. "users" .. package.config:sub(1,1) .. string.lower(playerName) .. ".cfg"
 
     local f = io.open(config, "w+")
     if f == nil then

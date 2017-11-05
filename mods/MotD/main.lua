@@ -29,16 +29,16 @@ function Show(player, onConnect)
     if onConnect == true then
         userConfig = Data.UserConfig.GetValue(string.lower(player.name), Config.MotD.configKeyword)
 
-        if userConfig == -2 then
+        if userConfig == nil then
             Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
             userConfig = "1"
         end
 
         if userConfig == "1" then
-            player:getGUI():customMessageBox(1, message, "OK;Disable MotD")
+            player:getGUI():customMessageBox(211, message, "OK;Disable MotD")
         end
     else
-        player:getGUI():customMessageBox(2, message, "OK")
+        player:getGUI():customMessageBox(212, message, "OK")
     end
 
     return true
@@ -52,13 +52,13 @@ end)
 
 
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
-                   if id == 1 then
+                   if id == 211 then
                        if tonumber(data) == 1 then
                            Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "0")
                        end
                    end
 
-                   if id == 2 then
+                   if id == 212 then
                        if tonumber(data) == 0 then
                            Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
                        end

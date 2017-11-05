@@ -35,7 +35,7 @@ function InboxGUI(player)
 
     message = ReadMessage(player, {0, 1})
     if message ~= false then
-        player:getGUI():customMessageBox(1, color.Orange .. "Messages\n\n" .. color.Default .. message, "Close;Delete all")
+        player:getGUI():customMessageBox(221, color.Orange .. "Messages\n\n" .. color.Default .. message, "Close;Delete all")
     else
         CheckInbox(player)
     end
@@ -245,7 +245,7 @@ end)
 
 
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
-                   if id == 1 then
+                   if id == 221 then
                        if tonumber(data) == 1 then
                            DeleteMessage(player, { 0 })
                            CheckInbox(player)
