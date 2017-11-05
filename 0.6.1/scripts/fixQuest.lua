@@ -21,12 +21,17 @@ Methods = {}
 Methods.TR_Blade = function(pid)
     local index = GetQuestHighestIndex("tr_blade")
 
-    if index == 35 then
+    if index == 25 then
         tes3mp.InitializeJournalChanges(pid)
+        tes3mp.AddJournalEntry(pid, "tr_blade", 30, "barenziah")
+        tes3mp.AddJournalEntry(pid, "tr_blade", 35, "karrod")
         tes3mp.AddJournalEntry(pid, "tr_blade", 40, "torasa aram")
         tes3mp.AddJournalEntry(pid, "tr_blade", 45, "torasa aram")
+        tes3mp.AddTopic(pid, "dwemer battle shield")
         tes3mp.SendJournalChanges(pid)
         tes3mp.SendJournalChanges(pid, true)
+        tes3mp.SendTopicChanges(pid)
+        tes3mp.SendTopicChanges(pid, true)
         tes3mp.AddItem(pid, "dwemer_shield_battle_unique", 1, -1)
         tes3mp.SendInventoryChanges(pid)
     end
