@@ -12,6 +12,46 @@ require("color")
 Config.RealEstate = import(getModFolder() .. "config.lua")
 
 
+function CommandHandler(player, args)
+    if args[1] == "add" then
+        if args[2] == nil then
+            return false
+        end
+        GuestListAdd(player, args[2])
+        return true
+    end
+
+    if args[1] == "remove" then
+        if args[2] == nil then
+            return false
+        end
+        GuestListRemove(player, args[2])
+        return true
+    end
+
+    if args[1] == "guests" then
+        GuestListShow(player)
+        return true
+    end
+
+    Help(player)
+    return true
+end
+
+
+function Help(player)
+    local f = io.open(getDataFolder() .. "help.txt", "r")
+    if f == nil then
+        return false
+    end
+
+    local message = f:read("*a")
+    f:close()
+
+    player:getGUI():customMessageBox(231, message, "Close")
+end
+
+
 function CellCheck(player)
     local message      = ""
     local sendMessage  = false
@@ -26,7 +66,7 @@ function CellCheck(player)
     for index, cell in pairs(houses) do
         if cellCurrent == cell then
             if cellOwner ~= nil then
-                if playerName ~= cellOwner and WhitelistCheck(cellCurrent, playerName) == false then
+                if playerName ~= cellOwner and GuestListCheck(cellCurrent, playerName) == false then
                     message = color.Crimson .. "This house is owned by " .. cellOwner .. ".\n" .. color.Default
                     if previousCell ~= cellCurrent then
                         WarpToPreviousPosition(player)
@@ -37,7 +77,7 @@ function CellCheck(player)
                 elseif playerName == cellOwner then
                     message = color.MediumSpringGreen .. "Welcome home, " .. playerName .. ".\n" .. color.Default
                     sendMessage = true
-                elseif WhitelistCheck(cellCurrent, playerName) then
+                elseif GuestListCheck(cellCurrent, playerName) then
                     message = color.MediumSpringGreen .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n" .. color.Default
                     sendMessage = true
                 end
@@ -49,9 +89,9 @@ function CellCheck(player)
 
                 local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
                 if playerHouse == nil then
-                    player:getGUI():customMessageBox(231, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
+                    player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
                 else
-                    player:getGUI():customMessageBox(232, "This house is for sale, but you already own " .. playerHouse .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
+                    player:getGUI():customMessageBox(233, "This house is for sale, but you already own " .. playerHouse .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
                 end
             end
         end
@@ -194,8 +234,8 @@ end
 
 function CellGetPrice(cell)
     local price = 0
-    local tmp   = {}
-    local hit   = false
+    local tmp = {}
+    local hit = false
 
     local f = io.open(getDataFolder() .. "houses.txt", "r")
     if f ~= nil then
@@ -220,37 +260,40 @@ function CellGetPrice(cell)
 end
 
 
-function WhitelistGetList(cell)
-    local whitelist = {}
+function GuestListGetList(cell)
+    local guestList = {}
+    local tmp = {}
 
     local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
     if f ~= nil then
         for line in f:lines() do
-            table.insert(whitelist, line)
+            table.insert(tmp, line)
         end
         f:close()
-    else
-        return nil
     end
-    table.remove(whitelist, 1)
+    table.remove(tmp, 1)
 
-    if whitelist[1] ~= nil then
-        return whitelist
+    if tmp[1] ~= nil then
+        for substr in string.gmatch(tmp[1], '([^:]+)') do
+            table.insert(guestList, substr)
+        end
     else
-        return nil
+        table.insert(guestList, nil)
     end
+
+    return guestList
 end
 
 
-function WhitelistCheck(cell, playerName)
-    local whitelist = WhitelistGetList(cell)
+function GuestListCheck(cell, guestName)
+    local guestList = GuestListGetList(cell)
 
-    if whitelist == nil then
+    if guestList[1] == nil then
         return false
     end
 
-    for substr in string.gmatch(whitelist[1], '([^:]+)') do
-        if substr == playerName then
+    for index, item in pairs(guestList) do
+        if item == guestName then
             return true
         end
     end
@@ -259,61 +302,104 @@ function WhitelistCheck(cell, playerName)
 end
 
 
-function WhitelistAdd(player, args)
-    if #args < 1 then
-        return false
-    end
-
-    local message
-    local friendName = string.lower(args[1])
+function GuestListAdd(player, guestName)
+    local guestName = string.lower(guestName)
+    local message = ""
     local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
 
     if playerHouse == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
     else
-        if WhitelistCheck(playerHouse, friendName) then
-            message = color.Orange .. friendName .. " is already on your house's whitelist.\n" .. color.Default
+        if GuestListCheck(playerHouse, guestName) then
+            message = color.Orange .. guestName .. " is already on your guest list.\n" .. color.Default
         else
-            message = color.MediumSpringGreen .. friendName .. " is now considered a guest.\n" .. color.Default
+            local guestList = GuestListGetList(playerHouse)
 
+            if guestList[1] == nil then
+                table.remove(guestList, 1)
+            end
+            table.insert(guestList, guestName)
 
-            -- Magic.
+            local fcontent = string.lower(player.name) .. "\n"
+            for index, item in pairs(guestList) do
+                fcontent = fcontent .. item .. ":"
+            end
 
-
+            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerHouse .. ".txt", "w+")
+            if f ~= nil then
+                message = color.MediumSpringGreen .. guestName .. " is now considered a guest.\n" .. color.Default
+                f:write(fcontent)
+                f:close()
+            end
         end
     end
 
     player:message(message, false)
-
     return true
 end
 
 
-function WhitelistRemove(player, args)
-    if #args < 1 then
-        return false
-    end
-
-    local message
-    local friendName = string.lower(args[1])
+function GuestListRemove(player, guestName)
+    local message = ""
     local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+
+    guestName = string.lower(guestName)
 
     if playerHouse == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
     else
-        if WhitelistCheck(playerHouse, friendName) then
-            message = color.MediumSpringGreen .. friendName .. " is no longer welcome in your house.\n" .. color.Default
+        if GuestListCheck(playerHouse, guestName) then
+            local guestList = GuestListGetList(playerHouse)
 
+            local fcontent =  string.lower(player.name) .. "\n"
+            for index, item in pairs(guestList) do
+                if item ~= guestName then
+                    fcontent = fcontent .. item .. ":"
+                end
+            end
 
-            -- Magic.
-
-
+            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerHouse .. ".txt", "w+")
+            if f ~= nil then
+                message = color.MediumSpringGreen .. guestName .. " is no longer welcome in your house.\n" .. color.Default
+                f:write(fcontent)
+                f:close()
+            end
         else
-            message = color.Orange .. friendName .. " is not on your house's whitelist.\n" .. color.Default
+            message = color.Orange .. guestName .. " is not on your guest list.\n" .. color.Default
         end
     end
 
     player:message(message, false)
+    return true
+end
+
+
+function GuestListShow(player)
+    local message = ""
+    local sendMessage = false
+    local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+
+    if playerHouse == nil then
+        message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
+        sendMessage = true
+    else
+        local guestList = GuestListGetList(playerHouse)
+
+        if guestList[1] == nil then
+            message = color.Crimson .. "Your guest list is empty.\n" .. color.Default
+            sendMessage = true
+        else
+            message = message .. color.Orange .. "Guests of " ..  playerHouse .. "\n\n" .. color.Default
+            for index, item in pairs(guestList) do
+                message = message .. item .. "\n"
+            end
+            player:getGUI():customMessageBox(234, message, "Close")
+        end
+    end
+
+    if sendMessage == true then
+        player:message(message, false)
+    end
 
     return true
 end
@@ -362,12 +448,12 @@ end)
 
 
 Event.register(Events.ON_GUI_ACTION, function(player, id, button)
-                   if id == 231 then
+                   if id == 232 then
                        if tonumber(button) == 1 then
                            CellBuy(player)
                        end
                    end
-                   if id == 232 then
+                   if id == 233 then
                        if tonumber(button) == 1 then
                            local cell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
                            CellRelease(cell)
@@ -377,5 +463,4 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, button)
 end)
 
 
-CommandController.registerCommand("wl_add", WhitelistAdd, color.Salmon .. "/wl_add \"[name]\"" .. color.Default .. " - Add friend to your house's whitelist.")
-CommandController.registerCommand("wl_remove", WhitelistRemove, color.Salmon .. "/wl_remove \"[name]\"" .. color.Default .. " - Remove friend from your house's whitelist.")
+CommandController.registerCommand("house", CommandHandler, color.Salmon .. "/house help" .. color.Default .. " - Real estate system.")
