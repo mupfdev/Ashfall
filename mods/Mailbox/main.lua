@@ -20,7 +20,7 @@ function Init(player)
     local f = io.open(mbox, "r")
     if f == nil then
         f = io.open(mbox, "w+")
-        f:write("Thanks for joining our server. - The staff\n")
+        f:write(Config.Mailbox.welcomeMessage)
         f:close()
         message = color.MediumSpringGreen .. "A new mailbox has been initialised.\n" .. color.Default
         player:message(message, false)
@@ -30,41 +30,78 @@ function Init(player)
 end
 
 
-function InboxGUI(player)
-    local message
-
-    message = ReadMessage(player, {0, 1})
-    if message ~= false then
-        player:getGUI():customMessageBox(221, color.Orange .. "Messages\n\n" .. color.Default .. message, "Close;Delete all")
-    else
-        CheckInbox(player)
+function CommandHandler(player, args)
+    if #args < 1 then
+        if InboxGUI(player) == false then
+            return false
+        end
+        return true
     end
 
+    if args[1] == "check" then
+        if InboxCheck(player) == false then
+            return false
+        end
+        return true
+    end
+
+    if args[1] == "delete" then
+        if args[2] == nil then
+            return false
+        end
+        if MessageDelete(player, args[2]) == false then
+            return false
+        end
+        return true
+    end
+
+    if args[1] == "read" then
+        if args[2] == nil or args[3] == true then
+            return false
+        end
+        if MessageRead(player, args[2]) == false then
+            return false
+        end
+        return true
+    end
+
+    if args[1] == "send" then
+        if args[3] == nil then
+            return false
+        end
+        if MessageSend(player, args[2], args[3]) == false then
+            return false
+        end
+        return true
+    end
+
+    Help(player)
     return true
 end
 
 
-function SetEmail(player, args)
-    if #args < 1 then
+function Help(player)
+    local f = io.open(getDataFolder() .. "help.txt", "r")
+    if f == nil then
         return false
-    else
-        if tonumber(args[1]) == 0 or validemail(args[1]) == true then
-            Data.UserConfig.SetValue(string.lower(player.name), Config.Mailbox.configKeyword, args[1])
-            return true
-        end
     end
 
-    return false
+    local message = f:read("*a")
+    f:close()
+
+    player:getGUI():customMessageBox(221, message, "Close")
 end
 
 
-function CheckInbox(player)
+function InboxCheck(player)
     local message
     local mbox = getDataFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
     local c = 0
 
     local f = io.open(mbox, "r")
-    if f == nil then return -1 end
+    if f == nil then
+        return false
+    end
     for _ in io.lines(mbox) do c = c + 1 end
     f:close()
 
@@ -78,15 +115,85 @@ function CheckInbox(player)
 end
 
 
-function ReadMessage(player, args)
-    if #args < 1 then
+function InboxGUI(player)
+    local message
+
+    message = MessageRead(player, 0, true)
+    if message ~= false then
+        player:getGUI():customMessageBox(222, color.Orange .. "Messages\n\n" .. color.Default .. message, "Close;Delete all")
+    else
+        InboxCheck(player)
+    end
+
+    return true
+end
+
+
+function MessageDelete(player, id)
+    if tonumber(id) == nil then
+        return false
+    end
+    id = tonumber(id)
+    if not math.floor(id) then
         return false
     end
 
-    local id = args[1]
-    if tonumber(id) == nil then return false end
+    local message = ""
+    local mbox = getDataFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
+    local line = {}
+    local content = {}
+    local c = 0
+    local i = 0
+
+    local f = io.open(mbox, "r")
+    if f == nil then
+        return false
+    end
+    for _ in io.lines(mbox) do c = c + 1 end
+
+    -- Delete all messages.
+    if id == 0 then
+        f = io.open(mbox, "w+")
+        f:close()
+        message = color.MediumSpringGreen .. "All messages have been deleted.\n"
+    else
+        -- Delete specific message.
+        if id > c or id < 0 then
+            message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Default
+        else
+            f = io.open(mbox, "r")
+            while true do
+                line = f:read()
+                if line == nil then break end
+                content[i] = line .. "\n"
+                i = i + 1
+            end
+            f:close()
+            table.remove(content, id - 1)
+
+            f = io.open(mbox, "w+")
+            for i = 0, c - 2 do f:write(content[i]) end
+            f:close()
+
+            message = message .. color.MediumSpringGreen .. "Message " .. tostring(id) .. " has been deleted.\n" .. color.Default
+        end
+    end
+
+    player:message(message, false)
+    return true
+end
+
+
+function MessageRead(player, id, returnMessage)
+    returnMessage = returnMessage or false
+
+    if tonumber(id) == nil then
+        return false
+    end
     id = tonumber(id)
-    if not math.floor(id) then return false end
+    if not math.floor(id) then
+        return false
+    end
 
     local message = ""
     local mbox = getDataFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
@@ -95,9 +202,13 @@ function ReadMessage(player, args)
     local i = 0
 
     local f = io.open(mbox, "r")
-    if f == nil then return false end
+    if f == nil then
+        return false
+    end
     for _ in io.lines(mbox) do c = c + 1 end
-    if c < 1 then return false end
+    if c < 1 then
+        return false
+    end
 
     -- Show all messages at once.
     if id == 0 then
@@ -125,25 +236,19 @@ function ReadMessage(player, args)
             i = i + 1
         end
     end
-
     f:close()
 
-    if tonumber(args[2]) == 1 then
+    player:message(message, false)
+
+    if returnMessage == true then
         return message
     else
-        player:message(message, false)
         return true
     end
 end
 
 
-function SendMessage(player, args)
-    if #args < 1 then
-        return false
-    end
-
-    local user = args[1]
-    local text = args[2]
+function MessageSend(player, user, text)
     local i = 0
 
     local mbox = getDataFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(user) .. ".txt"
@@ -177,86 +282,36 @@ function SendMessage(player, args)
     end
 
     player:message(message, false)
-
     return true
 end
 
 
-function DeleteMessage(player, args)
-    if #args < 1 then
-        return false
+-- E-Mail message forwarding not implemented yet.
+function SetEmail(player, email)
+    if tonumber(email) == 0 or validemail(email) == true then
+        Data.UserConfig.SetValue(string.lower(player.name), Config.Mailbox.configKeyword, email)
+        return true
     end
 
-    local id = args[1]
-    if tonumber(id) == nil then return false end
-    id = tonumber(id)
-    if not math.floor(id) then return false end
-
-    local message = ""
-    local mbox = getDataFolder() .. "users" .. package.config:sub(1, 1) .. string.lower(player.name) .. ".txt"
-    local line = {}
-    local content = {}
-    local c = 0
-    local i = 0
-
-    local f = io.open(mbox, "r")
-    if f == nil then return false end
-    for _ in io.lines(mbox) do c = c + 1 end
-
-    -- Delete all messages.
-    if id == 0 then
-        f = io.open(mbox, "w+")
-        f:close()
-        message = color.MediumSpringGreen .. "All messages have been deleted.\n"
-    else
-        -- Delete specific message.
-        if id > c or id < 0 then
-            message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Default
-        else
-            f = io.open(mbox, "r")
-            while true do
-                line = f:read()
-                if line == nil then break end
-                content[i] = line .. "\n"
-                i = i + 1
-            end
-            f:close()
-            table.remove(content, id - 1)
-
-            f = io.open(mbox, "w+")
-            for i = 0, c - 2 do f:write(content[i]) end
-            f:close()
-
-            message = message .. color.MediumSpringGreen .. "Message " .. tostring(id) .. " has been deleted.\n" .. color.Default
-        end
-    end
-
-    player:message(message, false)
-
-    return true
+    return false
 end
 
 
 Event.register(Events.ON_PLAYER_CONNECT, function(player)
                    Init(player)
-                   CheckInbox(player)
+                   InboxCheck(player)
                    return true
 end)
 
 
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
-                   if id == 221 then
+                   if id == 222 then
                        if tonumber(data) == 1 then
-                           DeleteMessage(player, { 0 })
-                           CheckInbox(player)
+                           MessageDelete(player, { 0 })
+                           InboxCheck(player)
                        end
                    end
 end)
 
 
-CommandController.registerCommand("mailbox",  InboxGUI,      color.Salmon .. "/mailbox" .. color.Default .. " - Open your mailbox")
-CommandController.registerCommand("mbcheck",  CheckInbox,    color.Salmon .. "/mbcheck" .. color.Default .. " - Check your inbox")
-CommandController.registerCommand("mbread",   ReadMessage,   color.Salmon .. "/mbread [id]" .. color.Default .. " - Read mailbox message (id 0 for all)")
-CommandController.registerCommand("mbsend",   SendMessage,   color.Salmon .. "/mbsend \"[user]\" \"[message]\"" .. color.Default .. " - Send mailbox message")
-CommandController.registerCommand("mbdelete", DeleteMessage, color.Salmon .. "/mbdelete [id]" .. color.Default .. " - Delete mailbox message (id 0 for all)")
---CommandController.registerCommand("email",    SetEmail,      color.Salmon .. "/email [email]" .. color.Default .. " - Enable message forwarding (email 0 to disable)")
+CommandController.registerCommand("mailbox", CommandHandler, color.Salmon .. "/mailbox help" .. color.Default .. " - Mailbox system.")

@@ -15,19 +15,16 @@ Config.MotD = import(getModFolder() .. "config.lua")
 function Show(player, onConnect)
     onConnect = onConnect or false
 
-    local userConfig
-    local message
-
     local f = io.open(getDataFolder() .. "motd.txt", "r")
     if f == nil then return false end
 
-    message = f:read("*a")
+    local message = f:read("*a")
     f:close()
 
-    message  = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
+    message = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
 
     if onConnect == true then
-        userConfig = Data.UserConfig.GetValue(string.lower(player.name), Config.MotD.configKeyword)
+        local userConfig = Data.UserConfig.GetValue(string.lower(player.name), Config.MotD.configKeyword)
 
         if userConfig == nil then
             Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
