@@ -56,14 +56,13 @@ function CellCheck(player)
     local message      = ""
     local sendMessage  = false
     local cellCurrent  = player:getCell().description
-    local cellPrevious = "" -- TODO -- local previousCell = Players[pid].data.location.cell
     local cellOwner    = CellGetOwner(cellCurrent)
-    local houses       = CellGetList()
+    local cells       = CellGetList()
     local playerName   = string.lower(player.name)
 
-    if houses == -1 then return -1 end
+    if cells == -1 then return -1 end
 
-    for index, cell in pairs(houses) do
+    for index, cell in pairs(cells) do
         if cellCurrent == cell then
             if cellOwner ~= nil then
                 if playerName ~= cellOwner and GuestListCheck(cellCurrent, playerName) == false then
@@ -87,11 +86,11 @@ function CellCheck(player)
                     housePrice = Config.RealEstate.basePrice
                 end
 
-                local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
-                if playerHouse == nil then
+                local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+                if playerCell == nil then
                     player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
                 else
-                    player:getGUI():customMessageBox(233, "This house is for sale, but you already own " .. playerHouse .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
+                    player:getGUI():customMessageBox(233, "This house is for sale, but you already own " .. playerCell .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
                 end
             end
         end
@@ -111,19 +110,19 @@ function CellBuy(player)
     local sendMessage = false
     local cellCurrent = player:getCell().description
     local cellOwner   = CellGetOwner(cellCurrent)
-    local houses      = CellGetList()
+    local cells      = CellGetList()
     --local playerGold  = 0
     local playerGold  = 1000000
     --local goldIndex
 
-    if houses == -1 then return -1 end
+    if cells == -1 then return -1 end
 
     --if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", "gold_001", true) then
     --    goldIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", "gold_001")
     --    playerGold = Players[pid].data.inventory[goldIndex].count
     --end
 
-    for index, cell in pairs(houses) do
+    for index, cell in pairs(cells) do
         if cellCurrent == cell and cellOwner == nil then
 
             local housePrice = CellGetPrice(cellCurrent)
@@ -167,37 +166,34 @@ function CellRelease(cell)
 end
 
 
---[[
-function Portkey(pid)
-    if tes3mp.HasItemEquipped(pid, "iron fork") then
-        local message     = ""
+function Portkey(player)
+    if player:getInventory():hasItemEquipped(string.lower(Config.RealEstate.portkeyRefId)) and Config.RealEstate.portkey == true then
+        player:message("true\n", false)
+        local message = ""
         local sendMessage = false
-        local playerName  = string.lower(tes3mp.GetName(pid))
-        local playerHouse = userConfig.GetValue(pid, configKeyword)
+        local playerName = string.lower(player.name)
+        local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
 
-        if playerHouse == -1 or playerHouse == "false" then
-            message = message .. color.Crimson .. "You do not own a house yet.\n" .. color.Default
+        if playerCell == nil then
+            message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
             sendMessage = true
         else
-            tes3mp.UnequipItem(pid, 16)
-            tes3mp.SendEquipment(pid)
-            tes3mp.SetCellll(pid, playerHouse)
-            tes3mp.SendCell(pid)
+            player:getInventory():unequipItem(Config.RealEstate.portkeySlot)
+            player:getCell().description = playerCell
         end
 
         if sendMessage == true then
-            tes3mp.SendMessage(pid, message, false)
+            player:message(message, false)
         end
     end
 end
----]]
 
 
 function CellGetList()
     local tmp = {}
-    local houses = {}
+    local cells = {}
 
-    local f = io.open(getDataFolder() ..  package.config:sub(1, 1) .. "houses.txt", "r")
+    local f = io.open(getDataFolder() ..  package.config:sub(1, 1) .. "cells.txt", "r")
     if f ~= nil then
         for line in f:lines() do
             table.insert(tmp, line)
@@ -206,12 +202,12 @@ function CellGetList()
 
         for index, item in pairs(tmp) do
             for substr in string.gmatch(item, '([^:]+)') do
-                table.insert(houses, substr)
+                table.insert(cells, substr)
                 break
             end
         end
 
-        return houses
+        return cells
     end
 
     return -1
@@ -237,7 +233,7 @@ function CellGetPrice(cell)
     local tmp = {}
     local hit = false
 
-    local f = io.open(getDataFolder() .. "houses.txt", "r")
+    local f = io.open(getDataFolder() .. "cells.txt", "r")
     if f ~= nil then
         for line in f:lines() do
             table.insert(tmp, line)
@@ -305,15 +301,15 @@ end
 function GuestListAdd(player, guestName)
     local guestName = string.lower(guestName)
     local message = ""
-    local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+    local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
 
-    if playerHouse == nil then
+    if playerCell == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
     else
-        if GuestListCheck(playerHouse, guestName) then
+        if GuestListCheck(playerCell, guestName) then
             message = color.Orange .. guestName .. " is already on your guest list.\n" .. color.Default
         else
-            local guestList = GuestListGetList(playerHouse)
+            local guestList = GuestListGetList(playerCell)
 
             if guestList[1] == nil then
                 table.remove(guestList, 1)
@@ -325,7 +321,7 @@ function GuestListAdd(player, guestName)
                 fcontent = fcontent .. item .. ":"
             end
 
-            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerHouse .. ".txt", "w+")
+            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerCell .. ".txt", "w+")
             if f ~= nil then
                 message = color.MediumSpringGreen .. guestName .. " is now considered a guest.\n" .. color.Default
                 f:write(fcontent)
@@ -341,15 +337,15 @@ end
 
 function GuestListRemove(player, guestName)
     local message = ""
-    local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+    local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
 
     guestName = string.lower(guestName)
 
-    if playerHouse == nil then
+    if playerCell == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
     else
-        if GuestListCheck(playerHouse, guestName) then
-            local guestList = GuestListGetList(playerHouse)
+        if GuestListCheck(playerCell, guestName) then
+            local guestList = GuestListGetList(playerCell)
 
             local fcontent =  string.lower(player.name) .. "\n"
             for index, item in pairs(guestList) do
@@ -358,7 +354,7 @@ function GuestListRemove(player, guestName)
                 end
             end
 
-            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerHouse .. ".txt", "w+")
+            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerCell .. ".txt", "w+")
             if f ~= nil then
                 message = color.MediumSpringGreen .. guestName .. " is no longer welcome in your house.\n" .. color.Default
                 f:write(fcontent)
@@ -377,19 +373,19 @@ end
 function GuestListShow(player)
     local message = ""
     local sendMessage = false
-    local playerHouse = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+    local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
 
-    if playerHouse == nil then
+    if playerCell == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
         sendMessage = true
     else
-        local guestList = GuestListGetList(playerHouse)
+        local guestList = GuestListGetList(playerCell)
 
         if guestList[1] == nil then
             message = color.Crimson .. "Your guest list is empty.\n" .. color.Default
             sendMessage = true
         else
-            message = message .. color.Orange .. "Guests of " ..  playerHouse .. "\n\n" .. color.Default
+            message = message .. color.Orange .. "Guests of " ..  playerCell .. "\n\n" .. color.Default
             for index, item in pairs(guestList) do
                 message = message .. item .. "\n"
             end
@@ -406,44 +402,36 @@ end
 
 
 function WarpToPreviousPosition(player)
-    player:message("WaroToPreviousPosition()\n", false)
+    player:getCell().description = player.customData.cellPrevious
     --local posx = tes3mp.GetPreviousCellPosX(pid)
     --local posy = tes3mp.GetPreviousCellPosY(pid)
     --local posz = tes3mp.GetPreviousCellPosZ(pid)
-
-    --tes3mp.SetCell(pid, "")
-    --tes3mp.SetPos(pid, posx, posy, posz)
-    --tes3mp.SendCell(pid)
-    --tes3mp.SendPos(pid)
 end
 
 
 -- https://i.imgur.com/FCGYYqH.jpg
 -- It's a meme, not a typo.
 function WaroToSeydaNeen(player)
-    player:message("WaroToSeydaNeen()\n", false)
-    --tes3mp.SetCell(pid, "-2, -9")
-    --tes3mp.SendCell(pid)
+    player:getCell().description = "-2, -9"
 end
-
-
---[[
-function PlayerHasItemEquipped(pid, list)
-    local c = 0
-    local i = 1
-
-    while list[i] ~= nil do
-        if tes3mp.HasItemEquipped(pid, tostring(list[i])) then c = c + 1 end
-        i = i + 1
-    end
-
-    if c > 0 then return true else return false end
-end
----]]
 
 
 Event.register(Events.ON_PLAYER_CELLCHANGE, function(player)
+                   -- Dirty hack to determine previous cell.
+                   -- Todo:
+                   --   GetPreviousCellPosX
+                   --   GetPreviousCellPosY
+                   --   GetPreviousCellPosZ
+                   if player:getCell():isExterior() == true then
+                       player.customData["cellPrevious"] = player:getCell().description
+                   end
+                   --
                    CellCheck(player)
+end)
+
+
+Event.register(Events.ON_PLAYER_EQUIPMENT, function(player)
+                   Portkey(player)
 end)
 
 
