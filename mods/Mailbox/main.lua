@@ -307,7 +307,7 @@ end)
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 222 then
                        if tonumber(data) == 1 then
-                           MessageDelete(player, { 0 })
+                           MessageDelete(player, 0)
                            InboxCheck(player)
                        end
                    end
