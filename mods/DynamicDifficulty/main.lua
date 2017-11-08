@@ -12,7 +12,9 @@ require("color")
 Config.DynamicDifficulty = import(getModFolder() .. "config.lua")
 
 
-function UpdateDifficulty(player)
+function UpdateDifficulty(player, onConnect)
+    onConnect = onConnect or false
+
     local difficulty
     local difficultyMin = Config.DynamicDifficulty.min
     local difficultyCap = Config.DynamicDifficulty.cap
@@ -34,7 +36,7 @@ function UpdateDifficulty(player)
         difficulty = difficultyMin
     end
 
-    if Config.DynamicDifficulty.notify == true then
+    if Config.DynamicDifficulty.notify == true and onConnect == false then
         player:message(color.Cyan .. "Difficulty is now set to " .. tostring(difficulty) .. ".\n" .. color.Default, false)
     end
 
@@ -43,7 +45,7 @@ end
 
 
 Event.register(Events.ON_PLAYER_CONNECT, function(player)
-                   UpdateDifficulty(player)
+                   UpdateDifficulty(player, true)
                    return true
 end)
 
