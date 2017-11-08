@@ -32,10 +32,14 @@ function Show(player, onConnect)
         end
 
         if userConfig == "1" then
-            player:getGUI():customMessageBox(211, message, "OK;Disable MotD")
+            if player.level == 1 and player.levelProgress == 0 then
+                player:getGUI():customMessageBox(211, message, "OK;Disable MotD")
+            else
+                player:getGUI():customMessageBox(212, message, "OK;" .. Config.MotD.spawnLocation .. ";Disable MotD")
+            end
         end
     else
-        player:getGUI():customMessageBox(212, message, "OK")
+        player:getGUI():customMessageBox(213, message, "OK")
     end
 
     return true
@@ -56,6 +60,15 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    end
 
                    if id == 212 then
+                       if tonumber(data) == 1 then
+                           player:getCell().description = Config.MotD.spawnLocation
+                       end
+                       if tonumber(data) == 2 then
+                           Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "0")
+                       end
+                   end
+
+                   if id == 213 then
                        if tonumber(data) == 0 then
                            Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
                        end
