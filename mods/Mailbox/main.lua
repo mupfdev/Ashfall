@@ -278,6 +278,12 @@ function MessageSend(player, user, text)
             f:write(text)
             f:close()
             message = color.MediumSpringGreen .. "Message has been sent.\n"
+
+            Players.for_each(function(receiver)
+                    if string.lower(receiver.name) == string.lower(user) then
+                        receiver:message(color.Cyan .. "You've got mail from  " .. player.name .. ".\n" .. color.Default, false)
+                    end
+            end)
         end
     end
 
