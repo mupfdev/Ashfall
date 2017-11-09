@@ -34,6 +34,7 @@ function UpdateDifficulty(player, notify)
 
     if player.level == 1 then
         difficulty = difficultyMin
+        notify = false
     end
 
     if Config.DynamicDifficulty.notify == true and notify == true then
