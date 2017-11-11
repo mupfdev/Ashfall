@@ -1,0 +1,18 @@
+Slay 7 mudcrabs.;hunt;5;1;mudcrab;mudcrab-diseased;7;gold_001;300;You have been awarded 300 gold.;
+Kill 4 rats.;hunt;5;1;rat;rat_diseased;rat_blighted;4;gold_001;400;You have been awarded 400 gold.;
+Track down and slay 4 alits.;hunt;4;5;alit;alit_diseased;alit_blighted;4;gold_001;700;You have been awarded 700 gold.;
+Slay 6 slaughterfish.;hunt;4;5;slaughterfish;slaughterfish_small;6;gold_001;600;You have been awarded 600 gold.;
+Find and kill 5 cliff racers.;hunt;4;5;cliff racer;cliff racer_diseased;cliff racer_blighted;5;gold_001;800;You have been awarded 800 gold.;
+Venture into various tombs and kill 5 skeletons.;hunt;3;10;skeleton;skeleton entrance;skeleton archer;skeleton champion;skeleton warrior;5;gold_001;1000;You have been awarded 1000 gold.;
+Kill 4 bonewalkers.;hunt;3;15;bonewalker;bonewalker_greater;4;strength;1;You feel slightly stronger.;
+End 3 ancestral ghosts.;hunt;3;10;ancestor_ghost;3;gold_001;800;You have been awarded 800 gold.;
+Find and kill 4 dremoras.;hunt;1;25;dremora;dremora_lord;4;random;gold_001;3;500;A random attribute has been increased by 3 and you have been awarded 500 gold.;
+Slay 3 ogrims.;hunt;2;20;ogrim;ogrim titan;3;random;2;A random attribute has been increased by 2.;
+Find and kill 2 golden saints.;hunt;1;25;golden saint;2;random;3;A random attribute has been increased by 3.;
+Track down and kill 4 clannfears.;hunt;2;20;clannfear;4;speed;3;You feel a bit faster.;
+Destroy 5 atronaches of any element.;hunt;3;15;atronach_flame;atronach_frost;atronach_storm;5;willpower;2;You are now more resistant to spells.;
+Slay 4 scamps.;hunt;3;15;scamp;4;gold_001;1200;You have been awarded 1200 gold.;
+Kill 4 kagouties.;hunt;4;5;kagouti;kagouti_diseased;kagouti_blighted;4;gold_001;700;You have been awarded 700 gold.;
+Locate and kill any 5 nix-hounds.;hunt;4;5;nix-hound;nix-hound blighted;5;gold_001;800;You have been awarded 800 gold.;
+Venture into the Red Mountain region and slay 4 ascended sleepers.;hunt;1;30;ascended_sleeper;4;random;gold_001;4;1000;A random attribute has been increased by 4. You have also been awarded 1000 gold.;
+Fight back Dagoth Ur's invasion - slay any 10 ash zombies, slaves or ghouls.;hunt;1;20;ash_ghoul;ash_slave;ash_zombie;ash_zombie_fgaz;10;agility;gold_001;3;600;You feel more nimble, as well as having 600 extra gold.;
