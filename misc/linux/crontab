@@ -1,0 +1,16 @@
+# +------------- min (0 - 59)
+# |    +----------- hour (0 - 23)
+# |    |    +--------- day of month (1 - 31)
+# |    |    | +------- month (1 - 12)
+# |    |    | | +----- day of week (0 - 6) (Sunday=0)
+# |    |    | | | +--- command to be executed
+# *    *    * * * *
+ 59   11    * * 1 touch /home/tes3mp/server/keepers/maintenance.lock
+  0   12    * * 1 /home/tes3mp/bin/reset.sh
+ 59   23    * * 5 touch /home/tes3mp/server/keepers/maintenance.lock 
+  0    0    * * 5 /home/tes3mp/bin/reset.sh
+  */2  *    * * * /home/tes3mp/bin/failsafe.sh
+  3    *    * * * /home/tes3mp/bin/backup_player.sh
+  1    */24 * * * /home/tes3mp/bin/backup_logs.sh
+  1    0    * * * /home/tes3mp/bin/cleanup_daily.sh
+  2    0    1 * * /home/tes3mp/bin/cleanup_monthly.sh

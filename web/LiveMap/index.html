@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TES3MP Live Map</title>
+    <meta name="description" content="TES3MP Live Map">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+          crossorigin=""
+    />
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+            crossorigin="">
+    </script>
+    <script src="assets/js/leaflet.rotatedMarker.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+     var map = L.map('map', {
+       maxZoom: 17,
+       minZoom: 12,
+       crs: L.CRS.Simple
+     }).setView([-0.045, 0.06], 14);
+
+     var southWest = map.unproject([0, 12800], map.getMaxZoom());
+     var northEast = map.unproject([14080, 0], map.getMaxZoom());
+     map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+
+     L.tileLayer('tiles/{z}/map_{x}_{y}.webp', {
+       attribution: 'Map data &copy; Bethesda Softworks',
+     }).addTo(map);
+
+     //player icon
+     var playerIcon = L.icon({
+       iconUrl: 'assets/img/compass.png',
+       iconSize:     [24, 24], // size of the icon
+       iconAnchor:   [12, 24], // point of the icon which will correspond to marker's location
+       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+     });
+
+     //change this for quicker or slower update
+     var updater = setInterval(checkForUpdates, 1000);
+
+     var markers = {};
+
+     function loadJSON(file, callback) {
+       var xobj = new XMLHttpRequest();
+       xobj.overrideMimeType("application/json");
+       xobj.open('GET', file, true);
+       xobj.onreadystatechange = function () {
+         if (xobj.readyState == 4 && xobj.status == "200") {
+           // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+           callback(xobj.responseText);
+         }
+       };
+       xobj.send(null);
+     }
+
+     function checkForUpdates() {
+       loadJSON("assets/json/playerPositions.json", function(response) {
+         var players = JSON.parse(response);
+         updateMarkers(players);
+       });
+     }
+
+     var multiplier = 32.2;
+     function convertCoord(coord)
+     {
+
+       coord[0] = coord[0]/multiplier+7707;
+       coord[1] = coord[1]/-multiplier+7650;
+       return coord;
+     }
+
+     function reverseCoord(coord)
+     {
+       coord[0] = coord[0]*multiplier-7707;
+       coord[1] = coord[1]*-multiplier-7650;
+       return coord;
+     }
+
+     function updateMarkers(players) {
+       for(var i = 0;i<players.length;i++)
+         {
+           var player = players[i];
+
+           var markerObject = [];
+           //check if we have marker for this index
+           if(player.name in markers)
+             {
+               //console.log("Updating marker for "+player.name);
+               markerObject = markers[player.name];
+               markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));
+               markerObject.marker.setRotationAngle(player.rot);
+               markerObject.marker.bindPopup(player.name);
+             }
+           //if not then create new and add that
+           else
+             {
+               var tempMarker = L.marker(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()), {icon: playerIcon}).addTo(map);
+               markerObject.marker = tempMarker;
+               markerObject.marker.setRotationAngle(player.rot);
+               markerObject.inUse = true;
+               markers[player.name] = markerObject;
+             }
+         }
+
+     };
+
+     //Uncomment this for map click popups
+     /*var popup = L.popup();
+
+        function onMapClick(e) {
+        popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked at " + e.latlng.toString())
+        .openOn(map);
+        }
+
+        map.on('click', onMapClick);*/
+    </script>
+  </body>
+</html>
