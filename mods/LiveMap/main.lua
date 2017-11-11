@@ -6,4 +6,31 @@
 -- in return.  Michael Fitzmayer
 
 
-Config.MotD = import(getModFolder() .. "config.lua")
+JsonInterface = require("jsonInterface")
+
+
+Config.LiveMap = import(getModFolder() .. "config.lua")
+
+
+local timer
+
+
+function Update()
+    local playerInfo = {}
+
+    Players.for_each(function(player)
+            playerInfo[player.pid] = {}
+            playerInfo[player.pid].name = player.name
+            playerInfo[player.pid].x, playerInfo[player.pid].y = player:getPosition()
+            playerInfo[player.pid].rot = player:getRotation()
+    end)
+
+    JsonInterface.save(Config.LiveMap.path .. "LiveMap.json", playerInfo)
+    timer:start()
+end
+
+
+Event.register(Events.ON_POST_INIT, function()
+                   timer = TimerCtrl.create(Update, (Config.LiveMap.updateInterval * 100), { timer })
+                   timer:start()
+end)
