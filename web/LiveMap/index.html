@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>TES3MP Live Map</title>
+        <meta name="description" content="TES3MP Live Map">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <!--[if lt IE 9]>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+              integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+              crossorigin=""
+        />
+        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+                integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                crossorigin="">
+        </script>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+         var map = L.map('map', {
+             maxZoom: 17,
+             minZoom: 14,
+             crs: L.CRS.Simple
+         }).setView([0, 0], 14);
+
+         var southWest = map.unproject([0, 12800], map.getMaxZoom());
+         var northEast = map.unproject([14080, 0], map.getMaxZoom());
+         map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+
+         L.tileLayer('/tiles/{z}/map_{x}_{y}.webp', {
+             attribution: 'Map data &copy; Bethesda Softworks',
+         }).addTo(map);
+        </script>
+    </body>
+</html>
