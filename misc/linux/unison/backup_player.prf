@@ -1,7 +1,0 @@
-root = /home/tes3mp/server/keepers/server_data/data/player/
-root = /home/tes3mp/backups/player/current/
-
-confirmbigdel = false
-force = /home/tes3mp/server/keepers/server_data/data/player/
-log = false
-silent = true
