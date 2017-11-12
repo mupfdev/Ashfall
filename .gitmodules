@@ -5,14 +5,20 @@
 	path = 0.6.1/scripts/SkotisVarvikas
 	url = https://github.com/SkotisVarvikas/TES3MP-Stuffs
 [submodule "0.6.1/scripts/Check"]
-	path = 0.6.1/scripts/Check
+	path = 0.6.1/scripts/check
 	url = https://github.com/mupfelofen-de/tes3mp-check
 [submodule "0.6.1/scripts/PlayerCells"]
-	path = 0.6.1/scripts/PlayerCells
+	path = 0.6.1/scripts/playercells
 	url = https://github.com/mupfelofen-de/tes3mp-playercells
 [submodule "0.6.1/scripts/CommandPack"]
-	path = 0.6.1/scripts/CommandPack
+	path = 0.6.1/scripts/command-pack
 	url = https://github.com/mupfelofen-de/tes3mp-command-pack
 [submodule "0.6.1/scripts/DisableAssasins"]
-	path = 0.6.1/scripts/DisableAssasins
+	path = 0.6.1/scripts/disable-assassins
 	url = https://github.com/mupfelofen-de/tes3mp-disable-assassins
+[submodule "0.6.1/scripts/TCC"]
+	path = 0.6.1/scripts/TCC
+	url = https://github.com/Texafornian/TCC-0.6.1
+[submodule "0.6.1/scripts/mwTDM"]
+	path = 0.6.1/scripts/mwTDM
+	url = https://github.com/Texafornian/mwTDM-0.6.1
