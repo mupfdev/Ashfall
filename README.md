@@ -9,6 +9,10 @@ following command:
 
 `git clone --recursive -j8 https://github.com/TES3MP-TeamFOSS/Scripts.git`
 
+To update your existing fork use:
+
+`git pull --recurse-submodules`
+
 ## Note
 
 These scripts are intended to use with version `0.7.0-alpha` and are
