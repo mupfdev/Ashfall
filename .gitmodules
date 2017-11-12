@@ -4,3 +4,15 @@
 [submodule "0.6.1/scripts/SkotisVarvikas"]
 	path = 0.6.1/scripts/SkotisVarvikas
 	url = https://github.com/SkotisVarvikas/TES3MP-Stuffs
+[submodule "0.6.1/scripts/Check"]
+	path = 0.6.1/scripts/Check
+	url = https://github.com/mupfelofen-de/tes3mp-check
+[submodule "0.6.1/scripts/PlayerCells"]
+	path = 0.6.1/scripts/PlayerCells
+	url = https://github.com/mupfelofen-de/tes3mp-playercells
+[submodule "0.6.1/scripts/CommandPack"]
+	path = 0.6.1/scripts/CommandPack
+	url = https://github.com/mupfelofen-de/tes3mp-command-pack
+[submodule "0.6.1/scripts/DisableAssasins"]
+	path = 0.6.1/scripts/DisableAssasins
+	url = https://github.com/mupfelofen-de/tes3mp-disable-assassins
