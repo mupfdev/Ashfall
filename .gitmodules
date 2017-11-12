@@ -1,3 +1,6 @@
 [submodule "0.6.1/scripts/Atkana"]
 	path = 0.6.1/scripts/Atkana
 	url = https://github.com/Atkana/tes3mp-scripts.git
+[submodule "0.6.1/scripts/SkotisVarvikas"]
+	path = 0.6.1/scripts/SkotisVarvikas
+	url = https://github.com/SkotisVarvikas/TES3MP-Stuffs
