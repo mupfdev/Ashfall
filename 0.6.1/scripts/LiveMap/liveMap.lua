@@ -12,7 +12,7 @@ JsonInterface = require("jsonInterface")
 Methods = {}
 
 
-local path = "/path/to/webroot/"
+local path = "/path/to/assets/json/"
 local updateInterval = 5
 
 local timer = tes3mp.CreateTimerEx("TimerExpired", time.seconds(updateInterval), "i", 0)
