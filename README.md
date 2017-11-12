@@ -4,7 +4,8 @@ A collection of free/libre open source TES3MP scripts.
 
 ## Download instructions
 
-To clone the entire repository including all submodules use following command:
+To clone the entire repository including all submodules use the
+following command:
 
 `git clone --recursive -j8 https://github.com/TES3MP-TeamFOSS/Scripts.git`
 
