@@ -29,6 +29,7 @@ html, body {
   font-weight: normal !important;
   padding-bottom: 25px !important;
   margin-left: 10px !important;
+  box-shadow: none !important;
 }
 
 .leaflet-tooltip-right:before

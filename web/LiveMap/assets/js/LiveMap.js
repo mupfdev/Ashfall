@@ -25,7 +25,7 @@ in return.  Tuomas Louhelainen */
      var playerIcon = L.icon({
        iconUrl: 'assets/img/compass.png',
        iconSize:     [18, 18], // size of the icon
-       iconAnchor:   [9, 18], // point of the icon which will correspond to marker's location
+       iconAnchor:   [9, 9], // point of the icon which will correspond to marker's location
        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
      });
 
@@ -56,10 +56,13 @@ in return.  Tuomas Louhelainen */
            var markerObject = [];
            //check if we have marker for this index
            if(key in markers)
-             {
+            {
                 markerObject = markers[key];
-                markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));
-                markerObject.marker.setRotationAngle(player.rot);
+                if(player.isOutside)
+                {
+                  markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));  
+                  markerObject.marker.setRotationAngle(player.rot);
+                }
                 delete markersToDelete[key];
              }
            //if not then create new and add that
@@ -92,7 +95,7 @@ in return.  Tuomas Louhelainen */
         }
         if(playerCount>0)
         {
-          playerListDiv.setAttribute("style","height:"+(60+(20*playerCount))+"px");
+          playerListDiv.setAttribute("style","height:"+(60+(25*playerCount))+"px");
           playerListDiv.innerHTML = '<h3>'+playerCount+' players online</h3>';
           for(var key in players)
           {

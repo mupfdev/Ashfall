@@ -31,6 +31,7 @@ Methods.Update = function()
             Info[pid].x = math.floor( tes3mp.GetPosX(pid) + 0.5 )
             Info[pid].y = math.floor( tes3mp.GetPosY(pid) + 0.5 )
             Info[pid].rot = math.floor( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
+            Info[pid].isOutside = tes3mp.IsInExterior(pid)
         end
     end
     JsonInterface.save(path .. "LiveMap.json", Info)
