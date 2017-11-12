@@ -28,9 +28,9 @@ Methods.Update = function()
         if player:IsLoggedIn() then
             Info[pid] = {}
             Info[pid].name = Players[pid].name
-            Info[pid].x = math.floor( tes3mp.GetPosX(pid) )
-            Info[pid].y = math.floor( tes3mp.GetPosY(pid) )
-            Info[pid].rot = ( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
+            Info[pid].x = math.floor( tes3mp.GetPosX(pid) + 0.5 )
+            Info[pid].y = math.floor( tes3mp.GetPosY(pid) + 0.5 )
+            Info[pid].rot = math.floor( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
         end
     end
     JsonInterface.save(path .. "LiveMap.json", Info)
