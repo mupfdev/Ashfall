@@ -16,24 +16,24 @@ local path = "/path/to/webroot/"
 local updateInterval = 5
 
 local timer = tes3mp.CreateTimerEx("TimerExpired", time.seconds(updateInterval), "i", 0)
-local playerInfo = {}
+local Info = {}
 
 
 tes3mp.StartTimer(timer)
 
 
 Methods.Update = function()
-    playerInfo = {}
-    for playerId, player in pairs(Players) do
+    Info = {}
+    for pid, player in pairs(Players) do
         if player:IsLoggedIn() then
-            playerInfo[playerId] = {}
-            playerInfo[playerId].name = Players[playerId].name
-            playerInfo[playerId].x = tes3mp.GetPosX(playerId)
-            playerInfo[playerId].y = tes3mp.GetPosY(playerId)
-            playerInfo[playerId].rot = tes3mp.GetRotX(playerId)
+            Info[pid] = {}
+            Info[pid].name = Players[pid].name
+            Info[pid].x = math.floor( tes3mp.GetPosX(pid) )
+            Info[pid].y = math.floor( tes3mp.GetPosY(pid) )
+            Info[pid].rot = ( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
         end
     end
-    JsonInterface.save(path .. "LiveMap.json", playerInfo)
+    JsonInterface.save(path .. "LiveMap.json", Info)
     tes3mp.StartTimer(timer);
 end
 
@@ -44,3 +44,4 @@ end
 
 
 return Methods
+
