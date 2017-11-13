@@ -28,17 +28,31 @@ end
 
 
 function Update()
+    local tmpInfo = Info
     Info = {}
     for pid, player in pairs(Players) do
+      local playerName = Players[pid].name
         if player:IsLoggedIn() then
-        	local playerName = Players[pid].name
+          local isOutside = tes3mp.IsInExterior(pid)
+          if isOutside == true then
             Info[playerName] = {}
             Info[playerName].pid = pid
             Info[playerName].x = math.floor( tes3mp.GetPosX(pid) + 0.5 )
             Info[playerName].y = math.floor( tes3mp.GetPosY(pid) + 0.5 )
             Info[playerName].rot = math.floor( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
-            Info[playerName].isOutside = tes3mp.IsInExterior(pid)
             Info[playerName].cell = tes3mp.GetCell(pid)
+            Info[playerName].isOutside = isOutside
+          else
+            if tmpInfo[playerName] ~= nil then
+              Info[playerName] = {}
+              Info[playerName].pid = tmpInfo[playerName].pid
+              Info[playerName].x = tmpInfo[playerName].x
+              Info[playerName].y = tmpInfo[playerName].y
+              Info[playerName].rot = tmpInfo[playerName].rot
+              Info[playerName].cell = tmpInfo[playerName].cell
+              Info[playerName].isOutside = isOutside
+            end
+          end
         end
     end
 
