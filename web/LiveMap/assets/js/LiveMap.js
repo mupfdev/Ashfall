@@ -24,16 +24,16 @@ in return.  Tuomas Louhelainen */
      //player icon
      var playerIcon = L.icon({
        iconUrl: 'assets/img/compass.png',
-       iconSize:     [18, 18], // size of the icon
-       iconAnchor:   [9, 9], // point of the icon which will correspond to marker's location
+       iconSize:     [24, 24], // size of the icon
+       iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
      });
 
      //inside icon
      var insideIcon = L.icon({
        iconUrl: 'assets/img/door.png',
-       iconSize:     [12, 12], // size of the icon
-       iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
+       iconSize:     [16, 16], // size of the icon
+       iconAnchor:   [8, 8], // point of the icon which will correspond to marker's location
        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
      });
 
@@ -42,7 +42,7 @@ in return.  Tuomas Louhelainen */
     var markers = {};
     var playerListDiv = document.getElementById("playerList");
 
-   
+
 
      function checkForUpdates() {
        loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
@@ -58,9 +58,9 @@ in return.  Tuomas Louhelainen */
        for(var key in players)
          {
           if(!players.hasOwnProperty(key)) continue;
-          
+
           var player = players[key];
-          
+
            var markerObject = [];
            //check if we have marker for this index
            if(key in markers)
@@ -68,7 +68,7 @@ in return.  Tuomas Louhelainen */
                 markerObject = markers[key];
                 if(player.isOutside)
                 {
-                  markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));  
+                  markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));
                   markerObject.marker.setRotationAngle(player.rot);
                   markerObject.marker.setIcon(playerIcon);
                 }
@@ -115,7 +115,7 @@ in return.  Tuomas Louhelainen */
             var playerString = key;
             if(!players[key].isOutside)
               playerString+= " - "+players[key].cell.substring(0,16);
-            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';  
+            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';
           }
         }
         else
@@ -150,7 +150,7 @@ in return.  Tuomas Louhelainen */
     }
 
     var coordinateMultiplier = 16.0;
-    
+
     function convertCoord(coord)
     {
       coord[0] = coord[0]/coordinateMultiplier+15358;
@@ -164,4 +164,3 @@ in return.  Tuomas Louhelainen */
       coord[1] = coord[1]*-coordinateMultiplier-15356;
       return coord;
     }
-    
