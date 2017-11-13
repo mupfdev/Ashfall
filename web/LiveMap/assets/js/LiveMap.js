@@ -8,13 +8,13 @@ in return.  Tuomas Louhelainen */
 
     //MAP SETTINGS
      var map = L.map('map', {
-       maxZoom: 17,
+       maxZoom: 18,
        minZoom: 12,
        crs: L.CRS.Simple
      }).setView([-0.045, 0.06], 14);
 
-     var southWest = map.unproject([0, 12800], map.getMaxZoom());
-     var northEast = map.unproject([14080, 0], map.getMaxZoom());
+     var southWest = map.unproject([0, 25600], map.getMaxZoom());
+     var northEast = map.unproject([28160, 0], map.getMaxZoom());
      map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
 
      L.tileLayer('tiles/{z}/map_{x}_{y}.webp', {
@@ -24,16 +24,16 @@ in return.  Tuomas Louhelainen */
      //player icon
      var playerIcon = L.icon({
        iconUrl: 'assets/img/compass.png',
-       iconSize:     [18, 18], // size of the icon
-       iconAnchor:   [9, 9], // point of the icon which will correspond to marker's location
+       iconSize:     [24, 24], // size of the icon
+       iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
      });
 
      //inside icon
      var insideIcon = L.icon({
        iconUrl: 'assets/img/door.png',
-       iconSize:     [12, 12], // size of the icon
-       iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
+       iconSize:     [16, 16], // size of the icon
+       iconAnchor:   [8, 8], // point of the icon which will correspond to marker's location
        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
      });
 
@@ -42,7 +42,7 @@ in return.  Tuomas Louhelainen */
     var markers = {};
     var playerListDiv = document.getElementById("playerList");
 
-   
+
 
      function checkForUpdates() {
        loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
@@ -58,9 +58,9 @@ in return.  Tuomas Louhelainen */
        for(var key in players)
          {
           if(!players.hasOwnProperty(key)) continue;
-          
+
           var player = players[key];
-          
+
            var markerObject = [];
            //check if we have marker for this index
            if(key in markers)
@@ -68,13 +68,14 @@ in return.  Tuomas Louhelainen */
                 markerObject = markers[key];
                 if(player.isOutside)
                 {
-                  markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));  
+                  markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));
                   markerObject.marker.setRotationAngle(player.rot);
                   markerObject.marker.setIcon(playerIcon);
                 }
                 else
                 {
                   markerObject.marker.setIcon(insideIcon);
+                  markerObject.marker.setRotationAngle(0);
                 }
                 delete markersToDelete[key];
              }
@@ -115,7 +116,7 @@ in return.  Tuomas Louhelainen */
             var playerString = key;
             if(!players[key].isOutside)
               playerString+= " - "+players[key].cell.substring(0,16);
-            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked('+key+')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';  
+            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';
           }
         }
         else
@@ -126,6 +127,7 @@ in return.  Tuomas Louhelainen */
      };
 
     function playerNameClicked(key) {
+      console.log(key+" pressed");
       var marker = markers[key].marker;
       var latLngs = [ marker.getLatLng() ];
       var markerBounds = L.latLngBounds(latLngs);
@@ -148,19 +150,18 @@ in return.  Tuomas Louhelainen */
       xobj.send(null);
     }
 
-    var coordinateMultiplier = 32.0;
-    
+    var coordinateMultiplier = 16.0;
+
     function convertCoord(coord)
     {
-      coord[0] = coord[0]/coordinateMultiplier+7679;
-      coord[1] = coord[1]/-coordinateMultiplier+7678;
+      coord[0] = coord[0]/coordinateMultiplier+15358;
+      coord[1] = coord[1]/-coordinateMultiplier+15356;
       return coord;
     }
 
     function reverseCoord(coord)
     {
-      coord[0] = coord[0]*coordinateMultiplier-7679;
-      coord[1] = coord[1]*-coordinateMultiplier-7678;
+      coord[0] = coord[0]*coordinateMultiplier-15358;
+      coord[1] = coord[1]*-coordinateMultiplier-15356;
       return coord;
     }
-    
