@@ -75,6 +75,7 @@ in return.  Tuomas Louhelainen */
                 else
                 {
                   markerObject.marker.setIcon(insideIcon);
+                  markerObject.marker.setRotationAngle(0);
                 }
                 delete markersToDelete[key];
              }
@@ -164,4 +165,3 @@ in return.  Tuomas Louhelainen */
       coord[1] = coord[1]*-coordinateMultiplier-15356;
       return coord;
     }
-    
