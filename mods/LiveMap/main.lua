@@ -28,7 +28,7 @@ function Update()
       Info[player.name].y = math.floor( Info[player.name].y + 0.5)
       Info[player.name].rot = math.floor( math.deg(Info[player.name].rot) + 0.5 ) % 360
       Info[player.name].isOutside = player:getCell():isExterior()
-      Info[player.name].cell = player:getCell()
+      Info[player.name].cell = player:getCell().description
     end
   end)
 
