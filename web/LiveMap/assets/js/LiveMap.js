@@ -75,6 +75,7 @@ in return.  Tuomas Louhelainen */
                 else
                 {
                   markerObject.marker.setIcon(insideIcon);
+                  markerObject.marker.setRotationAngle(0);
                 }
                 delete markersToDelete[key];
              }
