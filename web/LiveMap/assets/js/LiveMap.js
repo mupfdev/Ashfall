@@ -8,13 +8,13 @@ in return.  Tuomas Louhelainen */
 
     //MAP SETTINGS
      var map = L.map('map', {
-       maxZoom: 17,
+       maxZoom: 18,
        minZoom: 12,
        crs: L.CRS.Simple
      }).setView([-0.045, 0.06], 14);
 
-     var southWest = map.unproject([0, 12800], map.getMaxZoom());
-     var northEast = map.unproject([14080, 0], map.getMaxZoom());
+     var southWest = map.unproject([0, 25600], map.getMaxZoom());
+     var northEast = map.unproject([28160, 0], map.getMaxZoom());
      map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
 
      L.tileLayer('tiles/{z}/map_{x}_{y}.webp', {
@@ -148,19 +148,19 @@ in return.  Tuomas Louhelainen */
       xobj.send(null);
     }
 
-    var coordinateMultiplier = 32.0;
+    var coordinateMultiplier = 16.0;
     
     function convertCoord(coord)
     {
-      coord[0] = coord[0]/coordinateMultiplier+7679;
-      coord[1] = coord[1]/-coordinateMultiplier+7678;
+      coord[0] = coord[0]/coordinateMultiplier+15358;
+      coord[1] = coord[1]/-coordinateMultiplier+15356;
       return coord;
     }
 
     function reverseCoord(coord)
     {
-      coord[0] = coord[0]*coordinateMultiplier-7679;
-      coord[1] = coord[1]*-coordinateMultiplier-7678;
+      coord[0] = coord[0]*coordinateMultiplier-15358;
+      coord[1] = coord[1]*-coordinateMultiplier-15356;
       return coord;
     }
     
