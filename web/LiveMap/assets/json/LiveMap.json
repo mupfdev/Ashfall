@@ -1,26 +1,34 @@
 {
-  "0":{
+  "test0":{
     "y":-112340.953125,
     "x":19306.78125,
-    "name":"test",
-    "rot":0.073701143264771
+    "rot":60,
+    "isOutside":true,
+    "pid":0,
+    "cell":"Balmora"
   },
-  "1":{
+  "test1":{
     "y":-122340.953125,
     "x":11306.78125,
-    "name":"test2",
-    "rot":-2.073701143264771
+    "rot":180,
+    "isOutside":true,
+    "pid":1,
+    "cell":"Balmora"
   },
-  "2":{
+  "test2":{
     "y":-82340.953125,
     "x":8306.78125,
-    "name":"test3",
-    "rot":1.073701143264771
+    "rot":270,
+    "isOutside":true,
+    "pid":2,
+    "cell":"Balmora"
   },
-  "3":{
+  "test3":{
     "y":-0.953125,
     "x":0.78125,
-    "name":"test3",
-    "rot":1.073701143264771
+    "rot":45,
+    "isOutside":true,
+    "pid":3,
+    "cell":"Balmora"
   }
 }

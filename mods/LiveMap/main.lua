@@ -20,14 +20,15 @@ function Update()
 
   Players.for_each(function(player)
     if(player.name ~= nil and player.name ~= "") then
-      Info[player.pid] = {}
-      Info[player.pid].name = player.name
-      Info[player.pid].x, Info[player.pid].y = player:getPosition()
-      Info[player.pid].rot = player:getRotation()
-      Info[player.pid].x = math.floor( Info[player.pid].x + 0.5)
-      Info[player.pid].y = math.floor( Info[player.pid].y + 0.5)
-      Info[player.pid].rot = math.floor( math.deg(Info[player.pid].rot) + 0.5 ) % 360
-      Info[player.pid].isOutside = player:getCell():isExterior()
+      Info[player.name] = {}
+      Info[player.name].pid = player.pid
+      Info[player.name].x, Info[player.pid].y = player:getPosition()
+      Info[player.name].rot = player:getRotation()
+      Info[player.name].x = math.floor( Info[player.name].x + 0.5)
+      Info[player.name].y = math.floor( Info[player.name].y + 0.5)
+      Info[player.name].rot = math.floor( math.deg(Info[player.name].rot) + 0.5 ) % 360
+      Info[player.name].isOutside = player:getCell():isExterior()
+      Info[player.name].cell = player:getCell()
     end
   end)
 

@@ -31,12 +31,14 @@ function Update()
     Info = {}
     for pid, player in pairs(Players) do
         if player:IsLoggedIn() then
-            Info[pid] = {}
-            Info[pid].name = Players[pid].name
-            Info[pid].x = math.floor( tes3mp.GetPosX(pid) + 0.5 )
-            Info[pid].y = math.floor( tes3mp.GetPosY(pid) + 0.5 )
-            Info[pid].rot = math.floor( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
-            Info[pid].isOutside = tes3mp.IsInExterior(pid)
+        	local playerName = Players[pid].name
+            Info[playerName] = {}
+            Info[playerName].pid = pid
+            Info[playerName].x = math.floor( tes3mp.GetPosX(pid) + 0.5 )
+            Info[playerName].y = math.floor( tes3mp.GetPosY(pid) + 0.5 )
+            Info[playerName].rot = math.floor( math.deg( tes3mp.GetRotZ(pid) ) + 0.5 ) % 360
+            Info[playerName].isOutside = tes3mp.IsInExterior(pid)
+            Info[playerName].cell = tes3mp.GetCell(pid)
         end
     end
 

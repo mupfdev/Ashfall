@@ -29,6 +29,13 @@ in return.  Tuomas Louhelainen */
        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
      });
 
+     //inside icon
+     var insideIcon = L.icon({
+       iconUrl: 'assets/img/door.png',
+       iconSize:     [12, 12], // size of the icon
+       iconAnchor:   [6, 6], // point of the icon which will correspond to marker's location
+       popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+     });
 
     //change this for quicker or slower update
     var updater = setInterval(checkForUpdates, 500);
@@ -47,6 +54,7 @@ in return.  Tuomas Louhelainen */
 
      function updateMarkers(players) {
       var markersToDelete = Object.assign({}, markers);
+      //key is player name in this case
        for(var key in players)
          {
           if(!players.hasOwnProperty(key)) continue;
@@ -62,6 +70,11 @@ in return.  Tuomas Louhelainen */
                 {
                   markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));  
                   markerObject.marker.setRotationAngle(player.rot);
+                  markerObject.marker.setIcon(playerIcon);
+                }
+                else
+                {
+                  markerObject.marker.setIcon(insideIcon);
                 }
                 delete markersToDelete[key];
              }
@@ -71,7 +84,7 @@ in return.  Tuomas Louhelainen */
                var tempMarker = L.marker(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()), {icon: playerIcon}).addTo(map);
                markerObject.marker = tempMarker;
                markerObject.marker.setRotationAngle(player.rot);
-               markerObject.marker.bindTooltip(player.name,{className: 'tooltip', direction:'right', permanent:true});
+               markerObject.marker.bindTooltip(key,{className: 'tooltip', direction:'right', permanent:true});
                markers[key] = markerObject;
              }
          }
@@ -99,7 +112,10 @@ in return.  Tuomas Louhelainen */
           playerListDiv.innerHTML = '<h3>'+playerCount+' players online</h3>';
           for(var key in players)
           {
-            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked('+key+')"; style="cursor: pointer; cursor: hand">'+players[key].name+'</h4>';  
+            var playerString = key;
+            if(!players[key].isOutside)
+              playerString+= " - "+players[key].cell.substring(0,16);
+            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked('+key+')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';  
           }
         }
         else
