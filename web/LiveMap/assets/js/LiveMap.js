@@ -9,7 +9,7 @@ in return.  Tuomas Louhelainen */
     //MAP SETTINGS
      var map = L.map('map', {
        maxZoom: 18,
-       minZoom: 12,
+       minZoom: 11,
        crs: L.CRS.Simple
      }).setView([-0.045, 0.06], 14);
 
