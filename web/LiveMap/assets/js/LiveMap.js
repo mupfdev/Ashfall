@@ -115,7 +115,7 @@ in return.  Tuomas Louhelainen */
             var playerString = key;
             if(!players[key].isOutside)
               playerString+= " - "+players[key].cell.substring(0,16);
-            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked('+key+')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';  
+            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';  
           }
         }
         else
@@ -126,6 +126,7 @@ in return.  Tuomas Louhelainen */
      };
 
     function playerNameClicked(key) {
+      console.log(key+" pressed");
       var marker = markers[key].marker;
       var latLngs = [ marker.getLatLng() ];
       var markerBounds = L.latLngBounds(latLngs);
