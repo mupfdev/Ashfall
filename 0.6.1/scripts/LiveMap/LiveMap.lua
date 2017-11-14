@@ -15,11 +15,11 @@ json = require ("dkjson");
 local path = "/path/to/assets/json/"
 local updateInterval = 5
 
-local timer = tes3mp.CreateTimerEx("TimerExpired", time.seconds(updateInterval), "i", 0)
+local MapTimer = tes3mp.CreateTimerEx("MapTimerExpired", time.seconds(updateInterval), "i", 0)
 local Info = {}
 
 
-tes3mp.StartTimer(timer)
+tes3mp.StartTimer(MapTimer)
 
 
 function Save(fileName, data, keyOrderArray)
@@ -60,10 +60,10 @@ function Update()
     end
 
     Save(path .. "LiveMap.json", Info)
-    tes3mp.StartTimer(timer);
+    tes3mp.StartTimer(MapTimer);
 end
 
 
-function TimerExpired()
+function MapTimerExpired()
     Update()
 end
