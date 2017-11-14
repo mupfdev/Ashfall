@@ -5,7 +5,7 @@ this notice you can do whatever you want with this stuff. If we meet
 some day, and you think this stuff is worth it, you can buy me a beer
 in return.  Tuomas Louhelainen */
 
-
+  
     //MAP SETTINGS
      var map = L.map('map', {
        maxZoom: 18,
@@ -43,7 +43,6 @@ in return.  Tuomas Louhelainen */
     var playerListDiv = document.getElementById("playerList");
 
 
-
      function checkForUpdates() {
        loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
          var players = JSON.parse(response);
@@ -71,6 +70,7 @@ in return.  Tuomas Louhelainen */
                   markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));
                   markerObject.marker.setRotationAngle(player.rot);
                   markerObject.marker.setIcon(playerIcon);
+
                 }
                 else
                 {
@@ -88,6 +88,7 @@ in return.  Tuomas Louhelainen */
                markerObject.marker.bindTooltip(key,{className: 'tooltip', direction:'right', permanent:true});
                markers[key] = markerObject;
              }
+             ZoomAndFollowMarker();
          }
 
          //loop through markers that we need to remove
@@ -113,11 +114,19 @@ in return.  Tuomas Louhelainen */
           playerListDiv.innerHTML = '<h3>'+playerCount+' players online</h3>';
           for(var key in players)
           {
-            var playerString = key;
+            var playerString = "";
+            if(playerToFollow!=null)
+              if(key==playerToFollow)
+                playerString = "Following: ";
+
+            playerString += key;
+
             if(!players[key].isOutside)
               playerString+= " - "+players[key].cell.substring(0,16);
             playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';
           }
+          if(playerToFollow!=null)
+            playerListDiv.innerHTML += '<h5><a onClick="resetFollow()"; style="cursor: pointer; cursor: hand">Reset follow</h5>';
         }
         else
         {
@@ -126,15 +135,52 @@ in return.  Tuomas Louhelainen */
         }
      };
 
+    var markerToFollow = null;
+    var playerToFollow = null;
+
     function playerNameClicked(key) {
-      console.log(key+" pressed");
       var marker = markers[key].marker;
-      var latLngs = [ marker.getLatLng() ];
-      var markerBounds = L.latLngBounds(latLngs);
-      map.fitBounds(markerBounds);
+      playerToFollow = key;
+      markerToFollow = marker;
+      ZoomAndFollowMarker();
     };
 
+    function resetFollow()
+    {
+      markerToFollow = null;
+      playerToFollow = null;
+    }
 
+    function ZoomAndFollowMarker()
+    {
+      if(markerToFollow!=null)
+      {
+        var latLng = markerToFollow.getLatLng();
+        //var markerBounds = L.latLngBounds(latLngs);
+        //map.fitBounds(markerBounds);
+        map.panTo(latLng,{animate:true,duration:0.05});
+      }
+    }
+
+    map.on('zoomend', function() {
+
+      var currentZoom = map.getZoom();
+      console.log("zoomend "+currentZoom);
+      playerIcon = L.icon({
+        iconUrl: 'assets/img/compass.png',
+        iconSize:     [currentZoom*2.2, currentZoom*2.2], // size of the icon
+        iconAnchor:   [currentZoom, currentZoom], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+      });
+
+      //inside icon
+      insideIcon = L.icon({
+        iconUrl: 'assets/img/door.png',
+        iconSize:     [currentZoom, currentZoom], // size of the icon
+        iconAnchor:   [currentZoom*0.5, currentZoom*0.5], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+      });
+    });
 
 
     function loadJSON(file, callback) {
