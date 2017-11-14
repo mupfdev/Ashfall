@@ -49,7 +49,7 @@ function Update()
               Info[playerName].x = tmpInfo[playerName].x
               Info[playerName].y = tmpInfo[playerName].y
               Info[playerName].rot = tmpInfo[playerName].rot
-              Info[playerName].cell = tmpInfo[playerName].cell
+              Info[playerName].cell = tes3mp.GetCell(pid)
               Info[playerName].isOutside = isOutside
             end
           end
