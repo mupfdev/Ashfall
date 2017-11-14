@@ -29,7 +29,7 @@ Now it should look like:
 ```
 function OnObjectLock(pid, cellDescription)
   myMod.OnObjectLock(pid, cellDescription)
-  noLock.OnObjectLock(pid, cellDescription)
+  NoLock.OnObjectLock(pid, cellDescription)
 end
 ```
 
