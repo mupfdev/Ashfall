@@ -1,4 +1,4 @@
--- motd.lua -*-lua-*-
+-- MotD.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -12,14 +12,14 @@ require("color")
 Methods = {}
 
 
--- Add [ motd = require("motd") ] to the top of myMod.lua
+-- Add [ MotD = require("MotD") ] to the top of myMod.lua
 
 -- Find "Players[pid]:Message("You have successfully logged in.\n")" inside myMod.lua and add:
--- [ motd.Show(pid) ]
+-- [ MotD.Show(pid) ]
 -- directly underneath it.
 
 -- Find "Players[pid]:Registered(data)" inside myMod.lua and add:
--- [ motd.Show(pid) ]
+-- [ MotD.Show(pid) ]
 -- directly underneath it.
 
 

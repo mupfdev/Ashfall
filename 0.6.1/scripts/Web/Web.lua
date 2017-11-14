@@ -1,4 +1,4 @@
--- web.lua -*-lua-*-
+-- Web.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -9,9 +9,9 @@
 Methods = {}
 
 
--- Add [ web = require("web") ] to the top of server.lua
+-- Add [ Web = require("Web") ] to the top of server.lua
 -- Find "myMod.OnPlayerConnect(pid, playerName)" and "myMod.OnPlayerDisconnect(pid)" inside server.lua and insert:
--- [ web.UpdateStatus() ]
+-- [ Web.UpdateStatus() ]
 -- directly underneath it.
 
 

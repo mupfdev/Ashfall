@@ -1,4 +1,4 @@
--- maintenanceMode.lua -*-lua-*-
+-- MaintenanceMode.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -9,14 +9,14 @@
 Methods = {}
 
 
--- Add [ maintenanceMode = require("maintenanceMode") ] to the top of server.lua
+-- Add [ MaintenanceMode = require("MaintenanceMode") ] to the top of server.lua
 
 -- Find "function UpdateTime()" inside server.lua and insert
--- [ maintenanceMode.CheckIfActive() ]
+-- [ MaintenanceMode.CheckIfActive() ]
 -- directly underneath it.
 
 -- Find "myMod.OnPlayerConnect(pid, playerName)" inside server.lua and insert:
--- [ maintenanceMode.Bouncer(pid) ]
+-- [ MaintenanceMode.Bouncer(pid) ]
 -- directly underneath it.
 
 

@@ -1,4 +1,4 @@
--- starterKit.lua -*-lua-*-
+-- StarterKit.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -9,9 +9,9 @@
 Methods = {}
 
 
--- Put [ starterKit = require("starterKit")] somewhere at the top of myMod.lua
+-- Put [ StarterKit = require("StarterKit")] somewhere at the top of myMod.lua
 -- Find "Players[pid]:EndCharGen()" inside myMod.lua and insert
--- [ starterKit.Add(pid) ]
+-- [ StarterKit.Add(pid) ]
 -- directly underneath it.
 
 

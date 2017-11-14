@@ -1,4 +1,4 @@
--- dynamicDifficulty.lua -*-lua-*-
+-- DynamicDifficulty.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -12,10 +12,10 @@ require("config")
 Methods = {}
 
 
--- Add [ dynamicDifficulty = require("dynamicDifficulty") ] to the top of server.lua
+-- Add [ DynamicDifficulty = require("DynamicDifficulty") ] to the top of server.lua
 
 -- Find "function OnPlayerCellChange(pid)" inside server.lua and add:
--- [ dynamicDifficulty.Update(pid) ]
+-- [ DynamicDifficulty.Update(pid) ]
 -- directly underneath it.
 
 

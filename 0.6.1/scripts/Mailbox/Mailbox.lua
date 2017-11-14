@@ -1,4 +1,4 @@
--- mailbox.lua -*-lua-*-
+-- Mailbox.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -12,18 +12,18 @@ require("color")
 Methods = {}
 
 
--- Add [ mailbox = require("mailbox") ] to the top of server.lua
+-- Add [ Mailbox = require("Mailbox") ] to the top of server.lua
 
 -- Find "myMod.OnPlayerConnect(pid, playerName)" inside server.lua and insert:
--- [ mailbox.Init(pid) ]
--- [ mailbox.CheckInbox(pid) ]
+-- [ Mailbox.Init(pid) ]
+-- [ Mailbox.CheckInbox(pid) ]
 -- directly underneath it.
 
 -- Find "elseif cmd[1] == "difficulty" and admin then" inside server.lua and insert:
--- [ elseif cmd[1] == "mbcheck" then mailbox.CheckInbox(pid) ]
--- [ elseif cmd[1] == "mbread" then mailbox.ReadMessage(pid, cmd[2]) ]
--- [ elseif cmd[1] == "mbsend" then mailbox.SendMessage(pid, tableHelper.concatenateFromIndex(cmd, 2)) ]
--- [ elseif cmd[1] == "mbdelete" then mailbox.DeleteMessage(pid, cmd[2]) ]
+-- [ elseif cmd[1] == "mbcheck" then Mailbox.CheckInbox(pid) ]
+-- [ elseif cmd[1] == "mbread" then Mailbox.ReadMessage(pid, cmd[2]) ]
+-- [ elseif cmd[1] == "mbsend" then Mailbox.SendMessage(pid, tableHelper.concatenateFromIndex(cmd, 2)) ]
+-- [ elseif cmd[1] == "mbdelete" then Mailbox.DeleteMessage(pid, cmd[2]) ]
 -- directly above it.
 
 

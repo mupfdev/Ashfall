@@ -1,4 +1,4 @@
--- liveMap.lua -*-lua-*-
+-- LiveMap.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -7,6 +7,9 @@
 
 
 json = require ("dkjson");
+
+
+-- Add [ LiveMap = require("LiveMap") ] to the top of server.lua
 
 
 local path = "/path/to/assets/json/"

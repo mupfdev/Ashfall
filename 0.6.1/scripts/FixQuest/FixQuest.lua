@@ -1,4 +1,4 @@
--- fixQuest.lua -*-lua-*-
+-- FixQuest.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -9,10 +9,12 @@
 Methods = {}
 
 
+-- Add [ FixQuest = require("FixQuest") ] to the top of server.lua
+
 -- Find "function OnPlayerJournal(pid)" inside server.lua and add:
--- [ fixQuest.TR_Blade(pid) ]
--- [ fixQuest.MV_TraderLate(pid) ]
--- [ fixQuest.TT_SanctusShrine(pid) ]
+-- [ FixQuest.TR_Blade(pid) ]
+-- [ FixQuest.MV_TraderLate(pid) ]
+-- [ FixQuest.TT_SanctusShrine(pid) ]
 -- directly underneath it.
 
 

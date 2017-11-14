@@ -1,4 +1,4 @@
--- ircBridge.lua -*-lua-*-
+-- IrcBridge.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -13,16 +13,16 @@ require("irc")
 Methods = {}
 
 
--- Add [ ircBridge = require("ircBridge") ] to the top of server.lua
+-- Add [ IrcBridge = require("ircBridge") ] to the top of server.lua
 
 -- Find
 -- "return true -- default behavior, chat messages should not"
 -- inside server.lua and insert:
--- [ ircBridge.SendMessage(myMod.GetChatName(pid) .. ": " .. message) ]
+-- [ IrcBridge.SendMessage(myMod.GetChatName(pid) .. ": " .. message) ]
 -- directly above it.
 
 -- Find "function UpdateTime()" inside server.lua and insert
--- [ ircBridge.RecvMessage() ]
+-- [ IrcBridge.RecvMessage() ]
 -- directly underneath it.
 
 

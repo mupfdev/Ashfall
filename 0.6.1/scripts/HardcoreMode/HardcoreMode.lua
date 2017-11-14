@@ -1,4 +1,4 @@
--- hardcoreMode.lua -*-lua-*-
+-- HardcoreMode.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -13,13 +13,13 @@ userConfig = require("userConfig")
 Methods = {}
 
 
--- Add [ hardcoreMode = require("hardcoreMode") ] to the top of myMod.lua
+-- Add [ HardcoreMode = require("HardcoreMode") ] to the top of myMod.lua
 -- Find "Players[pid]:ProcessDeath()" inside myMod.lua and replace it with:
--- [ if hardcoreMode.Check(pid) then hardcoreMode.DeletePlayer(pid) else Players[pid]:ProcessDeath() end ]
+-- [ if HardcoreMode.Check(pid) then HardcoreMode.DeletePlayer(pid) else Players[pid]:ProcessDeath() end ]
 
--- Add [ hardcoreMode = require("hardcoreMode") ] to the top of server.lua
+-- Add [ HardcoreMode = require("HardcoreMode") ] to the top of server.lua
 -- Find "elseif cmd[1] == "difficulty" and admin then" inside server.lua and insert:
--- [ elseif cmd[1] == "hardcore" then hardcoreMode.Toggle(pid) ]
+-- [ elseif cmd[1] == "hardcore" then HardcoreMode.Toggle(pid) ]
 -- directly above it.
 
 
