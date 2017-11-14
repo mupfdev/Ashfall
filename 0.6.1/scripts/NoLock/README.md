@@ -15,9 +15,7 @@ Then find:
 
 `
   function OnObjectLock(pid, cellDescription)
-  
-    myMod.OnObjectLock(pid, cellDescription)
-    
+  myMod.OnObjectLock(pid, cellDescription) 
   end
 `
 
@@ -28,14 +26,11 @@ add this to it:
 `
 
 Now it should look like:
-` 
-  function OnObjectLock(pid, cellDescription)
-  
-    myMod.OnObjectLock(pid, cellDescription)
-    
-    noLock.OnObjectLock(pid, cellDescription)
-    
-  end
+`
+function OnObjectLock(pid, cellDescription)
+myMod.OnObjectLock(pid, cellDescription)
+noLock.OnObjectLock(pid, cellDescription)
+end
 `
 
 ## Credits
