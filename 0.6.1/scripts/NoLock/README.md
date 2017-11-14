@@ -12,9 +12,12 @@ Add this at the top of server.lua:
 `
 
 Then find:
+
 `
   function OnObjectLock(pid, cellDescription)
-    myMod.OnObjectLock(pid, cellDescription)  
+  
+    myMod.OnObjectLock(pid, cellDescription)
+    
   end
 `
 
@@ -27,8 +30,11 @@ add this to it:
 Now it should look like:
 ` 
   function OnObjectLock(pid, cellDescription)
+  
     myMod.OnObjectLock(pid, cellDescription)
+    
     noLock.OnObjectLock(pid, cellDescription)
+    
   end
 `
 
