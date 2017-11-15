@@ -7,7 +7,7 @@
 
 
 require("color")
-userConfig = require("userConfig")
+UserConfig = require("UserConfig")
 
 
 Methods = {}
@@ -29,7 +29,7 @@ local configKeyword  = "hardcore"
 
 Methods.DeletePlayer = function(pid)
     local message = color.Crimson .. tes3mp.GetName(pid) .. " is dead and gone for good. Press F to pay respects.\n" .. color.Default
-    userConfig.SetValue(pid, configKeyword, "false")
+    UserConfig.SetValue(pid, configKeyword, "false")
     os.remove(playerFilePath .. Players[pid].data.login.name .. ".json")
     tes3mp.SendMessage(pid, message, true)
     Players[pid]:Kick()
@@ -37,7 +37,7 @@ end
 
 
 Methods.Check = function(pid)
-    if userConfig.GetValue(pid, configKeyword) == "true" then
+    if UserConfig.GetValue(pid, configKeyword) == "true" then
         return true
     end
 
@@ -48,12 +48,12 @@ end
 Methods.Toggle = function(pid)
     local message = ""
 
-    if userConfig.GetValue(pid, configKeyword) == "true" then
+    if UserConfig.GetValue(pid, configKeyword) == "true" then
         message = message .. color.MediumSpringGreen .. "Hardcore mode disabled.\n"
-        userConfig.SetValue(pid, configKeyword, "false")
+        UserConfig.SetValue(pid, configKeyword, "false")
     else
         message = message .. color.Crimson .. "Hardcore mode enabled. Be careful, death is now permanent!\n"
-        userConfig.SetValue(pid, configKeyword, "true")
+        UserConfig.SetValue(pid, configKeyword, "true")
     end
 
     tes3mp.SendMessage(pid, message, false)

@@ -1,4 +1,4 @@
--- realEstate.lua -*-lua-*-
+-- RealEstate.lua -*-lua-*-
 -- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
@@ -7,19 +7,19 @@
 
 
 require("color")
-userConfig = require("userConfig")
+UserConfig = require("UserConfig")
 
 
 Methods = {}
 
 
--- Add [ realEstate = require("realEstate") ] to the top of server.lua
+-- Add [ RealEstate = require("RealEstate") ] to the top of server.lua
 -- Find "function OnPlayerCellChange(pid)" inside server.lua and add:
--- [ realEstate.CheckCell(pid) ]
+-- [ RealEstate.CheckCell(pid) ]
 -- directly underneath it.
 
 -- Find "elseif cmd[1] == "difficulty" and admin then" inside server.lua and insert:
--- [ elseif cmd[1] == "claim" then realEstate.ClaimCell(pid) ]
+-- [ elseif cmd[1] == "claim" then RealEstate.ClaimCell(pid) ]
 -- directly above it.
 
 -- Move 'player_houses.txt' into your 'real_estate' directory and make
@@ -31,7 +31,7 @@ Methods = {}
 -- Optional:
 
 -- Find "OnPlayerEquipment(pid)" inside server.lua and insert:
--- [ realEstate.Portkey(pid) ]
+-- [ RealEstate.Portkey(pid) ]
 -- directly underneath it.
 
 
@@ -126,7 +126,7 @@ function Methods.ClaimCell(pid)
                 if f ~= nil then
                     message = color.MediumSpringGreen .. "Welcome home, "
                     message = message .. playerName .. ".\n" .. color.Default
-                    userConfig.SetValue(pid, configKeyword, currentCell)
+                    UserConfig.SetValue(pid, configKeyword, currentCell)
                     f:write(playerName)
                     Players[pid].data.inventory[goldIndex].count = playerGold - housePrice
                     Players[pid]:Save()
@@ -152,7 +152,7 @@ Methods.Portkey = function(pid)
         local message     = ""
         local sendMessage = false
         local playerName  = string.lower(tes3mp.GetName(pid))
-        local playerHouse = userConfig.GetValue(pid, configKeyword)
+        local playerHouse = UserConfig.GetValue(pid, configKeyword)
 
         if playerHouse == -1 or playerHouse == "false" then
             message = message .. color.Crimson .. "You do not own a house yet.\n" .. color.Default
