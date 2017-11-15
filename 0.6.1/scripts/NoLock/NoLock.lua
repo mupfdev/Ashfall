@@ -3,7 +3,6 @@ NoLock = {}
 NoLock.OnObjectLock = function(pid, cellDescription)
     local lcell = LoadedCells[cellDescription]
     tes3mp.ReadLastEvent()
-    print("Checking if this actually triggers")
     for i = 0, tes3mp.GetObjectChangesSize() - 1 do
         local refIndex = tes3mp.GetObjectRefNumIndex(i) .. "-" .. tes3mp.GetObjectMpNum(i)
         local refId = tes3mp.GetObjectRefId(i)
