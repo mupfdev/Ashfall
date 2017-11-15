@@ -1,10 +1,9 @@
-/* liveMap.lua -*-lua-*-
+/* LiveMap.js
 "THE BEER-WARE LICENSE" (Revision 42):
 <tuomas.louhelainen@gmail.com> wrote this file.  As long as you retain
 this notice you can do whatever you want with this stuff. If we meet
 some day, and you think this stuff is worth it, you can buy me a beer
 in return.  Tuomas Louhelainen */
-
   
     //MAP SETTINGS
      var map = L.map('map', {
@@ -21,167 +20,217 @@ in return.  Tuomas Louhelainen */
        attribution: 'Map data &copy; Bethesda Softworks',
      }).addTo(map);
 
+    var currentZoom = map.getZoom();
+
      //player icon
      var playerIcon = L.icon({
        iconUrl: 'assets/img/compass.png',
-       iconSize:     [24, 24], // size of the icon
-       iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
-       popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+       iconSize:     [currentZoom*2.2, currentZoom*2.2], // size of the icon
+       iconAnchor:   [currentZoom*1.1, currentZoom*1.1], // point of the icon which will correspond to marker's location
      });
 
      //inside icon
      var insideIcon = L.icon({
        iconUrl: 'assets/img/door.png',
-       iconSize:     [16, 16], // size of the icon
-       iconAnchor:   [8, 8], // point of the icon which will correspond to marker's location
-       popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+       iconSize:     [currentZoom, currentZoom], // size of the icon
+       iconAnchor:   [currentZoom*0.5, currentZoom*0.5], // point of the icon which will correspond to marker's location
      });
 
-    //change this for quicker or slower update
-    var updater = setInterval(checkForUpdates, 500);
+    //change this for quicker or slower update for markers and json fetching
+    var jsonUpdater = setInterval(checkForUpdates, 200);
+    
+    //do not set this too low or ui becomes a bit unstable
+    var playerListUpdater = setInterval(updatePlayerList, 1000);
+
     var markers = {};
+    var players;
+    var zooming = false;
     var playerListDiv = document.getElementById("playerList");
+    var showPlayerList = true;
+    var markerToFollow = null;
+    var playerToFollow = null;
 
+    function checkForUpdates() {
+      loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
+      players = JSON.parse(response);
+      if(!zooming)
+        updateMarkers();
+      });
+    }
 
-     function checkForUpdates() {
-       loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
-         var players = JSON.parse(response);
-         updateMarkers(players);
-         updatePlayerList(players);
-       });
-     }
-
-     function updateMarkers(players) {
-      var markersToDelete = Object.assign({}, markers);
-      //key is player name in this case
-       for(var key in players)
-         {
+     function updateMarkers() {
+        var markersToDelete = Object.assign({}, markers);
+        for(var key in players)
+        {
           if(!players.hasOwnProperty(key)) continue;
 
           var player = players[key];
-
-           var markerObject = [];
+          var markerObject = [];
            //check if we have marker for this index
-           if(key in markers)
+            if(key in markers)
             {
-                markerObject = markers[key];
-                if(player.isOutside)
+              markerObject = markers[key];
+              if(player.isOutside)
+              {
+                var newPos = map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom());
+                if(newPos.lat!=markerObject.marker.getLatLng().lat)
                 {
-                  markerObject.marker.setLatLng(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()));
-                  markerObject.marker.setRotationAngle(player.rot);
+                  markerObject.marker.setLatLng(newPos);
+                }
+                
+                markerObject.marker.setRotationAngle(player.rot);
+                if(!markerObject.isOutside)
+                {
                   markerObject.marker.setIcon(playerIcon);
-
+                  markerObject.isOutside = true;
                 }
-                else
-                {
-                  markerObject.marker.setIcon(insideIcon);
-                  markerObject.marker.setRotationAngle(0);
-                }
-                delete markersToDelete[key];
-             }
-           //if not then create new and add that
-           else
-             {
-               var tempMarker = L.marker(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()), {icon: playerIcon}).addTo(map);
-               markerObject.marker = tempMarker;
-               markerObject.marker.setRotationAngle(player.rot);
-               markerObject.marker.bindTooltip(key,{className: 'tooltip', direction:'right', permanent:true});
-               markers[key] = markerObject;
-             }
-             ZoomAndFollowMarker();
+              }
+              else if(markerObject.isOutside)
+              {
+                markerObject.marker.setIcon(insideIcon);
+                markerObject.marker.setRotationAngle(0);
+                markerObject.isOutside = false;
+              }
+              delete markersToDelete[key];
+            }
+            //if not then create new and add that
+            else
+            {
+              var tempMarker = L.marker(map.unproject(convertCoord([player.x,player.y]),map.getMaxZoom()), {icon: playerIcon}).addTo(map);
+              markerObject.marker = tempMarker;
+              markerObject.marker.setRotationAngle(player.rot);
+              markerObject.marker.bindTooltip(key,{className: 'tooltip', direction:'right', permanent:true});
+              markers[key] = markerObject;
+            }
+            centerOnMarker();
          }
-
          //loop through markers that we need to remove
          for(var key in markersToDelete)
          {
+            //remove following
+            if(playerToFollow==key)
+            {
+              resetFollow();
+            }
             //remove the marker
             map.removeLayer(markersToDelete[key].marker);
             //remove the object from marker-list
             delete markers[key];
          }
+   };
 
-     };
-
-     function updatePlayerList(players) {
-        var playerCount = 0;
-        for(var key in players)
+     function updatePlayerList() {
+        if(showPlayerList)
         {
-          playerCount++;
-        }
-        if(playerCount>0)
-        {
-          playerListDiv.setAttribute("style","height:"+(60+(25*playerCount))+"px");
-          playerListDiv.innerHTML = '<h3>'+playerCount+' players online</h3>';
+          var playerCount = 0;
           for(var key in players)
           {
-            var playerString = "";
-            if(playerToFollow!=null)
-              if(key==playerToFollow)
-                playerString = "Following: ";
-
-            playerString += key;
-
-            if(!players[key].isOutside)
-              playerString+= " - "+players[key].cell.substring(0,16);
-            playerListDiv.innerHTML += '<h4><a onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer; cursor: hand">'+playerString+'</h4>';
+            playerCount++;
           }
-          if(playerToFollow!=null)
-            playerListDiv.innerHTML += '<h5><a onClick="resetFollow()"; style="cursor: pointer; cursor: hand">Reset follow</h5>';
+          if(playerCount>0)
+          {
+            //playerListDiv.setAttribute("style","height:"+(60+(25*playerCount))+"px");
+            playerListDiv.innerHTML = '<h3>'+playerCount+' players online</h3>';
+            for(var key in players)
+            {
+              var playerString = "";
+              if(playerToFollow!=null)
+                if(key==playerToFollow)
+                  playerString = "Following: ";
+              playerString += "<b>"+key+"</b>";
+              if(!players[key].isOutside)
+                playerString+= " - "+players[key].cell.substring(0,48);
+              playerListDiv.innerHTML += '<a class="playerName" onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer">'+playerString+'</a><br />';
+            }
+            if(playerToFollow!=null)
+              playerListDiv.innerHTML += '<br /><a class="resetZoom" onClick="resetFollow()"; style="cursor: pointer">Reset follow</a>';
+          }
+          else
+          {
+            playerListDiv.setAttribute("style","height:60px");
+            playerListDiv.innerHTML = '<h3>No players online</h3>';
+          }
+          playerListDiv.innerHTML += '<br /><a class="toggleButton" onClick="toggleList()"; style="cursor: pointer">Hide menu</a><br />';
         }
         else
         {
-          playerListDiv.setAttribute("style","height:60px");
-          playerListDiv.innerHTML = '<h3>No players online</h3>';
+          playerListDiv.innerHTML = '<br /><a class="toggleButton" onClick="toggleList()"; style="cursor: pointer">Open menu</a><br />';  
         }
+        
      };
-
-    var markerToFollow = null;
-    var playerToFollow = null;
 
     function playerNameClicked(key) {
       var marker = markers[key].marker;
       playerToFollow = key;
       markerToFollow = marker;
-      ZoomAndFollowMarker();
+      centerOnMarker();
+      updatePlayerList();
     };
+
+    function toggleList()
+    {
+      showPlayerList = !showPlayerList;
+      updatePlayerList;
+    }
 
     function resetFollow()
     {
       markerToFollow = null;
       playerToFollow = null;
+      updatePlayerList();
     }
 
-    function ZoomAndFollowMarker()
+    function centerOnMarker()
     {
       if(markerToFollow!=null)
       {
         var latLng = markerToFollow.getLatLng();
-        //var markerBounds = L.latLngBounds(latLngs);
-        //map.fitBounds(markerBounds);
         map.panTo(latLng,{animate:true,duration:0.05});
       }
     }
 
-    map.on('zoomend', function() {
+    map.on("zoomstart", function () {
+     zooming = true; });
 
+    map.on('zoomend', function() {
+      zooming = false;
+      
       var currentZoom = map.getZoom();
-      console.log("zoomend "+currentZoom);
+      
       playerIcon = L.icon({
         iconUrl: 'assets/img/compass.png',
         iconSize:     [currentZoom*2.2, currentZoom*2.2], // size of the icon
-        iconAnchor:   [currentZoom, currentZoom], // point of the icon which will correspond to marker's location
-        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+        iconAnchor:   [currentZoom*1.1, currentZoom*1.1], // center of the icon which will correspond to marker's location
       });
 
       //inside icon
       insideIcon = L.icon({
         iconUrl: 'assets/img/door.png',
         iconSize:     [currentZoom, currentZoom], // size of the icon
-        iconAnchor:   [currentZoom*0.5, currentZoom*0.5], // point of the icon which will correspond to marker's location
-        popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+        iconAnchor:   [currentZoom*0.5, currentZoom*0.5], // center of the icon which will correspond to marker's location
       });
+      updateMarkers();
+      refreshAllMarkers();
     });
 
+    function refreshAllMarkers()
+    {
+      var temp = 0;
+       for(var key in markers)
+       {
+          if(markers[key].isOutside)
+          {
+            markers[key].marker.setIcon(playerIcon);
+          }
+          else
+          {
+            markers[key].marker.setIcon(insideIcon);
+            markers[key].marker.setRotationAngle(0);
+          }
+          temp++;
+       }
+       console.log("Refreshed "+temp+" markers");
+    }
 
     function loadJSON(file, callback) {
       var xobj = new XMLHttpRequest();
@@ -211,3 +260,16 @@ in return.  Tuomas Louhelainen */
       coord[1] = coord[1]*-coordinateMultiplier-15356;
       return coord;
     }
+
+    var fontMax = 150, fontMin = 100;
+
+      function sizeBodyFont() {
+        var fontSize = ((screen.width / window.innerWidth) * 20);
+        document.body.style.fontSize = Math.min(Math.max(fontSize,fontMin),fontMax) + '%';
+      }
+
+      sizeBodyFont();
+
+      (function(el) {
+        window.addEventListener('resize', sizeBodyFont);  
+      }())

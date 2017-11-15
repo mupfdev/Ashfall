@@ -6,21 +6,43 @@
 -- in return.  Michael Fitzmayer
 
 
--- THIS SCRIPT IS UNDER ACTIVE DEVELOPMENT AND THEREFORE UNFINISHED.
+json = require ("dkjson")
+time = require("time")
 
 
-local collectInterval = 2
-local timerHMCollect = tes3mp.CreateTimerEx("HMCollectTimerExpired", time.seconds(collectInterval), "i", 0)
+
+local pathHM = "/srv/http/map.ashfall.de/assets/json/"
+local intervalCollect = 2
+local intervalSave = 30
+local timerHMCollect = tes3mp.CreateTimerEx("HMCollectTimerExpired", time.seconds(intervalCollect), "i", 0)
+local timerHMSave = tes3mp.CreateTimerEx("HMSaveTimerExpired", time.seconds(intervalSave), "i", 0)
+local HeightMap = {}
 
 
 tes3mp.StartTimer(timerHMCollect)
+tes3mp.StartTimer(timerHMSave)
+
+
+function JsonLoad(fileName)
+    local file = assert(io.open(fileName, 'r'), 'Error loading file: ' .. fileName);
+    local content = file:read("*all");
+    file:close();
+    return json.decode(content, 1, nil);
+end
+HeightMap = JsonLoad(pathHM .. "HeightMap.json")
+
+
+function JsonSave(fileName, data, keyOrderArray)
+    local content = json.encode(data, {indent = true, keyorder= keyOrderArray});
+    local file = assert(io.open(fileName, 'w+b'), 'Error loading file: ' .. fileName);
+    file:write(content);
+    file:close();
+end
 
 
 function HMCollect()
-    local heightMap = {}
     local gridSize = 64
     local tolerance = 32
-    local addition = 50
 
     for pid, player in pairs(Players) do
         if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
@@ -51,7 +73,9 @@ function HMCollect()
                 end
 
                 if hitX == true and hitY == true then
-                    tes3mp.SendMessage(pid, "[" .. posx .. "]" .. "x[" .. posy .. "]: " .. (posz + addition) .. "\n", false)
+                    tes3mp.LogAppend(0, "HMCollect: [" .. posx .. "]x[" .. posy .. "]: " .. posz .. "\n")
+
+                    HeightMap[posx][posy] = posz
                 end
             end
         end
@@ -63,4 +87,10 @@ end
 
 function HMCollectTimerExpired()
     HMCollect()
+end
+
+
+function HMSaveTimerExpired(HeightMap)
+    JsonSave(pathHM .. "HeightMap.json", HeightMap)
+    tes3mp.StartTimer(timerHMSave, HeightMap)
 end

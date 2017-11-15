@@ -6,8 +6,8 @@
 -- in return.  Michael Fitzmayer
 
 
-json = require ("dkjson");
-time = require ("time");
+json = require ("dkjson")
+time = require ("time")
 
 
 -- Add [ LiveMap = require("LiveMap") ] to the top of server.lua
@@ -24,10 +24,10 @@ tes3mp.StartTimer(MapTimer)
 
 
 function Save(fileName, data, keyOrderArray)
-    local content = json.encode(data, { indent = true, keyorder = keyOrderArray });
-    local file = assert(io.open(fileName, 'w+b'), 'Error loading file: ' .. fileName);
-    file:write(content);
-    file:close();
+    local content = json.encode(data, { indent = true, keyorder = keyOrderArray })
+    local file = assert(io.open(fileName, 'w+b'), 'Error loading file: ' .. fileName)
+    file:write(content)
+    file:close()
 end
 
 
@@ -61,7 +61,7 @@ function Update()
     end
 
     Save(path .. "LiveMap.json", Info)
-    tes3mp.StartTimer(MapTimer);
+    tes3mp.StartTimer(MapTimer)
 end
 
 
