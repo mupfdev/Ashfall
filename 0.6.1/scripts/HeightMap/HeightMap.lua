@@ -73,6 +73,12 @@ function HMCollect()
                 if hitX == true and hitY == true then
                     tes3mp.LogAppend(0, "HMCollect: [" .. posx .. "]x[" .. posy .. "]: " .. posz .. "\n")
 
+                    if HeightMap[posx] == nil then
+                        HeightMap[posx] = {}
+                    end
+
+                    HeightMap[posx][posy] = posz
+                    tableHelper.print(HeightMap)
                     -- Magic
                 end
             end
