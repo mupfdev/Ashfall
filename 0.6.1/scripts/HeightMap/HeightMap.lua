@@ -10,13 +10,13 @@ json = require ("dkjson")
 time = require("time")
 
 
-local HeightMap = {}
 
 local pathHM = "/srv/http/map.ashfall.de/assets/json/"
 local intervalCollect = 2
 local intervalSave = 30
 local timerHMCollect = tes3mp.CreateTimerEx("HMCollectTimerExpired", time.seconds(intervalCollect), "i", 0)
 local timerHMSave = tes3mp.CreateTimerEx("HMSaveTimerExpired", time.seconds(intervalSave), "i", 0)
+local HeightMap = {}
 
 
 tes3mp.StartTimer(timerHMCollect)
@@ -29,6 +29,7 @@ function JsonLoad(fileName)
     file:close();
     return json.decode(content, 1, nil);
 end
+HeightMap = JsonLoad(pathHM .. "HeightMap.json")
 
 
 function JsonSave(fileName, data, keyOrderArray)
