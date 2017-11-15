@@ -10,13 +10,17 @@ json = require ("dkjson")
 time = require("time")
 
 
+local HeightMap = {}
+
 local pathHM = "/srv/http/map.ashfall.de/assets/json/"
 local intervalCollect = 2
-local intervalSave = 60
+local intervalSave = 30
 local timerHMCollect = tes3mp.CreateTimerEx("HMCollectTimerExpired", time.seconds(intervalCollect), "i", 0)
+local timerHMSave = tes3mp.CreateTimerEx("HMSaveTimerExpired", time.seconds(intervalSave), "i", 0)
 
 
 tes3mp.StartTimer(timerHMCollect)
+tes3mp.StartTimer(timerHMSave)
 
 
 function JsonLoad(fileName)
@@ -36,7 +40,6 @@ end
 
 
 function HMCollect()
-    local heightMap = {}
     local gridSize = 64
     local tolerance = 32
 
@@ -70,11 +73,8 @@ function HMCollect()
 
                 if hitX == true and hitY == true then
                     tes3mp.LogAppend(0, "HMCollect: [" .. posx .. "]x[" .. posy .. "]: " .. posz .. "\n")
-                    local tile = { [posx] = { [posy] = posz } }
 
-                    HeightMap = JsonLoad(pathHM .. "HeightMap.json")
-                    table.insert(HeightMap, tile)
-                    JsonSave(pathHM .. "HeightMap.json", HeightMap)
+                    HeightMap[posx][posy] = posz
                 end
             end
         end
@@ -86,4 +86,10 @@ end
 
 function HMCollectTimerExpired()
     HMCollect()
+end
+
+
+function HMSaveTimerExpired(HeightMap)
+    JsonSave(pathHM .. "HeightMap.json", HeightMap)
+    tes3mp.StartTimer(timerHMSave, HeightMap)
 end
