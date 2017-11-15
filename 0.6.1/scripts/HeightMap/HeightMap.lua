@@ -6,13 +6,17 @@
 -- in return.  Michael Fitzmayer
 
 
-json = require ("dkjson")
+json = require("dkjson")
 time = require("time")
 
 
-local pathHM = "/srv/http/map.ashfall.de/assets/json/"
+-- Add [ HeightMap = require("HeightMap") ] to the top of server.lua
+
+
+local HeightMap = {}
+local pathHM = "/path/to/assets/json/"
 local intervalCollect = 2
-local intervalSave = 10
+local intervalSave = 30
 local timerHMCollect = tes3mp.CreateTimerEx("HMCollectTimerExpired", time.seconds(intervalCollect), "i", 0)
 local timerHMSave = tes3mp.CreateTimerEx("HMSaveTimerExpired", time.seconds(intervalSave), "i", 0)
 
@@ -27,7 +31,7 @@ function JsonLoad(fileName)
     file:close();
     return json.decode(content, 1, nil);
 end
-local HeightMap = JsonLoad(pathHM .. "HeightMap.json")
+HeightMap = JsonLoad(pathHM .. "HeightMap.json")
 
 
 function JsonSave(fileName, data, keyOrderArray)
@@ -78,8 +82,6 @@ function HMCollect()
                     end
 
                     HeightMap[posx][posy] = posz
-                    tableHelper.print(HeightMap)
-                    -- Magic
                 end
             end
         end
@@ -94,7 +96,7 @@ function HMCollectTimerExpired()
 end
 
 
-function HMSaveTimerExpired(HeightMap)
+function HMSaveTimerExpired()
     JsonSave(pathHM .. "HeightMap.json", HeightMap)
     tes3mp.StartTimer(timerHMSave, HeightMap)
 end
