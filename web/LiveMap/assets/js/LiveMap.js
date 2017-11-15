@@ -1,10 +1,9 @@
-/* liveMap.lua -*-lua-*-
+/* LiveMap.js
 "THE BEER-WARE LICENSE" (Revision 42):
 <tuomas.louhelainen@gmail.com> wrote this file.  As long as you retain
 this notice you can do whatever you want with this stuff. If we meet
 some day, and you think this stuff is worth it, you can buy me a beer
 in return.  Tuomas Louhelainen */
-
   
     //MAP SETTINGS
      var map = L.map('map', {
@@ -48,25 +47,25 @@ in return.  Tuomas Louhelainen */
     var zooming = false;
     var playerListDiv = document.getElementById("playerList");
     var showPlayerList = true;
-    
-      function checkForUpdates() {
-        loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
-          players = JSON.parse(response);
-          if(!zooming)
-            updateMarkers();
-        });
-      }
+    var markerToFollow = null;
+    var playerToFollow = null;
+
+    function checkForUpdates() {
+      loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
+      players = JSON.parse(response);
+      if(!zooming)
+        updateMarkers();
+      });
+    }
 
      function updateMarkers() {
-      
         var markersToDelete = Object.assign({}, markers);
         for(var key in players)
         {
           if(!players.hasOwnProperty(key)) continue;
 
           var player = players[key];
-
-           var markerObject = [];
+          var markerObject = [];
            //check if we have marker for this index
             if(key in markers)
             {
@@ -105,7 +104,6 @@ in return.  Tuomas Louhelainen */
             }
             centerOnMarker();
          }
-
          //loop through markers that we need to remove
          for(var key in markersToDelete)
          {
@@ -140,14 +138,12 @@ in return.  Tuomas Louhelainen */
                 if(key==playerToFollow)
                   playerString = "Following: ";
               playerString += "<b>"+key+"</b>";
-
               if(!players[key].isOutside)
                 playerString+= " - "+players[key].cell.substring(0,48);
               playerListDiv.innerHTML += '<a class="playerName" onClick="playerNameClicked(\''+key+'\')"; style="cursor: pointer">'+playerString+'</a><br />';
             }
             if(playerToFollow!=null)
               playerListDiv.innerHTML += '<br /><a class="resetZoom" onClick="resetFollow()"; style="cursor: pointer">Reset follow</a>';
-
           }
           else
           {
@@ -162,9 +158,6 @@ in return.  Tuomas Louhelainen */
         }
         
      };
-
-    var markerToFollow = null;
-    var playerToFollow = null;
 
     function playerNameClicked(key) {
       var marker = markers[key].marker;
