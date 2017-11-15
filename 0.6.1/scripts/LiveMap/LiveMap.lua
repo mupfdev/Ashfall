@@ -6,8 +6,8 @@
 -- in return.  Michael Fitzmayer
 
 
-json = require ("dkjson");
-time = require ("time");
+json = require ("dkjson")
+time = require ("time")
 
 
 -- Add [ LiveMap = require("LiveMap") ] to the top of server.lua
