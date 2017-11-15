@@ -10,15 +10,17 @@ html, body {
 
 #playerList{
     background-color: rgba(0,0,0,0.5);
-    height: 20px;
     width: 15vw;
+    min-width: 10em;
+    padding-bottom: 2vh;
     position: absolute;
     top: 0;
-    right: 0px;
+    right: 0;
     z-index: 1000;
     color: white;
-    text-align: center;
-    line-height: 0.25;
+    display: table;
+    font-size: 100%;
+    padding-left: 2vw;
 }
 
 .tooltip 
@@ -36,3 +38,15 @@ html, body {
 {
   border: none !important;
 }
+
+.playerName
+{
+  font-size: 1em; 
+}
+
+.resetZoom
+{
+   font-size: 0.75em;
+}
+
+
