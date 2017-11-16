@@ -22,3 +22,6 @@
 [submodule "0.6.1/scripts/mwTDM"]
 	path = 0.6.1/scripts/mwTDM
 	url = https://github.com/Texafornian/mwTDM-0.6.1
+[submodule "LiveMap"]
+	path = LiveMap
+	url = https://github.com/TES3MP-TeamFOSS/LiveMap.git
