@@ -23,7 +23,7 @@ in return.  Tuomas Louhelainen */
 
  	var heightmap;
     var heightMapMarkers;
-    var heightMapRendering = false;
+    var heightMapRendering;
     
 
     var heightIcon = L.icon({
@@ -32,10 +32,16 @@ in return.  Tuomas Louhelainen */
           iconAnchor: [8, 16],
       });
 
-
-    loadHeightMap();
     var jsonUpdater = setInterval(loadHeightMap, 10000);
 
+    init();
+    function init()
+    {
+      heightMapRendering = false;
+      heightMapMarkers = L.layerGroup();
+      loadHeightMap();
+    }
+    
     function loadHeightMap()
     {
       loadJSON("assets/json/HeightMap.json?nocache="+(new Date()).getTime(), function(response) {
@@ -47,31 +53,34 @@ in return.  Tuomas Louhelainen */
   
     function createHeightMapMarkers()
     {
-    	var heightMapMarkerCount = 0;
-		heightMapMarkers = L.layerGroup();
-		for(var x in heightmap)
-		{
-			for(var y in heightmap[x])
-			{
-			  var markerPosition = map.unproject(convertCoord([Number(x),Number(y)]),map.getMaxZoom());
-			  var marker = L.marker([markerPosition.lat, markerPosition.lng],{icon: heightIcon});  
-			  marker.bindPopup(x+","+y+","+heightmap[x][y]);
-			  heightMapMarkers.addLayer(marker);
-			  heightMapMarkerCount++;
-			}
-		}
-		console.log("Added "+heightMapMarkerCount+ " HeightMap markers");
+      var heightMapMarkerCount = 0;
+      heightMapMarkers.clearLayers();
+      
+      for(var x in heightmap)
+  		{
+  			for(var y in heightmap[x])
+  			{
+  			  var markerPosition = map.unproject(convertCoord([Number(x),Number(y)]),map.getMaxZoom());
+  			  var marker = L.marker([markerPosition.lat, markerPosition.lng],{icon: heightIcon});  
+  			  marker.bindPopup(x+","+y+","+heightmap[x][y]);
+  			  heightMapMarkers.addLayer(marker);
+  			  heightMapMarkerCount++;
+  			}
+  		}
+  		toggleMarkers(heightMapRendering);
     }
 
     function toggleHeightMap()
     {
-      if(heightMapRendering)
-      {
-        map.removeLayer(heightMapMarkers);
-      }
-      else
-      {
-        map.addLayer(heightMapMarkers);
-      }
       heightMapRendering = !heightMapRendering;
+      createHeightMapMarkers();
     }
+
+    function toggleMarkers(bool)
+    {
+      if(bool)
+        map.addLayer(heightMapMarkers);
+      else
+        map.removeLayer(heightMapMarkers);
+    }
+    
