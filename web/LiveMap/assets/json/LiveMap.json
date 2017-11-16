@@ -3,7 +3,7 @@
     "y":-112340.953125,
     "x":19306.78125,
     "rot":60,
-    "isOutside":true,
+    "isOutside":false,
     "pid":0,
     "cell":"Balmora"
   },
@@ -24,7 +24,7 @@
     "cell":"Balmora"
   },
   "test3":{
-    "y":-0.953125,
+    "y":-3001.100953125,
     "x":0.78125,
     "rot":45,
     "isOutside":true,

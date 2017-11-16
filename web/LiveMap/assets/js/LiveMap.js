@@ -4,8 +4,35 @@
 this notice you can do whatever you want with this stuff. If we meet
 some day, and you think this stuff is worth it, you can buy me a beer
 in return.  Tuomas Louhelainen */
-  
-    //MAP SETTINGS
+
+
+//This is the web-part of LiveMap -script that renders tes3mp players on zoomable map
+
+//Usage:
+//Ensure that you have installed LiveMap.lua in the correct place with correct configurations.
+//Ensure that json-path is set in the LiveMap.lua.
+
+//Change this to point to the same place as LiveMap.lua
+var liveMapJsonPath = "assets/json/LiveMap.json";
+//This controls json update and marker update cycle in ms, change this to your liking
+var updateTime = 200;
+
+
+    //extensions
+    //HeightMap.js is needed for this to work
+    var isHeightMapEnabled = false;
+
+
+    
+    var markers = {};
+    var players;
+    var zooming = false;
+    var showPlayerList = true;
+    var markerToFollow = null;
+    var playerToFollow = null;
+
+    var playerListDiv = document.getElementById("playerList");
+    
      var map = L.map('map', {
        maxZoom: 18,
        minZoom: 11,
@@ -36,22 +63,14 @@ in return.  Tuomas Louhelainen */
        iconAnchor:   [currentZoom*0.5, currentZoom*0.5], // point of the icon which will correspond to marker's location
      });
 
-    //change this for quicker or slower update for markers and json fetching
-    var jsonUpdater = setInterval(checkForUpdates, 200);
+    var jsonUpdater = setInterval(checkForUpdates, updateTime);
     
     //do not set this too low or ui becomes a bit unstable
     var playerListUpdater = setInterval(updatePlayerList, 1000);
 
-    var markers = {};
-    var players;
-    var zooming = false;
-    var playerListDiv = document.getElementById("playerList");
-    var showPlayerList = true;
-    var markerToFollow = null;
-    var playerToFollow = null;
 
     function checkForUpdates() {
-      loadJSON("assets/json/LiveMap.json?nocache="+(new Date()).getTime(), function(response) {
+      loadJSON(liveMapJsonPath+"?nocache="+(new Date()).getTime(), function(response) {
       players = JSON.parse(response);
       if(!zooming)
         updateMarkers();
@@ -150,12 +169,15 @@ in return.  Tuomas Louhelainen */
             playerListDiv.setAttribute("style","height:60px");
             playerListDiv.innerHTML = '<h3>No players online</h3>';
           }
+          if(isHeightMapEnabled)
+              playerListDiv.innerHTML += '<br /><a class="toggleButton" onClick="toggleHeightMap()"; style="cursor: pointer">Toggle heightmap markers</a><br />';
           playerListDiv.innerHTML += '<br /><a class="toggleButton" onClick="toggleList()"; style="cursor: pointer">Hide menu</a><br />';
         }
         else
         {
           playerListDiv.innerHTML = '<br /><a class="toggleButton" onClick="toggleList()"; style="cursor: pointer">Open menu</a><br />';  
         }
+        
         
      };
 
@@ -170,7 +192,7 @@ in return.  Tuomas Louhelainen */
     function toggleList()
     {
       showPlayerList = !showPlayerList;
-      updatePlayerList;
+      updatePlayerList();
     }
 
     function resetFollow()

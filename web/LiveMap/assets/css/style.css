@@ -49,4 +49,6 @@ html, body {
    font-size: 0.75em;
 }
 
-
+.leaflet-tile-loaded {
+	filter: brightness(1.5) saturate(1.1) !important;
+}
