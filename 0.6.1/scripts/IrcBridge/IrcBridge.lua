@@ -43,14 +43,11 @@ local lastMessage = ""
 
 Methods.RecvMessage = function()
     local message
-    local lastPid
 
     s:think()
     s:hook("OnChat", function(user, channel, message)
                if lastMessage ~= message and tableHelper.getCount(Players) > 0 then
-                   lastPid = tes3mp.GetLastPlayerId()
-
-                   for pid = 0, lastPid do
+                   for pid, player in pairs(Players) do
                        if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
                            user.nick = string.gsub(user.nick, nickfilter, "")
                            tes3mp.SendMessage(pid, color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", true)
