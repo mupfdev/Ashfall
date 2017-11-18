@@ -13,7 +13,7 @@ require("irc")
 Methods = {}
 
 
--- Add [ IrcBridge = require("ircBridge") ] to the top of server.lua
+-- Add [ IrcBridge = require("IrcBridge") ] to the top of server.lua
 
 -- Find
 -- "return true -- default behavior, chat messages should not"
