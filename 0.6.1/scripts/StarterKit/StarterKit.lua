@@ -174,7 +174,7 @@ Methods.Add = function(pid)
 
     -- Alteration.
     if tmp[0] >= 15 then
-        spell = { spellId = "strong levitate" }
+        spell = { spellId = "ondusi's open door" }
         table.insert(Players[pid].data.spellbook, spell)
     end
     -- Conjuration.
