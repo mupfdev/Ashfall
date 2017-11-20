@@ -7,9 +7,13 @@
 
 
 require("color")
+JsonInterface = require("jsonInterface")
 
 
 Config.RealEstate = import(getModFolder() .. "config.lua")
+
+
+local storage = JsonInterface.load(getDataFolder() .. "storage.json")
 
 
 function CommandHandler(player, args)
@@ -53,12 +57,12 @@ end
 
 
 function CellCheck(player)
-    local message      = ""
-    local sendMessage  = false
-    local cellCurrent  = player:getCell().description
-    local cellOwner    = CellGetOwner(cellCurrent)
-    local cells       = CellGetList()
-    local playerName   = string.lower(player.name)
+    local message = ""
+    local sendMessage = false
+    local cellCurrent = player:getCell().description
+    local cellOwner = CellGetOwner(cellCurrent)
+    local cells = CellGetList()
+    local playerName = string.lower(player.name)
 
     if cells == -1 then return -1 end
 
@@ -86,7 +90,7 @@ function CellCheck(player)
                     housePrice = Config.RealEstate.basePrice
                 end
 
-                local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+                local playerCell = CellGetPlayerCell(player)
                 if playerCell == nil then
                     player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
                 else
@@ -95,7 +99,6 @@ function CellCheck(player)
             end
         end
     end
-
 
     if sendMessage == true then
         player:message(message, false)
@@ -106,12 +109,12 @@ end
 
 
 function CellBuy(player)
-    local message     = ""
+    local message = ""
     local sendMessage = false
     local cellCurrent = player:getCell().description
     local cellOwner   = CellGetOwner(cellCurrent)
-    local cells      = CellGetList()
-    --local playerGold  = 0
+    local cells = CellGetList()
+    --local playerGold = 0
     local playerGold  = 1000000
     --local goldIndex
 
@@ -134,18 +137,13 @@ function CellBuy(player)
                 message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " Septims to buy this house.\n" .. color.Default
                 sendMessage = true
             else
-                local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cellCurrent .. ".txt", "w+")
-                if f ~= nil then
-                    message = color.MediumSpringGreen .. "Welcome home, " .. player.name .. ".\n" .. color.Default
-                    Data.UserConfig.SetValue(string.lower(player.name), Config.RealEstate.configKeyword, cellCurrent)
-                    f:write(string.lower(player.name))
-                    --Players[pid].data.inventory[goldIndex].count = playerGold - housePrice
-                    --Players[pid]:Save()
-                    --Players[pid]:LoadInventory()
-                    --Players[pid]:LoadEquipment()
-                    f:close()
-                    sendMessage = true
-                end
+                CellSetOwner(cellCurrent, player)
+                message = color.MediumSpringGreen .. "Welcome home, " .. player.name .. ".\n" .. color.Default
+                --Players[pid].data.inventory[goldIndex].count = playerGold - housePrice
+                --Players[pid]:Save()
+                --Players[pid]:LoadInventory()
+                --Players[pid]:LoadEquipment()
+                sendMessage = true
             end
         end
     end
@@ -159,20 +157,19 @@ end
 
 
 function CellRelease(cell)
-    local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "w+")
-    if f ~= nil then
-        f:close()
+    if storage[cell] == nil then
+        storage[cell] = {}
     end
+    storage[cell].owner = nil
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
 end
 
 
 function Portkey(player)
     if player:getInventory():hasItemEquipped(string.lower(Config.RealEstate.portkeyRefId)) and Config.RealEstate.portkey == true then
-        player:message("true\n", false)
         local message = ""
         local sendMessage = false
-        local playerName = string.lower(player.name)
-        local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+        local playerCell = CellGetPlayerCell(player)
 
         if playerCell == nil then
             message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
@@ -215,13 +212,19 @@ end
 
 
 function CellGetOwner(cell)
-    local cellOwner
+    if storage[cell] == nil then
+        return nil
+    end
 
-    local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
-    if f ~= nil then
-        cellOwner = f:read()
-        f:close()
-        return cellOwner
+    return storage[cell].owner
+end
+
+
+function CellGetPlayerCell(player)
+    for index, item in pairs(storage) do
+        if storage[index].owner == string.lower(player.name) then
+            return index
+        end
     end
 
     return nil
@@ -256,28 +259,22 @@ function CellGetPrice(cell)
 end
 
 
+function CellSetOwner(cell, player)
+    if storage[cell] == nil then
+        storage[cell] = {}
+    end
+
+    storage[cell].owner = string.lower(player.name)
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
 function GuestListGetList(cell)
-    local guestList = {}
-    local tmp = {}
-
-    local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. cell .. ".txt", "r")
-    if f ~= nil then
-        for line in f:lines() do
-            table.insert(tmp, line)
-        end
-        f:close()
-    end
-    table.remove(tmp, 1)
-
-    if tmp[1] ~= nil then
-        for substr in string.gmatch(tmp[1], '([^:]+)') do
-            table.insert(guestList, substr)
-        end
-    else
-        table.insert(guestList, nil)
+    if storage[cell].guestList == nil then
+        storage[cell].guestList = {}
     end
 
-    return guestList
+    return storage[cell].guestList
 end
 
 
@@ -301,7 +298,7 @@ end
 function GuestListAdd(player, guestName)
     local guestName = string.lower(guestName)
     local message = ""
-    local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+    local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
@@ -309,24 +306,13 @@ function GuestListAdd(player, guestName)
         if GuestListCheck(playerCell, guestName) then
             message = color.Orange .. guestName .. " is already on your guest list.\n" .. color.Default
         else
-            local guestList = GuestListGetList(playerCell)
-
-            if guestList[1] == nil then
-                table.remove(guestList, 1)
-            end
-            table.insert(guestList, guestName)
-
-            local fcontent = string.lower(player.name) .. "\n"
-            for index, item in pairs(guestList) do
-                fcontent = fcontent .. item .. ":"
+            if storage[playerCell].guestList == nil then
+                storage[playerCell].guestList = {}
             end
 
-            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerCell .. ".txt", "w+")
-            if f ~= nil then
-                message = color.MediumSpringGreen .. guestName .. " is now considered a guest.\n" .. color.Default
-                f:write(fcontent)
-                f:close()
-            end
+            table.insert(storage[playerCell].guestList, guestName)
+            message = color.MediumSpringGreen .. guestName .. " is now considered a guest.\n" .. color.Default
+            JsonInterface.save(getDataFolder() .. "storage.json", storage)
         end
     end
 
@@ -337,7 +323,7 @@ end
 
 function GuestListRemove(player, guestName)
     local message = ""
-    local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+    local playerCell = CellGetPlayerCell(player)
 
     guestName = string.lower(guestName)
 
@@ -345,21 +331,13 @@ function GuestListRemove(player, guestName)
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
     else
         if GuestListCheck(playerCell, guestName) then
-            local guestList = GuestListGetList(playerCell)
-
-            local fcontent =  string.lower(player.name) .. "\n"
-            for index, item in pairs(guestList) do
-                if item ~= guestName then
-                    fcontent = fcontent .. item .. ":"
+            for index, item in pairs(storage[playerCell].guestList) do
+                if item == string.lower(guestName) then
+                    table.remove(storage[playerCell].guestList, index)
                 end
             end
-
-            local f = io.open(getDataFolder() .. "cells" .. package.config:sub(1, 1) .. playerCell .. ".txt", "w+")
-            if f ~= nil then
-                message = color.MediumSpringGreen .. guestName .. " is no longer welcome in your house.\n" .. color.Default
-                f:write(fcontent)
-                f:close()
-            end
+            message = color.MediumSpringGreen .. guestName .. " is no longer welcome in your house.\n" .. color.Default
+            JsonInterface.save(getDataFolder() .. "storage.json", storage)
         else
             message = color.Orange .. guestName .. " is not on your guest list.\n" .. color.Default
         end
@@ -373,7 +351,7 @@ end
 function GuestListShow(player)
     local message = ""
     local sendMessage = false
-    local playerCell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+    local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
         message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
@@ -443,7 +421,7 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, button)
                    end
                    if id == 233 then
                        if tonumber(button) == 1 then
-                           local cell = Data.UserConfig.GetValue(string.lower(player.name), Config.RealEstate.configKeyword)
+                           local cell = CellGetPlayerCell(player)
                            CellRelease(cell)
                            CellBuy(player)
                        end
