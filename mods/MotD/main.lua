@@ -7,9 +7,13 @@
 
 
 require("color")
+JsonInterface = require("jsonInterface")
 
 
 Config.MotD = import(getModFolder() .. "config.lua")
+
+
+local storage = JsonInterface.load(getDataFolder() .. "storage.json")
 
 
 function Show(player, onConnect)
@@ -24,14 +28,12 @@ function Show(player, onConnect)
     message = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
 
     if onConnect == true then
-        local userConfig = Data.UserConfig.GetValue(string.lower(player.name), Config.MotD.configKeyword)
-
-        if userConfig == nil then
-            Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
-            userConfig = "1"
+        if storage[string.lower(player.name)] == nil then
+            storage[string.lower(player.name)] = true
+            JsonInterface.save(getDataFolder() .. "storage.json", storage)
         end
 
-        if userConfig == "1" then
+        if storage[string.lower(player.name)] == true then
             if player.level == 1 and player.levelProgress == 0 then
                 player:getGUI():customMessageBox(211, message, "OK;Disable MotD")
             else
@@ -55,7 +57,8 @@ end)
 Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 211 then
                        if tonumber(data) == 1 then
-                           Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "0")
+                           storage[string.lower(player.name)] = false
+                           JsonInterface.save(getDataFolder() .. "storage.json", storage)
                        end
                    end
 
@@ -64,13 +67,15 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                            player:getCell().description = Config.MotD.spawnLocation
                        end
                        if tonumber(data) == 2 then
-                           Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "0")
+                           storage[string.lower(player.name)] = false
+                           JsonInterface.save(getDataFolder() .. "storage.json", storage)
                        end
                    end
 
                    if id == 213 then
                        if tonumber(data) == 0 then
-                           Data.UserConfig.SetValue(string.lower(player.name), Config.MotD.configKeyword, "1")
+                           storage[string.lower(player.name)] = true
+                           JsonInterface.save(getDataFolder() .. "storage.json", storage)
                        end
                    end
 end)

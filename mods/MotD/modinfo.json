@@ -3,7 +3,6 @@
     "author": "Michael Fitzmayer",
     "version": "0.0.0",
     "dependencies": {
-        "Core": ">=0.0.1",
-        "UserConfig": ">=0.0.0"
+        "Core": ">=0.0.1"
     }
 }
