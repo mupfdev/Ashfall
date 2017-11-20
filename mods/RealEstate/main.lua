@@ -79,6 +79,8 @@ function CellCheck(player)
                     sendMessage = true
                 elseif playerName == cellOwner then
                     message = color.MediumSpringGreen .. "Welcome home, " .. playerName .. ".\n" .. color.Default
+                    storage[cellCurrent].lastVisit = os.time()
+                    JsonInterface.save(getDataFolder() .. "storage.json", storage)
                     sendMessage = true
                 elseif GuestListCheck(cellCurrent, playerName) then
                     message = color.MediumSpringGreen .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n" .. color.Default
