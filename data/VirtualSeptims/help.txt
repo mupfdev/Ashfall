@@ -1,0 +1,3 @@
+#FF8C00Banking system - HELP
+
+#FA8072/bank show#FFFFFF - Show account.
