@@ -46,3 +46,11 @@
 	path = 0.6.1/scripts/disable-assasins
 	url = https://github.com/vertchrite/tes3mp-disable-assassins.git
 	branch = scripts
+[submodule "0.6.1/scripts/stuck-0.6.1"]
+	path = 0.6.1/scripts/stuck-0.6.1
+	url = https://github.com/Texafornian/stuck-0.6.1
+	branch = master
+[submodule "0.6.1/scripts/stuck"]
+	path = 0.6.1/scripts/stuck
+	url = https://github.com/Texafornian/stuck-0.6.1
+	branch = master
