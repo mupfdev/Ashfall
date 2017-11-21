@@ -13,6 +13,7 @@ JsonInterface = require("jsonInterface")
 Config.RealEstate = import(getModFolder() .. "config.lua")
 
 
+local cellCheckLastVisitTimer
 local storage = JsonInterface.load(getDataFolder() .. "storage.json")
 
 
@@ -107,6 +108,26 @@ function CellCheck(player)
     end
 
     return 0
+end
+
+
+function CellCheckLastVisit()
+    local timeCurrent = os.time()
+
+    for index, item in pairs(storage) do
+        if storage[index].lastVisit ~= nil then
+            if timeCurrent - storage[index].lastVisit >= (Config.RealEstate.maxAbandonTime * 3600) then
+                CellRelease(index)
+                local message = index .. " has been abandoned.\n"
+                logMessage(LOG_INFO, message)
+                Players.for_each(function(player)
+                        player:message(color.Orange .. message)
+                end)
+            end
+        end
+    end
+
+    cellCheckLastVisitTimer:start()
 end
 
 
@@ -397,6 +418,22 @@ function WaroToSeydaNeen(player)
 end
 
 
+Event.register(Events.ON_GUI_ACTION, function(player, id, button)
+                   if id == 232 then
+                       if tonumber(button) == 1 then
+                           CellBuy(player)
+                       end
+                   end
+                   if id == 233 then
+                       if tonumber(button) == 1 then
+                           local cell = CellGetPlayerCell(player)
+                           CellRelease(cell)
+                           CellBuy(player)
+                       end
+                   end
+end)
+
+
 Event.register(Events.ON_PLAYER_CELLCHANGE, function(player)
                    -- Dirty hack to determine previous cell.
                    -- Todo:
@@ -416,19 +453,9 @@ Event.register(Events.ON_PLAYER_EQUIPMENT, function(player)
 end)
 
 
-Event.register(Events.ON_GUI_ACTION, function(player, id, button)
-                   if id == 232 then
-                       if tonumber(button) == 1 then
-                           CellBuy(player)
-                       end
-                   end
-                   if id == 233 then
-                       if tonumber(button) == 1 then
-                           local cell = CellGetPlayerCell(player)
-                           CellRelease(cell)
-                           CellBuy(player)
-                       end
-                   end
+Event.register(Events.ON_POST_INIT, function()
+                   cellCheckLastVisitTimer = TimerCtrl.create(CellCheckLastVisit, 300000, { cellCheckLastVisitTimer })
+                   cellCheckLastVisitTimer:start()
 end)
 
 
