@@ -52,8 +52,6 @@ end
 
 
 function AccountCheckLastVisit()
-    local timeCurrent = os.time()
-
     for index, item in pairs(storage) do
         if storage[index].lastVisit ~= nil then
             if timeCurrent - storage[index].lastVisit >= (Config.VirtualSeptims.maxAbandonTime * 3600) then
@@ -70,19 +68,10 @@ end
 
 function AccountCheckStatus(playerName)
     if storage[string.lower(playerName)] == nil then
-        print("false\n")
         return false
     else
-        print("true\n")
         return true
     end
-end
-
-
-function AccountOpen(playerName)
-    storage[string.lower(playerName)] = {}
-    storage[string.lower(playerName)].septims = 0
-    JsonInterface.save(getDataFolder() .. "storage.json", storage)
 end
 
 
@@ -92,18 +81,25 @@ function AccountClose(playerName)
 end
 
 
-function AccountUpdateLastVisit(playerName)
-    storage[string.lower(playerName)].lastVisit = os.time()
-    JsonInterface.save(getDataFolder() .. "storage.json", storage)
-end
-
-
 function AccountGenerateSeptims()
+    local timeCurrent = os.time()
+
     Players.for_each(function(player)
-            -- if not AFK
-            local septimsCurrent = AccountGetSeptims(player.name)
-            septimsCurrent = math.ceil(septimsCurrent + Config.VirtualSeptims.septimsPerMinute)
-            AccountSetSeptims(player.name, septimsCurrent)
+            local timeLastActivity = player.customData["lastActivity"]
+
+            if (timeCurrent - timeLastActivity) < Config.VirtualSeptims.maxAFKTime then
+                local septimsCurrent = AccountGetSeptims(player.name)
+                septimsCurrent = math.ceil(septimsCurrent + Config.VirtualSeptims.septimsPerMinute)
+                AccountSetSeptims(player.name, septimsCurrent)
+
+                if player.customData["isAFK"] == true then
+                    player:message(color.MediumSpringGreen .. "The interest payment will be continued.\n", false)
+                    player.customData["isAFK"] = false
+                end
+            else
+                player:message(color.Orange .. "The payment of interest has stopped due to inactivity.\n", false)
+                player.customData["isAFK"] = true
+            end
     end)
 
     accountGenerateSeptimsTimer:start()
@@ -121,15 +117,58 @@ function AccountGetSeptims(playerName)
 end
 
 
+function AccountOpen(playerName)
+    storage[string.lower(playerName)] = {}
+    storage[string.lower(playerName)].septims = 0
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
 function AccountSetSeptims(playerName, count)
     storage[string.lower(playerName)].septims = count
     JsonInterface.save(getDataFolder() .. "storage.json", storage)
 end
 
 
+function AccountShow(player)
+    local septimsCurrent = AccountGetSeptims(player.name)
+    player:getGUI():customMessageBox(441, color.DarkOrange .. "BANK ACCOUNT\n\n" .. color.Default .. septimsCurrent .. " Septims", "OK")
+
+    return true
+end
+
+
+function AccountUpdateLastVisit(playerName)
+    storage[string.lower(playerName)].lastVisit = os.time()
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
 Event.register(Events.ON_PLAYER_CONNECT, function(player)
                    Init(player)
+                   player.customData["lastActivity"] = os.time()
+                   player.customData["isAFK"] = false
                    return true
+end)
+
+
+Event.register(Events.ON_PLAYER_CELLCHANGE, function(player)
+                   player.customData["lastActivity"] = os.time()
+end)
+
+
+Event.register(Events.ON_PLAYER_INVENTORY, function(player)
+                   player.customData["lastActivity"] = os.time()
+end)
+
+
+Event.register(Events.ON_PLAYER_KILLCOUNT, function(player)
+                   player.customData["lastActivity"] = os.time()
+end)
+
+
+Event.register(Events.ON_PLAYER_SENDMESSAGE, function(player)
+                   player.customData["lastActivity"] = os.time()
 end)
 
 
@@ -142,3 +181,8 @@ end)
 
 
 CommandController.registerCommand("bank", CommandHandler, color.Salmon .. "/bank help" .. color.Default .. " - Banking system.")
+
+
+Data["VirtualSeptims"] = {}
+Data.VirtualSeptims["GetSeptims"] = AccountGetSeptims
+Data.VirtualSeptims["SetSeptims"] = AccountSetSeptims

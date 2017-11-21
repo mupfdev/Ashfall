@@ -8,8 +8,6 @@
 
 require("color")
 JsonInterface = require("jsonInterface")
-
-
 Config.RealEstate = import(getModFolder() .. "config.lua")
 
 
@@ -85,6 +83,8 @@ function CellCheck(player)
                     sendMessage = true
                 elseif GuestListCheck(cellCurrent, playerName) then
                     message = color.MediumSpringGreen .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n" .. color.Default
+                    storage[cellCurrent].lastVisit = os.time()
+                    JsonInterface.save(getDataFolder() .. "storage.json", storage)
                     sendMessage = true
                 end
             else
@@ -95,7 +95,7 @@ function CellCheck(player)
 
                 local playerCell = CellGetPlayerCell(player)
                 if playerCell == nil then
-                    player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " Septims.\n", "Close;Buy House")
+                    player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " invested Septims.\n", "Close;Buy House")
                 else
                     player:getGUI():customMessageBox(233, "This house is for sale, but you already own " .. playerCell .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
                 end
@@ -119,7 +119,7 @@ function CellCheckLastVisit()
             if timeCurrent - storage[index].lastVisit >= (Config.RealEstate.maxAbandonTime * 3600) then
                 CellRelease(index)
                 local message = index .. " has been abandoned.\n"
-                logMessage(LOG_INFO, message)
+                logMessage(Log.LOG_INFO, message)
                 Players.for_each(function(player)
                         player:message(color.Orange .. message)
                 end)
@@ -157,7 +157,7 @@ function CellBuy(player)
             end
 
             if playerGold < housePrice then
-                message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " Septims to buy this house.\n" .. color.Default
+                message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " invested Septims to buy this house.\n" .. color.Default
                 sendMessage = true
             else
                 CellSetOwner(cellCurrent, player)
