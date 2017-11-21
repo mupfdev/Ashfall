@@ -162,7 +162,7 @@ function CellRelease(cell)
     if storage[cell] == nil then
         storage[cell] = {}
     end
-    storage[cell].owner = nil
+    storage[cell] = {}
     JsonInterface.save(getDataFolder() .. "storage.json", storage)
 end
 
@@ -267,6 +267,7 @@ function CellSetOwner(cell, player)
     end
 
     storage[cell].owner = string.lower(player.name)
+    storage[cell].lastVisit = os.time()
     JsonInterface.save(getDataFolder() .. "storage.json", storage)
 end
 
