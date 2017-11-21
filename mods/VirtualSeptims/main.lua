@@ -12,19 +12,18 @@ Config.VirtualSeptims = import(getModFolder() .. "config.lua")
 
 
 local accountCheckLastVisitTimer
+local accountGenerateSeptimsTimer
 local storage = JsonInterface.load(getDataFolder() .. "storage.json")
 
 
 function Init(player)
-    if storage[string.lower(player.name)].lastVisit == nil then
-        storage[string.lower(player.name)] = {}
-        storage[string.lower(player.name)].septims = 0
+    if AccountCheckStatus(player.name) == false then
+        AccountOpen(player.name)
         message = color.MediumSpringGreen .. "A new bank account has been opened.\n" .. color.Default
         player:message(message, false)
     end
 
-    storage[string.lower(player.name)].lastVisit = os.time()
-    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+    AccountUpdateLastVisit(player.name)
 end
 
 
@@ -58,15 +57,73 @@ function AccountCheckLastVisit()
     for index, item in pairs(storage) do
         if storage[index].lastVisit ~= nil then
             if timeCurrent - storage[index].lastVisit >= (Config.VirtualSeptims.maxAbandonTime * 3600) then
-                storage[index] = {}
-                JsonInterface.save(getDataFolder() .. "storage.json", storage)
+                AccountClose(index)
                 local message = index .. "'s bank account has been closed.\n"
-                logMessage(LOG_INFO, message)
+                logMessage(Log.LOG_INFO, message)
             end
         end
     end
 
     accountCheckLastVisitTimer:start()
+end
+
+
+function AccountCheckStatus(playerName)
+    if storage[string.lower(playerName)] == nil then
+        print("false\n")
+        return false
+    else
+        print("true\n")
+        return true
+    end
+end
+
+
+function AccountOpen(playerName)
+    storage[string.lower(playerName)] = {}
+    storage[string.lower(playerName)].septims = 0
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
+function AccountClose(playerName)
+    storage[string.lower(playerName)] = {}
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
+function AccountUpdateLastVisit(playerName)
+    storage[string.lower(playerName)].lastVisit = os.time()
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
+function AccountGenerateSeptims()
+    Players.for_each(function(player)
+            -- if not AFK
+            local septimsCurrent = AccountGetSeptims(player.name)
+            septimsCurrent = math.ceil(septimsCurrent + Config.VirtualSeptims.septimsPerMinute)
+            AccountSetSeptims(player.name, septimsCurrent)
+    end)
+
+    accountGenerateSeptimsTimer:start()
+end
+
+
+function AccountGetSeptims(playerName)
+    local septimsCurrent = storage[string.lower(playerName)].septims
+
+    if septimsCurrent ~= nil then
+        return septimsCurrent
+    else
+        return 0
+    end
+end
+
+
+function AccountSetSeptims(playerName, count)
+    storage[string.lower(playerName)].septims = count
+    JsonInterface.save(getDataFolder() .. "storage.json", storage)
 end
 
 
@@ -78,7 +135,9 @@ end)
 
 Event.register(Events.ON_POST_INIT, function()
                    accountCheckLastVisitTimer = TimerCtrl.create(AccountCheckLastVisit, 300000, { accountCheckLastVisitTimer })
+                   accountGenerateSeptimsTimer = TimerCtrl.create(AccountGenerateSeptims, 60000, { accountGenerateSeptimsTimer })
                    accountCheckLastVisitTimer:start()
+                   accountGenerateSeptimsTimer:start()
 end)
 
 
