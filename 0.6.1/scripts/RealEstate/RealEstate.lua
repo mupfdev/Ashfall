@@ -56,7 +56,7 @@ Methods.CheckCell = function(pid)
 
     for index, cell in pairs(playerHouses) do
         if currentCell == cell then
-            if cellOwner ~= nil then
+            if cellOwner ~= nil and Players[pid]:IsAdmin() == false then
                 if playerName ~= cellOwner then
                     message = color.Crimson .. "This house is owned by "
                     message = message .. cellOwner .. ".\n" .. color.Default
@@ -65,9 +65,6 @@ Methods.CheckCell = function(pid)
                     else
                         WaroToSeydaNeen(pid)
                     end
-                    sendMessage = true
-                elseif Players[pid]:IsAdmin() then
-                    message = color.MediumSpringGreen .. "Welcome in " .. cellOwner .. "'s home.\n" .. color.Default
                     sendMessage = true
                 else
                     message = color.MediumSpringGreen .. "Welcome home, "
