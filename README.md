@@ -11,7 +11,10 @@ following command:
 
 To update your existing fork use:
 
-`git pull --recurse-submodules`
+```
+git submodule update --remote
+git pull --recurse-submodules
+```
 
 ## Note
 
