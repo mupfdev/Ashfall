@@ -2,9 +2,6 @@
 
 month=`date --date='-1 month' +'%Y-%m'`
 
-mkdir ~/backups/data/${month}
-mv ~/backups/data/${month}*_* ~/backups/data/${month}
-
 mkdir ~/backups/logs/${month}
 mv ~/backups/logs/${month}*_* ~/backups/logs/${month}
 
