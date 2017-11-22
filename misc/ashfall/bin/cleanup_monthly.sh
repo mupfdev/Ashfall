@@ -7,3 +7,6 @@ mv ~/backups/logs/${month}*_* ~/backups/logs/${month}
 
 find ~/backups/player/ -maxdepth 1 ! -name "*_*" ! -name current ! -name player -name "$month*" -exec mv {} ~/backups/player/${month} \;
 mkdir ~/backups/player/${month}
+
+find ~/backups/art/ -maxdepth 1 ! -name "*_*" ! -name current ! -name player -name "$month*" -exec mv {} ~/backups/art/${month} \;
+mkdir ~/backups/art/${month}
