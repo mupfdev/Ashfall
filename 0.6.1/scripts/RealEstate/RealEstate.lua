@@ -66,6 +66,9 @@ Methods.CheckCell = function(pid)
                         WaroToSeydaNeen(pid)
                     end
                     sendMessage = true
+                elseif Players[pid]:IsAdmin() then
+                    message = color.MediumSpringGreen .. "Welcome in " .. cellOwner .. "'s home.\n" .. color.Default
+                    sendMessage = true
                 else
                     message = color.MediumSpringGreen .. "Welcome home, "
                     message = message .. playerName .. ".\n" .. color.Default
