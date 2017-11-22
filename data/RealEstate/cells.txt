@@ -87,7 +87,6 @@ Maar Gan, Guard Tower 3:900000
 Maar Gan, Kind Erushara's Hut:700000
 Maar Gan, Mabrelle Geles's Hut:700000
 Maar Gan, Shilipuran Zama-Rasour's Hut:700000
-Maar Gan, Tashpi Ashibael's Hut:700000
 Maar Gan, Ulisamsi Shaddarnuran's Hut:700000
 Maar Gan, Yeherradad's Hut:700000
 Nilera's Farmhouse:450000
