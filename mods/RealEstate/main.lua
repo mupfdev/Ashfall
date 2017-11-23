@@ -16,6 +16,11 @@ local storage = JsonInterface.load(getDataFolder() .. "storage.json")
 
 
 function CommandHandler(player, args)
+    if args[1] == nil then
+        CellShowPlayerCellGUI(player)
+        return true
+    end
+
     if args[1] == "add" then
         if args[2] == nil then
             return false
@@ -284,6 +289,14 @@ function CellUnlockPlayerCell(player)
 end
 
 
+function CellShowPlayerCellGUI(player)
+    local message = "#FF8C00Real estate system#FFFFFF"
+    local buttons = "Close Window;Add Guest;Remove Guest;Guest list;Lock;Unlock"
+
+    player:getGUI():customMessageBox(234, message, buttons)
+end
+
+
 function CellGetLockState(cell)
     if storage[cell] == nil then
         return false
@@ -510,18 +523,33 @@ function WaroToSeydaNeen(player)
 end
 
 
-Event.register(Events.ON_GUI_ACTION, function(player, id, button)
+Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                    if id == 232 then
-                       if tonumber(button) == 1 then
+                       if tonumber(data) == 1 then
                            CellBuy(player)
                        end
-                   end
-                   if id == 233 then
-                       if tonumber(button) == 1 then
+                   elseif id == 233 then
+                       if tonumber(data) == 1 then
                            local cell = CellGetPlayerCell(player)
                            CellRelease(cell)
                            CellBuy(player)
                        end
+                   elseif id == 234 then
+                       if tonumber(data) == 1 then
+                           player:getGUI():inputDialog(235, "Add guest")
+                       elseif tonumber(data) == 2 then
+                           player:getGUI():inputDialog(236, "Remove guest")
+                       elseif tonumber(data) == 3 then
+                           GuestListShow(player)
+                       elseif tonumber(data) == 4 then
+                           CellLockPlayerCell(player)
+                       elseif tonumber(data) == 5 then
+                           CellUnlockPlayerCell(player)
+                       end
+                   elseif id == 235 then
+                       GuestListAdd(player, data)
+                   elseif id == 236 then
+                       GuestListRemove(player, data)
                    end
 end)
 
