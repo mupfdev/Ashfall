@@ -61,6 +61,7 @@ function CellCheck(player)
     local cellCurrent = player:getCell().description
     local cellOwner = CellGetOwner(cellCurrent)
     local cells = CellGetList()
+    local goldCurrencyName = GoldGetCurrencyName()
     local playerName = string.lower(player.name)
 
     if cells == -1 then return -1 end
@@ -95,7 +96,7 @@ function CellCheck(player)
 
                 local playerCell = CellGetPlayerCell(player)
                 if playerCell == nil then
-                    player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " invested Septims.\n", "Close;Buy House")
+                    player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " " .. goldCurrencyName .. ".\n", "Close;Buy House")
                 else
                     player:getGUI():customMessageBox(233, "This house is for sale, but you already own " .. playerCell .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
                 end
@@ -137,16 +138,10 @@ function CellBuy(player)
     local cellCurrent = player:getCell().description
     local cellOwner   = CellGetOwner(cellCurrent)
     local cells = CellGetList()
-    --local playerGold = 0
-    local playerGold  = 1000000
-    --local goldIndex
+    local goldCurrencyName = GoldGetCurrencyName()
+    local goldAmount = GoldGetAmount(player)
 
     if cells == -1 then return -1 end
-
-    --if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", "gold_001", true) then
-    --    goldIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", "gold_001")
-    --    playerGold = Players[pid].data.inventory[goldIndex].count
-    --end
 
     for index, cell in pairs(cells) do
         if cellCurrent == cell and cellOwner == nil then
@@ -156,16 +151,14 @@ function CellBuy(player)
                 housePrice = Config.RealEstate.basePrice
             end
 
-            if playerGold < housePrice then
-                message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " invested Septims to buy this house.\n" .. color.Default
+            if goldAmount < housePrice then
+                message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " " .. goldCurrencyName .. ".\n" .. color.Default
                 sendMessage = true
             else
                 CellSetOwner(cellCurrent, player)
                 message = color.MediumSpringGreen .. "Welcome home, " .. player.name .. ".\n" .. color.Default
-                --Players[pid].data.inventory[goldIndex].count = playerGold - housePrice
-                --Players[pid]:Save()
-                --Players[pid]:LoadInventory()
-                --Players[pid]:LoadEquipment()
+                GoldSetAmount(player.name, (goldAmount - housePrice))
+
                 sendMessage = true
             end
         end
@@ -185,27 +178,6 @@ function CellRelease(cell)
     end
     storage[cell] = {}
     JsonInterface.save(getDataFolder() .. "storage.json", storage)
-end
-
-
-function Portkey(player)
-    if player:getInventory():hasItemEquipped(string.lower(Config.RealEstate.portkeyRefId)) and Config.RealEstate.portkey == true then
-        local message = ""
-        local sendMessage = false
-        local playerCell = CellGetPlayerCell(player)
-
-        if playerCell == nil then
-            message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
-            sendMessage = true
-        else
-            player:getInventory():unequipItem(Config.RealEstate.portkeySlot)
-            player:getCell().description = playerCell
-        end
-
-        if sendMessage == true then
-            player:message(message, false)
-        end
-    end
 end
 
 
@@ -290,6 +262,34 @@ function CellSetOwner(cell, player)
     storage[cell].owner = string.lower(player.name)
     storage[cell].lastVisit = os.time()
     JsonInterface.save(getDataFolder() .. "storage.json", storage)
+end
+
+
+function GoldGetCurrencyName()
+    if Config.RealEstate.useVirtualSeptims == true then
+        return Config.RealEstate.nameCurrencyRegular
+    else
+        return Config.RealEstate.nameCurrencyVirtual
+    end
+end
+
+
+function GoldGetAmount(player)
+    if Config.RealEstate.useVirtualSeptims == true then
+        return Data.VirtualSeptims.Get(player.name)
+    end
+
+    -- Todo: else return gold amount from inventory
+    return 1000000
+end
+
+
+function GoldSetAmount(player, gold)
+    if Config.RealEstate.useVirtualSeptims == true then
+        Data.VirtualSeptims.Set(player, gold)
+    else
+        -- Todo: set gold in inventory
+    end
 end
 
 
@@ -403,6 +403,27 @@ function GuestListShow(player)
 end
 
 
+function WarpHome(player)
+    if player:getInventory():hasItemEquipped(string.lower(Config.RealEstate.portkeyRefId)) and Config.RealEstate.portkey == true then
+        local message = ""
+        local sendMessage = false
+        local playerCell = CellGetPlayerCell(player)
+
+        if playerCell == nil then
+            message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
+            sendMessage = true
+        else
+            player:getInventory():unequipItem(Config.RealEstate.portkeySlot)
+            player:getCell().description = playerCell
+        end
+
+        if sendMessage == true then
+            player:message(message, false)
+        end
+    end
+end
+
+
 function WarpToPreviousPosition(player)
     player:getCell().description = player.customData.cellPrevious
     --local posx = tes3mp.GetPreviousCellPosX(pid)
@@ -449,13 +470,28 @@ end)
 
 
 Event.register(Events.ON_PLAYER_EQUIPMENT, function(player)
-                   Portkey(player)
+                   WarpHome(player)
 end)
 
 
 Event.register(Events.ON_POST_INIT, function()
                    cellCheckLastVisitTimer = TimerCtrl.create(CellCheckLastVisit, 300000, { cellCheckLastVisitTimer })
                    cellCheckLastVisitTimer:start()
+
+                   if Config.RealEstate.useVirtualSeptims == true then
+                       local hit = false
+
+                       for index, mod in pairs(Data.Core.loadedMods) do
+                           if mod == "VirtualSeptims" then
+                               hit = true
+                           end
+                       end
+
+                       if hit == false then
+                           logAppend(Log.LOG_ERROR, "useVirtualSeptims enabled but mod not installed.\n")
+                           stopServer(-1)
+                       end
+                   end
 end)
 
 

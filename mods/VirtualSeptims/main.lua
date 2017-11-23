@@ -184,5 +184,5 @@ CommandController.registerCommand("bank", CommandHandler, color.Salmon .. "/bank
 
 
 Data["VirtualSeptims"] = {}
-Data.VirtualSeptims["GetSeptims"] = AccountGetSeptims
-Data.VirtualSeptims["SetSeptims"] = AccountSetSeptims
+Data.VirtualSeptims["Get"] = AccountGetSeptims
+Data.VirtualSeptims["Set"] = AccountSetSeptims
