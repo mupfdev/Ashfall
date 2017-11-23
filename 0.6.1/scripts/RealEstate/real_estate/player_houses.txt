@@ -20,6 +20,7 @@ Ald-ruhn, Tauryon's House:850000
 Ald-ruhn, Venim Manor Bedrooms:2000000
 An Abandoned Shack:300000
 Arrow, Cabin:300000
+Arvel Manor:2000000
 Balmora, Astius Hanotepelus' House:900000
 Balmora, Dralcea Arethi's House:900000
 Balmora, Dralosa Athren's House:900000
