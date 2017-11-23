@@ -16,6 +16,9 @@ Methods = {}
 -- directly underneath [ Players[pid]:SaveInventory() ].
 
 
+local removeBannedItems = false
+
+
 Methods.Remove = function(pid)
     local message = color.Crimson .. "Banned item has been removed.\n" .. color.Default
 
@@ -81,10 +84,12 @@ Methods.Remove = function(pid)
     local hadBannedItem = false
 
     for index, item in pairs(bannedItems) do
-        if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", item, true) then
-            hadBannedItem = true
-            local itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", item)
-            Players[pid].data.inventory[itemIndex] = nil
+        if removeBannedItems == true then
+            if tableHelper.containsKeyValue(Players[pid].data.inventory, "refId", item, true) then
+                hadBannedItem = true
+                local itemIndex = tableHelper.getIndexByNestedKeyValue(Players[pid].data.inventory, "refId", item)
+                Players[pid].data.inventory[itemIndex] = nil
+            end
         end
 
         if tableHelper.containsKeyValue(Players[pid].data.equipment, "refId", item, true) then
