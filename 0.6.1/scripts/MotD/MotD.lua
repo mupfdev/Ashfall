@@ -35,8 +35,7 @@ Methods.Show = function(pid)
 
     message = color.Orange .. message
     message = message .. color.OrangeRed .. os.date("Current time: %A %I:%M %p") .. color.Default .. "\n"
-    tes3mp.MessageBox(pid, -1, message)
-
+    tes3mp.CustomMessageBox(pid, -1, message, "OK")
     return 0
 end
 
