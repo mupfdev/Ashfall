@@ -5,7 +5,7 @@ A collection of free/libre open source TES3MP scripts.
 If you are interested in becoming an collaborator to this project, feel
 free to write mupf on the official [TES3MP Discord Server](https://discord.gg/ECJk293).
 
-## Other open source TES3MP repositories/scripts
+## Other open source TES3MP repositories
 
 [Atkana/tes3mp-scripts](https://github.com/Atkana/tes3mp-scripts/)  
 [SkotisVarvikas/TES3MP-Stuffs](https://github.com/SkotisVarvikas/TES3MP-Stuffs)  
