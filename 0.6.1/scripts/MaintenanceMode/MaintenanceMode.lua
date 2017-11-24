@@ -65,7 +65,7 @@ function WarningTimerExpired()
         lastPid = tes3mp.GetLastPlayerId()
 
         for pid = 0, lastPid do
-            if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
+            if Players[pid] ~= nil and Players[pid]:IsLoggedIn() and Players[pid]:IsAdmin() == false then
                 Players[pid]:Kick()
             end
         end
