@@ -53,7 +53,7 @@ end
 Methods.Bouncer = function(pid)
     if Players[pid]:IsAdmin() == false then
         local f= io.open(maintenanceFile, "r")
-        if f ~=nil == false then Players[pid]:Kick() end
+        if f ~=nil then Players[pid]:Kick() end
     end
 end
 
