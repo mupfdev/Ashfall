@@ -1,5 +1,5 @@
 -- FixQuest.lua -*-lua-*-
--- "THE BEER-WARE LICENCE" (Revision 42):
+-- "THE BEER-WARE LICENSE" (Revision 42):
 -- <mail@michael-fitzmayer.de> wrote this file.  As long as you retain
 -- this notice you can do whatever you want with this stuff. If we meet
 -- some day, and you think this stuff is worth it, you can buy me a beer
@@ -58,9 +58,9 @@ Methods.TT_SanctusShrine = function(pid)
 
     if index == 10 then
         tes3mp.InitializeJournalChanges(pid)
-        tes3mp.AddJournalEntry(pid, "mv_traderlate", 20, "endryn llethan")
-        tes3mp.AddJournalEntry(pid, "mv_traderlate", 50, "endryn llethan")
-        tes3mp.AddJournalEntry(pid, "mv_traderlate", 100, "endryn llethan")
+        tes3mp.AddJournalEntry(pid, "tt_sanctusshrine", 20, "endryn llethan")
+        tes3mp.AddJournalEntry(pid, "tt_sanctusshrine", 50, "endryn llethan")
+        tes3mp.AddJournalEntry(pid, "tt_sanctusshrine", 100, "endryn llethan")
         tes3mp.SendJournalChanges(pid)
         tes3mp.SendJournalChanges(pid, true)
     end
