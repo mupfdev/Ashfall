@@ -7,7 +7,7 @@
 # *    *    * * * *
  59   11    * * 1 touch ~/0.6.1-server/keepers/Data/MaintenanceMode/maintenance.lock
   0   12    * * 1 ~/bin/reset.sh
- 59   23    * * 5 touch ~/0.6.1-server/keepers/Data/MaintenanceMode/maintenance.lock
+ 59   23    * * 4 touch ~/0.6.1-server/keepers/Data/MaintenanceMode/maintenance.lock
   0    0    * * 5 ~/bin/reset.sh
   */2  *    * * * ~/bin/failsafe.sh
   3    *    * * * ~/bin/backup_player.sh
