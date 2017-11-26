@@ -12,6 +12,7 @@ free to write mupf on the official [TES3MP Discord Server](https://discord.gg/EC
 [TES3MP-TeamFOSS/LiveMap](https://github.com/TES3MP-TeamFOSS/LiveMap)  
 [Texafornian/mwTDM-0.6.1](https://github.com/Texafornian/mwTDM-0.6.1)  
 [Texafornian/Plugins-0.6.1](https://github.com/Texafornian/Plugins-0.6.1)  
+[Texafornian/TES3MP-Server-Stats](https://github.com/Texafornian/TES3MP-Server-Stats)  
 [Texafornian/TCC-0.6.1](https://github.com/Texafornian/TCC-0.6.1)  
 [vertchrite/tes3mp-check](https://github.com/vertchrite/tes3mp-check)  
 [vertchrite/tes3mp-command-pack](https://github.com/vertchrite/tes3mp-command-pack)  
