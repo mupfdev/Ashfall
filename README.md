@@ -3,7 +3,7 @@
 A collection of free/libre open source TES3MP scripts.
 
 If you are interested in becoming an collaborator to this project, feel
-free to write mupf on the official [TES3MP Discord Server](https://discord.gg/ECJk293).
+free to join us on our official [Discord Server](https://discord.gg/uFCN6GP).
 
 ## Other open source TES3MP repositories
 
