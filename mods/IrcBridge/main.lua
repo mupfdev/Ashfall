@@ -16,7 +16,6 @@ local timer
 local lastMessage = ""
 local s = irc.new { nick = Config.IrcBridge.nick }
 
-
 s:connect(Config.IrcBridge.server)
 s:sendChat("NickServ", "identify " .. Config.IrcBridge.nickservPassword)
 s:join(Config.IrcBridge.channel)
@@ -41,6 +40,39 @@ function SendMessage(message)
     s:sendChat(Config.IrcBridge.channel, message)
     s:think()
 end
+
+
+Event.register(Events.ON_PLAYER_CONNECT, function(player)
+                   local message = player.name .. " joined the server\n"
+                   SendMessage(message)
+
+                   return true
+end)
+
+
+Event.register(Events.ON_PLAYER_DEATH, function(player, deathReason)
+                   local reason = ": "
+                   if deathReason == "suicide" then
+                       reason = " commited suicide"
+                   end
+
+                   local message = player.name .. reason .. "\n"
+                   SendMessage(message)
+end)
+
+
+Event.register(Events.ON_PLAYER_DISCONNECT, function(player)
+                   local message = player.name .. " left the server\n"
+                   SendMessage(message)
+end)
+
+
+Event.register(Events.ON_PLAYER_LEVEL, function(player)
+                   if player.level > 1 then
+                       local message = player.name .. " reached level " .. player.level .. "\n"
+                       SendMessage(message)
+                   end
+end)
 
 
 Event.register(Events.ON_POST_INIT, function()
