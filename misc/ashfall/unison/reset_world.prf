@@ -1,7 +1,0 @@
-root = 0.6.1-server/keepers/World/
-root = 0.6.1-server/keepers/CoreScripts/data/world/
-
-confirmbigdel = false
-force = 0.6.1-server/keepers/World/
-log = false
-silent = true
