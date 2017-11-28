@@ -47,11 +47,6 @@ function CommandHandler(player, args)
         return true
     end
 
-    if args[1] == "unlock" then
-        CellUnlockPlayerCell(player)
-        return true
-    end
-
     Help(player)
     return true
 end
@@ -265,23 +260,13 @@ function CellLockPlayerCell(player)
     if playerCell == nil then
         message = color.Crimson .. "You do not own a house yet.\n"
     else
-        storage[playerCell].isUnlocked = false
-        message = color.MediumSpringGreen .. playerCell .. " has been locked.\n"
-    end
-
-    message = message .. color.Default
-    player:message(message, false)
-end
-
-
-function CellUnlockPlayerCell(player)
-    local playerCell = CellGetPlayerCell(player)
-
-    if playerCell == nil then
-        message = color.Crimson .. "You do not own a house yet.\n"
-    else
-        storage[playerCell].isUnlocked = false
-        message = color.Orange .. playerCell .. " has been unlocked. Be careful.\n"
+        if storage[playerCell].isUnlocked == true then
+            storage[playerCell].isUnlocked = false
+            message = color.MediumSpringGreen .. playerCell .. " has been locked.\n"
+        else
+            storage[playerCell].isUnlocked = true
+            message = color.Orange .. playerCell .. " has been unlocked. Be careful.\n"
+        end
     end
 
     message = message .. color.Default
