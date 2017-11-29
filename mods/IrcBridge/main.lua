@@ -43,32 +43,46 @@ end
 
 
 Event.register(Events.ON_PLAYER_CONNECT, function(player)
-                   local message = player.name .. " joined the server\n"
-                   SendMessage(message)
+                   if Config.IrcBridge.notifyConnect == true then
+                       local message = player.name .. " joined the server\n"
+                       SendMessage(message)
+                   end
 
                    return true
 end)
 
 
-Event.register(Events.ON_PLAYER_DEATH, function(player, deathReason)
-                   local reason = ": "
-                   if deathReason == "suicide" then
-                       reason = " commited suicide"
+Event.register(Events.ON_PLAYER_CELLCHANGE, function(player)
+                   if Config.IrcBridge.notifyCellChange == true and player:getCell():isExterior() == false then
+                       local message = player.name .. " entered " .. player:getCell().description .. "\n"
+                       SendMessage(message)
                    end
+end)
 
-                   local message = player.name .. reason .. "\n"
-                   SendMessage(message)
+
+Event.register(Events.ON_PLAYER_DEATH, function(player, deathReason)
+                   if Config.IrcBridge.notifyDeath == true then
+                       local reason = ": "
+                       if deathReason == "suicide" then
+                           reason = " commited suicide"
+                       end
+
+                       local message = player.name .. reason .. "\n"
+                       SendMessage(message)
+                   end
 end)
 
 
 Event.register(Events.ON_PLAYER_DISCONNECT, function(player)
-                   local message = player.name .. " left the server\n"
-                   SendMessage(message)
+                   if Config.IrcBridge.notifyDisconnect == true then
+                       local message = player.name .. " left the server\n"
+                       SendMessage(message)
+                   end
 end)
 
 
 Event.register(Events.ON_PLAYER_LEVEL, function(player)
-                   if player.level > 1 then
+                   if player.level > 1 and Config.IrcBridge.notifyLevel == true then
                        local message = player.name .. " reached level " .. player.level .. "\n"
                        SendMessage(message)
                    end
