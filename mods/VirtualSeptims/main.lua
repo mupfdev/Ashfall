@@ -52,6 +52,8 @@ end
 
 
 function AccountCheckLastVisit()
+    local timeCurrent = os.time()
+
     for index, item in pairs(storage) do
         if storage[index].lastVisit ~= nil then
             if timeCurrent - storage[index].lastVisit >= (Config.VirtualSeptims.maxAbandonTime * 3600) then
