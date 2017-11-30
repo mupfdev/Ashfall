@@ -146,7 +146,7 @@ function Methods.CellCheck(pid)
                     message = "#FF8C00You found this house unlocked.\n"
                     sendMessage = true
 
-                elseif playerName ~= cellOwner and GuestListCheck(cellCurrent, playerName) == false then
+                elseif playerName ~= cellOwner and GuestListCheck(cellCurrent, playerName) == false and Players[pid]:IsAdmin() == false then
                     message = "#DC143CThis house is owned by " .. cellOwner .. ".\n"
                     if cellPrevious ~= cellCurrent then
                         WarpToPreviousPosition(pid)
