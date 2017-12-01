@@ -6,7 +6,7 @@
 -- in return.  Michael Fitzmayer
 
 
-require("dkjson")
+json = require("dkjson")
 
 
 Methods = {}
