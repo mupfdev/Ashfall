@@ -79,7 +79,7 @@ function CellCheck(player)
     for index, cell in pairs(cells) do
         if cellCurrent == cell then
             if cellOwner ~= nil then
-                if CellGetLockState(currentCell) == false and playerName ~= cellOwner then
+                if CellGetLockState(currentCell) == true and playerName ~= cellOwner then
                     message = color.Orange .. "You found this house unlocked.\n"
                     sendMessage = true
 
