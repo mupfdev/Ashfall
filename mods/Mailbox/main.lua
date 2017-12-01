@@ -6,11 +6,9 @@
 -- in return.  Michael Fitzmayer
 
 
-require("color")
 require("valid-email")
-
-
 Config.Mailbox = import(getModFolder() .. "config.lua")
+colour = import(getModFolder() .. "colour.lua")
 
 
 function Init(player)
@@ -22,7 +20,7 @@ function Init(player)
         f = io.open(mbox, "w+")
         f:write(Config.Mailbox.welcomeMessage)
         f:close()
-        message = color.MediumSpringGreen .. "A new mailbox has been initialised.\n" .. color.Default
+        message = colour.Confirm .. "A new mailbox has been initialised.\n" .. colour.Default
         player:message(message, false)
     else
         f:close()
@@ -105,10 +103,10 @@ function InboxCheck(player)
     for _ in io.lines(mbox) do c = c + 1 end
     f:close()
 
-    message = color.MediumSpringGreen .. "You have " .. tostring(c) .. " message"
+    message = colour.Confirm .. "You have " .. tostring(c) .. " message"
     if c > 1 or c == 0 then message = message .. "s" end
 
-    message = message .. " in your Inbox.\n" .. color.Default
+    message = message .. " in your Inbox.\n" .. colour.Default
     player:message(message, false)
 
     return true
@@ -120,7 +118,7 @@ function InboxGUI(player)
 
     message = MessageRead(player, 0, true)
     if message ~= false then
-        player:getGUI():customMessageBox(222, color.Orange .. "Messages\n\n" .. color.Default .. message, "Close;Delete all")
+        player:getGUI():customMessageBox(222, colour.Warning .. "Messages\n\n" .. colour.Default .. message, "Close;Delete all")
     else
         InboxCheck(player)
     end
@@ -155,11 +153,11 @@ function MessageDelete(player, id)
     if id == 0 then
         f = io.open(mbox, "w+")
         f:close()
-        message = color.MediumSpringGreen .. "All messages have been deleted.\n"
+        message = colour.Confirm .. "All messages have been deleted.\n"
     else
         -- Delete specific message.
         if id > c or id < 0 then
-            message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Default
+            message = message .. colour.Caution .. "Message " .. tostring(id) .. " does not exist.\n" .. colour.Default
         else
             f = io.open(mbox, "r")
             while true do
@@ -175,7 +173,7 @@ function MessageDelete(player, id)
             for i = 0, c - 2 do f:write(content[i]) end
             f:close()
 
-            message = message .. color.MediumSpringGreen .. "Message " .. tostring(id) .. " has been deleted.\n" .. color.Default
+            message = message .. colour.Confirm .. "Message " .. tostring(id) .. " has been deleted.\n" .. colour.Default
         end
     end
 
@@ -217,21 +215,21 @@ function MessageRead(player, id, returnMessage)
             if line == nil then break end
 
             if i % 2 == 0 then
-                message = message .. color.LightSalmon .. line .. "\n" .. color.Default
+                message = message .. colour.Neutral .. line .. "\n" .. colour.Default
             else
-                message = message .. color.LightSkyBlue .. line .. "\n" .. color.Default
+                message = message .. colour.Default .. line .. "\n"
             end
             i = i + 1
         end
     end
     -- Show specific message.
     if id > c or id < 0 then
-        message = message .. color.Crimson .. "Message " .. tostring(id) .. " does not exist.\n" .. color.Default
+        message = message .. colour.Caution .. "Message " .. tostring(id) .. " does not exist.\n" .. colour.Default
     else
         i = 0
         for line in f:lines() do
             if i == id - 1 then
-                message = message .. color.LightSalmon .. line .. "\n" .. color.Default
+                message = message .. colour.Neutral .. line .. "\n" .. colour.Default
             end
             i = i + 1
         end
@@ -258,12 +256,12 @@ function MessageSend(player, user, text)
 
     local f = io.open(mbox, "r")
     if f == nil then
-        message = message .. color.Crimson .. user .. " does not have a mailbox yet.\n" .. color.Default
+        message = message .. colour.Caution .. user .. " does not have a mailbox yet.\n" .. colour.Default
         err = err + 1
     else
         for _ in io.lines(mbox) do c = c + 1 end
         if c >= Config.Mailbox.messageLimit then
-            message = message .. color.Crimson .. user .. "'s mailbox is full.\n" .. color.Default
+            message = message .. colour.Caution .. user .. "'s mailbox is full.\n" .. colour.Default
             err = err + 1
         end
         f:close()
@@ -271,17 +269,17 @@ function MessageSend(player, user, text)
 
     if err == 0 then
         if text == "" then
-            message = color.Crimson .. "Message is empty.\n"
+            message = colour.Caution .. "Message is empty.\n"
         else
             text = text .. " - " .. player.name .. "\n"
             f = io.open(mbox, "a")
             f:write(text)
             f:close()
-            message = color.MediumSpringGreen .. "Message has been sent.\n"
+            message = colour.Confirm .. "Message has been sent.\n"
 
             Players.for_each(function(receiver)
                     if string.lower(receiver.name) == string.lower(user) then
-                        receiver:message(color.Cyan .. "You've got mail from  " .. player.name .. ".\n" .. color.Default, false)
+                        receiver:message(colour.Neutral .. "You've got mail from  " .. player.name .. ".\n" .. colour.Default, false)
                     end
             end)
         end
@@ -320,4 +318,4 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, data)
 end)
 
 
-CommandController.registerCommand("mailbox", CommandHandler, color.Salmon .. "/mailbox help" .. color.Default .. " - Mailbox system.")
+CommandController.registerCommand("mailbox", CommandHandler, colour.Command .. "/mailbox help" .. colour.Default .. " - Mailbox system.")

@@ -6,9 +6,9 @@
 -- in return.  Michael Fitzmayer
 
 
-require("color")
 JsonInterface = require("jsonInterface")
 Config.RealEstate = import(getModFolder() .. "config.lua")
+colour = import(getModFolder() .. "colour.lua")
 
 
 local cellMonitorLastVisitTimer
@@ -80,11 +80,11 @@ function CellCheck(player)
         if cellCurrent == cell then
             if cellOwner ~= nil then
                 if CellGetLockState(currentCell) == true and playerName ~= cellOwner then
-                    message = color.Orange .. "You found this house unlocked.\n"
+                    message = colour.Warning .. "You found this house unlocked.\n"
                     sendMessage = true
 
                 elseif playerName ~= cellOwner and GuestListCheck(cellCurrent, playerName) == false then
-                    message = color.Crimson .. "This house is owned by " .. cellOwner .. ".\n"
+                    message = colour.Caution .. "This house is owned by " .. cellOwner .. ".\n"
                     if previousCell ~= cellCurrent then
                         WarpToPreviousPosition(player)
                     else
@@ -93,12 +93,12 @@ function CellCheck(player)
                     sendMessage = true
 
                 elseif playerName == cellOwner then
-                    message = color.MediumSpringGreen .. "Welcome home, " .. playerName .. ".\n"
+                    message = colour.Confirm .. "Welcome home, " .. playerName .. ".\n"
                     sendMessage = true
                     CellUpdateLastVisit(cellCurrent)
 
                 elseif GuestListCheck(cellCurrent, playerName) then
-                    message = color.MediumSpringGreen .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n"
+                    message = colour.Confirm .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n"
                     CellUpdateLastVisit(cellCurrent)
                     sendMessage = true
 
@@ -119,7 +119,7 @@ function CellCheck(player)
         end
     end
 
-    message = message .. color.Default
+    message = message .. colour.Default
     if sendMessage == true then
         player:message(message, false)
     end
@@ -138,7 +138,7 @@ function CellMonitorLastVisit()
                 local message = index .. " has been abandoned.\n"
                 logMessage(Log.LOG_INFO, message)
                 Players.for_each(function(player)
-                        player:message(color.Orange .. message)
+                        player:message(colour.Warning .. message)
                 end)
             end
         end
@@ -178,10 +178,10 @@ function CellBuy(player)
             end
 
             if goldAmount < housePrice then
-                message = color.Crimson .. "You need at least " .. tostring(housePrice) .. " " .. goldCurrencyName .. ".\n"
+                message = colour.Caution .. "You need at least " .. tostring(housePrice) .. " " .. goldCurrencyName .. ".\n"
                 sendMessage = true
             else
-                message = color.MediumSpringGreen .. "Welcome home, " .. player.name .. ".\n"
+                message = colour.Confirm .. "Welcome home, " .. player.name .. ".\n"
                 CellSetOwner(cellCurrent, player)
                 GoldSetAmount(player.name, (goldAmount - housePrice))
 
@@ -190,7 +190,7 @@ function CellBuy(player)
         end
     end
 
-    message = message .. color.Default
+    message = message .. colour.Default
     if sendMessage == true then
         player:message(message, false)
     end
@@ -258,24 +258,24 @@ function CellLockPlayerCell(player)
     local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
-        message = color.Crimson .. "You do not own a house yet.\n"
+        message = colour.Caution .. "You do not own a house yet.\n"
     else
         if storage[playerCell].isUnlocked == true then
             storage[playerCell].isUnlocked = false
-            message = color.MediumSpringGreen .. playerCell .. " has been locked.\n"
+            message = colour.Confirm .. playerCell .. " has been locked.\n"
         else
             storage[playerCell].isUnlocked = true
-            message = color.Orange .. playerCell .. " has been unlocked. Be careful.\n"
+            message = colour.Warning .. playerCell .. " has been unlocked. Be careful.\n"
         end
     end
 
-    message = message .. color.Default
+    message = message .. colour.Default
     player:message(message, false)
 end
 
 
 function CellShowPlayerCellGUI(player)
-    local message = "#FF8C00Real estate system#FFFFFF"
+    local message = colour.Heading .. "Real estate system" .. colour.Default
     local buttons = "Close Window;Add Guest;Remove Guest;Guest list;Lock;Unlock"
 
     player:getGUI():customMessageBox(234, message, buttons)
@@ -391,22 +391,22 @@ function GuestListAdd(player, guestName)
     local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
-        message = color.Crimson .. "You do not own a house yet.\n"
+        message = colour.Caution .. "You do not own a house yet.\n"
     else
         if GuestListCheck(playerCell, guestName) then
-            message = color.Orange .. guestName .. " is already on your guest list.\n"
+            message = colour.Warning .. guestName .. " is already on your guest list.\n"
         else
             if storage[playerCell].guestList == nil then
                 storage[playerCell].guestList = {}
             end
 
             table.insert(storage[playerCell].guestList, guestName)
-            message = color.MediumSpringGreen .. guestName .. " is now considered a guest.\n"
+            message = colour.Confirm .. guestName .. " is now considered a guest.\n"
             JsonInterface.save(getDataFolder() .. "storage.json", storage)
         end
     end
 
-    message = message .. color.Default
+    message = message .. colour.Default
     player:message(message, false)
     return true
 end
@@ -419,7 +419,7 @@ function GuestListRemove(player, guestName)
     guestName = string.lower(guestName)
 
     if playerCell == nil then
-        message = color.Crimson .. "You do not own a house yet.\n"
+        message = colour.Caution .. "You do not own a house yet.\n"
     else
         if GuestListCheck(playerCell, guestName) then
             for index, item in pairs(storage[playerCell].guestList) do
@@ -427,14 +427,14 @@ function GuestListRemove(player, guestName)
                     table.remove(storage[playerCell].guestList, index)
                 end
             end
-            message = color.MediumSpringGreen .. guestName .. " is no longer welcome in your house.\n"
+            message = colour.Confirm .. guestName .. " is no longer welcome in your house.\n"
             JsonInterface.save(getDataFolder() .. "storage.json", storage)
         else
-            message = color.Orange .. guestName .. " is not on your guest list.\n"
+            message = colour.Warning .. guestName .. " is not on your guest list.\n"
         end
     end
 
-    message = message .. color.Default
+    message = message .. colour.Default
     player:message(message, false)
     return true
 end
@@ -446,16 +446,16 @@ function GuestListShow(player)
     local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
-        message = color.Crimson .. "You do not own a house yet.\n"
+        message = colour.Caution .. "You do not own a house yet.\n"
         sendMessage = true
     else
         local guestList = GuestListGetList(playerCell)
 
         if guestList[1] == nil then
-            message = color.Crimson .. "Your guest list is empty.\n"
+            message = colour.Caution .. "Your guest list is empty.\n"
             sendMessage = true
         else
-            message = message .. color.Orange .. "Guests of " ..  playerCell .. "\n\n"
+            message = message .. colour.Warning .. "Guests of " ..  playerCell .. "\n\n"
             for index, item in pairs(guestList) do
                 message = message .. item .. "\n"
             end
@@ -463,7 +463,7 @@ function GuestListShow(player)
         end
     end
 
-    message = message .. color.Default
+    message = message .. colour.Default
     if sendMessage == true then
         player:message(message, false)
     end
@@ -479,7 +479,7 @@ function WarpHome(player)
         local playerCell = CellGetPlayerCell(player)
 
         if playerCell == nil then
-            message = color.Crimson .. "You do not own a house yet.\n" .. color.Default
+            message = colour.Caution .. "You do not own a house yet.\n" .. colour.Default
             sendMessage = true
         else
             player:getInventory():unequipItem(Config.RealEstate.portkeySlot)
@@ -579,4 +579,4 @@ Event.register(Events.ON_POST_INIT, function()
 end)
 
 
-CommandController.registerCommand("house", CommandHandler, color.Salmon .. "/house help" .. color.Default .. " - Real estate system.")
+CommandController.registerCommand("house", CommandHandler, colour.Command .. "/house help" .. colour.Default .. " - Real estate system.")

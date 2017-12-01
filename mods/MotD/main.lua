@@ -6,11 +6,9 @@
 -- in return.  Michael Fitzmayer
 
 
-require("color")
 JsonInterface = require("jsonInterface")
-
-
 Config.MotD = import(getModFolder() .. "config.lua")
+colour = import(getModFolder() .. "colour.lua")
 
 
 local storage = JsonInterface.load(getDataFolder() .. "storage.json")
@@ -25,7 +23,7 @@ function Show(player, onConnect)
     local message = f:read("*a")
     f:close()
 
-    message = message .. color.MediumSpringGreen .. os.date("\nCurrent time: %A %I:%M %p") .. color.Default .. "\n"
+    message = message .. colour.Confirm .. os.date("\nCurrent time: %A %I:%M %p") .. colour.Default .. "\n"
 
     if onConnect == true then
         if storage[string.lower(player.name)] == nil then
@@ -81,4 +79,4 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, data)
 end)
 
 
-CommandController.registerCommand("motd", Show, color.Salmon .. "/motd".. color.Default .. " - Show message of the day.")
+CommandController.registerCommand("motd", Show, colour.Command .. "/motd".. colour.Default .. " - Show message of the day.")

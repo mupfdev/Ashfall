@@ -6,6 +6,9 @@
 -- in return.  Michael Fitzmayer
 
 
+colour = import(getModFolder() .. "colour.lua")
+
+
 local timer
 local status   = false
 local lockFile = getModFolder() .. package.config:sub(1, 1) .. "maintenance.lock"
@@ -24,7 +27,7 @@ function CheckStatus()
     if f ~= nil then
         status = true
 
-        local message = color.Crimson .. "The server is going into maintenance mode.\nTo prevent file corruption, you will be kicked within 10 seconds.\n" .. color.Default
+        local message = colour.Caution .. "The server is going into maintenance mode.\nTo prevent file corruption, you will be kicked within 10 seconds.\n" .. colour.Default
         Players.for_each(function(player)
                 player:message(message, false)
         end)

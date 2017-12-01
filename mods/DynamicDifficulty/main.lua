@@ -6,10 +6,8 @@
 -- in return.  Michael Fitzmayer
 
 
-require("color")
-
-
 Config.DynamicDifficulty = import(getModFolder() .. "config.lua")
+colour = import(getModFolder() .. "colour.lua")
 
 
 function UpdateDifficulty(player, notify)
@@ -38,7 +36,7 @@ function UpdateDifficulty(player, notify)
     end
 
     if Config.DynamicDifficulty.notify == true and notify == true then
-        player:message(color.Cyan .. "Difficulty is now set to " .. tostring(difficulty) .. ".\n" .. color.Default, false)
+        player:message(colour.Neutral .. "Difficulty is now set to " .. tostring(difficulty) .. ".\n" .. colour.Default, false)
     end
 
     player:getSettings():setDifficulty(difficulty)

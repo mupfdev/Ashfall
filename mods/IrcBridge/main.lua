@@ -6,11 +6,10 @@
 -- in return.  Michael Fitzmayer
 
 
-require("color")
 require("irc")
-
-
 Config.IrcBridge = import(getModFolder() .. "config.lua")
+colour = import(getModFolder() .. "colour.lua")
+
 
 local timer
 local lastMessage = ""
@@ -27,7 +26,7 @@ function RecvMessage()
                if lastMessage ~= message then
                    user.nick = string.gsub(user.nick, Config.IrcBridge.nickFilter, "")
                    Players.for_each(function(player)
-                           player:message(color.GreenYellow .. user.nick .. color.Default .. ": " .. message .. "\n", false)
+                           player:message(colour.Neutral .. user.nick .. colour.Default .. ": " .. message .. "\n", false)
                    end)
                    lastMessage = message
                end

@@ -6,9 +6,9 @@
 -- in return.  Michael Fitzmayer
 
 
-require("color")
 JsonInterface = require("jsonInterface")
 Config.VirtualSeptims = import(getModFolder() .. "config.lua")
+colour = import(getModFolder() .. "colour.lua")
 
 
 local accountCheckLastVisitTimer
@@ -19,7 +19,7 @@ local storage = JsonInterface.load(getDataFolder() .. "storage.json")
 function Init(player)
     if AccountCheckStatus(player.name) == false then
         AccountOpen(player.name)
-        message = color.MediumSpringGreen .. "A new bank account has been opened.\n" .. color.Default
+        message = colour.Confirm .. "A new bank account has been opened.\n" .. colour.Default
         player:message(message, false)
     end
 
@@ -95,11 +95,11 @@ function AccountGenerateSeptims()
                 AccountSetSeptims(player.name, septimsCurrent)
 
                 if player.customData["isAFK"] == true then
-                    player:message(color.MediumSpringGreen .. "The interest payment will be continued.\n", false)
+                    player:message(colour.Confirm .. "The interest payment will be continued.\n", false)
                     player.customData["isAFK"] = false
                 end
             else
-                player:message(color.Orange .. "The payment of interest has stopped due to inactivity.\n", false)
+                player:message(colour.Warning .. "The payment of interest has stopped due to inactivity.\n", false)
                 player.customData["isAFK"] = true
             end
     end)
@@ -134,7 +134,7 @@ end
 
 function AccountShow(player)
     local septimsCurrent = AccountGetSeptims(player.name)
-    player:getGUI():customMessageBox(441, color.DarkOrange .. "BANK ACCOUNT\n\n" .. color.Default .. septimsCurrent .. " Septims", "OK")
+    player:getGUI():customMessageBox(441, colour.Heading .. "BANK ACCOUNT\n\n" .. colour.Default .. septimsCurrent .. " Septims", "OK")
 
     return true
 end
@@ -182,7 +182,7 @@ Event.register(Events.ON_POST_INIT, function()
 end)
 
 
-CommandController.registerCommand("bank", CommandHandler, color.Salmon .. "/bank help" .. color.Default .. " - Banking system.")
+CommandController.registerCommand("bank", CommandHandler, colour.Command .. "/bank help" .. colour.Default .. " - Banking system.")
 
 
 Data["VirtualSeptims"] = {}
