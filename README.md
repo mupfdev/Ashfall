@@ -5,6 +5,12 @@ A collection of free/libre open source TES3MP scripts.
 If you are interested in becoming an collaborator to this project, feel
 free to join us on our official [Discord Server](https://discord.gg/uFCN6GP).
 
+## Note
+
+These scripts are intended to use with version `0.7.0-alpha` and are
+therefore for testing purposes only. All scripts for version `0.6.1` can
+be found in the `0.6.1` subdirectory.
+
 ## Other open source TES3MP repositories
 
 [Atkana/tes3mp-scripts](https://github.com/Atkana/tes3mp-scripts/)  
@@ -18,12 +24,6 @@ free to join us on our official [Discord Server](https://discord.gg/uFCN6GP).
 [vertchrite/tes3mp-command-pack](https://github.com/vertchrite/tes3mp-command-pack)  
 [vertchrite/tes3mp-disable-assassins](https://github.com/vertchrite/tes3mp-disable-assassins)  
 [vertchrite/tes3mp-playercells](https://github.com/vertchrite/tes3mp-playercells)  
-
-## Note
-
-These scripts are intended to use with version `0.7.0-alpha` and are
-therefore for testing purposes only. All scripts for version `0.6.1` can
-be found in the `0.6.1` subdirectory.
 
 ## Installation instructions
 
