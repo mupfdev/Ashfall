@@ -65,7 +65,7 @@ end
 
 
 function Methods.CommandHandler(pid, args)
-    local command
+    local command = ""
     local parameter
 
     local i = 0
