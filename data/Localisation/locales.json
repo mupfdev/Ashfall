@@ -1,0 +1,12 @@
+{
+  "en":{
+      "close":"Close",
+      "langSet":"Language set to",
+      "modName":"Localisation system"
+  },
+  "de":{
+      "close":"Schließen",
+      "langSet":"Spracheinstellung",
+      "modName":"Lokalisierungs-System"
+  }
+}

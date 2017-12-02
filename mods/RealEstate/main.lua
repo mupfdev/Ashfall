@@ -13,6 +13,7 @@ colour = import(getModFolder() .. "colour.lua")
 
 local cellMonitorLastVisitTimer
 local storage = JsonInterface.load(getDataFolder() .. "storage.json")
+local locales = JsonInterface.load(getDataFolder() .. "locales.json")
 
 
 function CommandHandler(player, args)
@@ -22,19 +23,17 @@ function CommandHandler(player, args)
     end
 
     if args[1] == "add" then
-        if args[2] == nil then
-            return false
+        if args[2] ~= nil then
+            GuestListAdd(player, args[2])
+            return true
         end
-        GuestListAdd(player, args[2])
-        return true
     end
 
     if args[1] == "remove" then
-        if args[2] == nil then
-            return false
+        if args[2] ~= nil then
+            GuestListRemove(player, args[2])
+            return true
         end
-        GuestListRemove(player, args[2])
-        return true
     end
 
     if args[1] == "guests" then
@@ -53,15 +52,21 @@ end
 
 
 function Help(player)
-    local f = io.open(getDataFolder() .. "help.txt", "r")
+    local lang = Data.LanguageGet(player)
+
+    local f = io.open(getDataFolder() .. "help_" .. lang .. ".txt", "r")
     if f == nil then
-        return false
+        f = io.open(getDataFolder() .. "help.txt", "r")
+
+        if f == nil then
+            return false
+        end
     end
 
     local message = f:read("*a")
     f:close()
 
-    player:getGUI():customMessageBox(231, message, "Close")
+    player:getGUI():customMessageBox(-1, message, Data._(player, locales, "close"))
 end
 
 
@@ -80,11 +85,11 @@ function CellCheck(player)
         if cellCurrent == cell then
             if cellOwner ~= nil then
                 if CellGetLockState(currentCell) == true and playerName ~= cellOwner then
-                    message = colour.Warning .. "You found this house unlocked.\n"
+                    message = colour.Warning .. Data._(player, locales, "houseFoundUnlocked") .. ".\n"
                     sendMessage = true
 
                 elseif playerName ~= cellOwner and GuestListCheck(cellCurrent, playerName) == false then
-                    message = colour.Caution .. "This house is owned by " .. cellOwner .. ".\n"
+                    message = colour.Caution .. Data._(player, locales, "houseOwnedBy") .. " " .. cellOwner .. ".\n"
                     if previousCell ~= cellCurrent then
                         WarpToPreviousPosition(player)
                     else
@@ -93,12 +98,12 @@ function CellCheck(player)
                     sendMessage = true
 
                 elseif playerName == cellOwner then
-                    message = colour.Confirm .. "Welcome home, " .. playerName .. ".\n"
+                    message = colour.Confirm .. Data._(player, locales, "welcomeHome") .. " " .. playerName .. ".\n"
                     sendMessage = true
                     CellUpdateLastVisit(cellCurrent)
 
                 elseif GuestListCheck(cellCurrent, playerName) then
-                    message = colour.Confirm .. "This house is owned by " .. cellOwner .. ".\nBehave yourself accordingly.\n"
+                    message = colour.Confirm .. Data._(player, locales, "houseOwnedBy") .. " " .. cellOwner .. ".\n" .. Data._(player, locales, "behaveYourself") .. ".\n"
                     CellUpdateLastVisit(cellCurrent)
                     sendMessage = true
 
@@ -111,9 +116,9 @@ function CellCheck(player)
 
                 local playerCell = CellGetPlayerCell(player)
                 if playerCell == nil then
-                    player:getGUI():customMessageBox(232, "This house is for sale. You can buy it for " .. housePrice .. " " .. goldCurrencyName .. ".\n", "Close;Buy House")
+                    player:getGUI():customMessageBox(232, Data._(player, locales, "houseForSale") .. "\n(" .. housePrice .. " " .. goldCurrencyName .. ").\n", Data._(player, locales, "close") .. ";" .. Data._(player, locales, "buy"))
                 else
-                    player:getGUI():customMessageBox(233, "This house is for sale, but you already own " .. playerCell .. ".\n", "Close;Release and Buy (" .. housePrice .. ")")
+                    player:getGUI():customMessageBox(233, Data._(player, locales, "houseForSale") .. ". " .. Data._(player, locales, "youAlreadyOwn") .. " " .. playerCell .. ".\n", Data._(player, locales, "close") .. ";" .. Data._(player, locales, "releaseAndBuy") .. " (" .. housePrice .. " " .. goldCurrencyName .. ")")
                 end
             end
         end
@@ -135,9 +140,9 @@ function CellMonitorLastVisit()
         if storage[index].lastVisit ~= nil then
             if timeCurrent - storage[index].lastVisit >= (Config.RealEstate.maxAbandonTime * 3600) then
                 CellRelease(index)
-                local message = index .. " has been abandoned.\n"
                 logMessage(Log.LOG_INFO, message)
                 Players.for_each(function(player)
+                        local message = index .. " " .. Data._(player, locales, "houseAbandoned") .. ".\n"
                         player:message(colour.Warning .. message)
                 end)
             end
@@ -178,10 +183,10 @@ function CellBuy(player)
             end
 
             if goldAmount < housePrice then
-                message = colour.Caution .. "You need at least " .. tostring(housePrice) .. " " .. goldCurrencyName .. ".\n"
+                message = colour.Caution .. Data._(player, locales, "youNeedAtLeast") .. " " .. tostring(housePrice) .. " " .. goldCurrencyName .. ".\n"
                 sendMessage = true
             else
-                message = colour.Confirm .. "Welcome home, " .. player.name .. ".\n"
+                message = colour.Confirm .. Data._(player, locales, "welcomeHome") .. " " .. player.name .. ".\n"
                 CellSetOwner(cellCurrent, player)
                 GoldSetAmount(player.name, (goldAmount - housePrice))
 
@@ -258,14 +263,14 @@ function CellLockPlayerCell(player)
     local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
-        message = colour.Caution .. "You do not own a house yet.\n"
+        message = colour.Caution .. Data._(player, locales, "youDontOwn") .. ".\n"
     else
         if storage[playerCell].isUnlocked == true then
             storage[playerCell].isUnlocked = false
-            message = colour.Confirm .. playerCell .. " has been locked.\n"
+            message = colour.Confirm .. playerCell .. " " .. Data._(player, locales, "houseLocked") .. ".\n"
         else
             storage[playerCell].isUnlocked = true
-            message = colour.Warning .. playerCell .. " has been unlocked. Be careful.\n"
+            message = colour.Warning .. playerCell .. " " .. Data._(player, locales, "houseUnlocked") .. ".\n"
         end
     end
 
@@ -275,8 +280,14 @@ end
 
 
 function CellShowPlayerCellGUI(player)
-    local message = colour.Heading .. "Real estate system" .. colour.Default
-    local buttons = "Close Window;Add Guest;Remove Guest;Guest list;Lock;Unlock"
+    local message = colour.Heading .. Data._(player, locales, "modName") .. colour.Default
+    local buttons =
+        Data._(player, locales, "close") .. ";" ..
+        Data._(player, locales, "add") .. ";" ..
+        Data._(player, locales, "remove") .. ";" ..
+        Data._(player, locales, "list") .. ";" ..
+        Data._(player, locales, "lock") .. "/" ..
+        Data._(player, locales, "unlock")
 
     player:getGUI():customMessageBox(234, message, buttons)
 end
@@ -391,17 +402,17 @@ function GuestListAdd(player, guestName)
     local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
-        message = colour.Caution .. "You do not own a house yet.\n"
+        message = colour.Caution .. Data._(player, locales, "youDontOwn") .. ".\n"
     else
         if GuestListCheck(playerCell, guestName) then
-            message = colour.Warning .. guestName .. " is already on your guest list.\n"
+            message = colour.Warning .. guestName .. " " .. Data._(player, locales, "alreadyOnList") .. ".\n"
         else
             if storage[playerCell].guestList == nil then
                 storage[playerCell].guestList = {}
             end
 
             table.insert(storage[playerCell].guestList, guestName)
-            message = colour.Confirm .. guestName .. " is now considered a guest.\n"
+            message = colour.Confirm .. guestName .. " " .. Data._(player, locales, "newGuest") .. ".\n"
             JsonInterface.save(getDataFolder() .. "storage.json", storage)
         end
     end
@@ -419,7 +430,7 @@ function GuestListRemove(player, guestName)
     guestName = string.lower(guestName)
 
     if playerCell == nil then
-        message = colour.Caution .. "You do not own a house yet.\n"
+        message = colour.Caution .. Data._(player, locales, "youDontOwn") .. ".\n"
     else
         if GuestListCheck(playerCell, guestName) then
             for index, item in pairs(storage[playerCell].guestList) do
@@ -427,10 +438,10 @@ function GuestListRemove(player, guestName)
                     table.remove(storage[playerCell].guestList, index)
                 end
             end
-            message = colour.Confirm .. guestName .. " is no longer welcome in your house.\n"
+            message = colour.Confirm .. guestName .. " " .. Data._(player, locales, "noLongerWelcome") .. ".\n"
             JsonInterface.save(getDataFolder() .. "storage.json", storage)
         else
-            message = colour.Warning .. guestName .. " is not on your guest list.\n"
+            message = colour.Warning .. guestName .. " " .. Data._(player, locales, "notYourGuest") .. ".\n"
         end
     end
 
@@ -446,20 +457,20 @@ function GuestListShow(player)
     local playerCell = CellGetPlayerCell(player)
 
     if playerCell == nil then
-        message = colour.Caution .. "You do not own a house yet.\n"
+        message = colour.Caution .. Data._(player, locales, "youDontOwn") .. ".\n"
         sendMessage = true
     else
         local guestList = GuestListGetList(playerCell)
 
         if guestList[1] == nil then
-            message = colour.Caution .. "Your guest list is empty.\n"
+            message = colour.Caution .. Data._(player, locales, "guestListEmpty") .. ".\n"
             sendMessage = true
         else
-            message = message .. colour.Warning .. "Guests of " ..  playerCell .. "\n\n"
+            message = message .. colour.Warning .. Data._(player, locales, "guestsOf") .. " " ..  playerCell .. "\n\n"
             for index, item in pairs(guestList) do
                 message = message .. item .. "\n"
             end
-            player:getGUI():customMessageBox(234, message, "Close")
+            player:getGUI():customMessageBox(234, message, Data._(player, locales, "close"))
         end
     end
 
@@ -479,7 +490,7 @@ function WarpHome(player)
         local playerCell = CellGetPlayerCell(player)
 
         if playerCell == nil then
-            message = colour.Caution .. "You do not own a house yet.\n" .. colour.Default
+            message = colour.Caution .. Data._(player, locales, "youDontOwn") .. ".\n" .. colour.Default
             sendMessage = true
         else
             player:getInventory():unequipItem(Config.RealEstate.portkeySlot)
@@ -521,15 +532,13 @@ Event.register(Events.ON_GUI_ACTION, function(player, id, data)
                        end
                    elseif id == 234 then
                        if tonumber(data) == 1 then
-                           player:getGUI():inputDialog(235, "Add guest")
+                           player:getGUI():inputDialog(235, Data._(player, locales, "add"))
                        elseif tonumber(data) == 2 then
-                           player:getGUI():inputDialog(236, "Remove guest")
+                           player:getGUI():inputDialog(236, Data._(player, locales, "remove"))
                        elseif tonumber(data) == 3 then
                            GuestListShow(player)
                        elseif tonumber(data) == 4 then
                            CellLockPlayerCell(player)
-                       elseif tonumber(data) == 5 then
-                           CellUnlockPlayerCell(player)
                        end
                    elseif id == 235 then
                        GuestListAdd(player, data)
