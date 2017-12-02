@@ -7,7 +7,7 @@ config.portkey = true
 config.portkeySlot = 16
 config.portkeyRefId = "iron fork"
 config.useVirtualSeptims = true
-config.nameCurrencyRegular = "Draken"
+config.nameCurrencyRegular = "Drakes"
 config.nameCurrencyVirtual = "Septims"
 
 

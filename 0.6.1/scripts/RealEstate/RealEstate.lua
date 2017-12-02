@@ -175,7 +175,7 @@ function Methods.CellCheck(pid)
                 local playerCell = CellGetPlayerCell(pid)
                 message = "#FF8C00"
                 if playerCell == nil then
-                    message = message .. "This house is for sale. You can buy it for " .. housePrice .. " Draken. Enter #FA8072/house buy #FF8C00to buy.\n"
+                    message = message .. "This house is for sale. You can buy it for " .. housePrice .. " Drakes. Enter #FA8072/house buy #FF8C00to buy.\n"
                 else
                     message = message .. "This house is for sale, but you already own " .. playerCell .. ". Enter #FA8072/house buy #FF8C00to release & buy (" .. housePrice .. ").\n"
                 end
@@ -245,7 +245,7 @@ function CellBuy(pid)
             end
 
             if goldAmount < housePrice then
-                message = "#DC143CYou need at least " .. tostring(housePrice) .. " Draken.\n"
+                message = "#DC143CYou need at least " .. tostring(housePrice) .. " Drakes.\n"
                 sendMessage = true
             else
                 local playerCell = CellGetPlayerCell(pid)
