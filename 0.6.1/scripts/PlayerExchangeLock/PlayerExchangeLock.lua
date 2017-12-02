@@ -13,15 +13,15 @@ Methods = {}
 
 
 -- Add [ PlayerExchangeLock = require("PlayerExchangeLock") ] to the top of server.lua
--- One server needs to set [ passiveMode = true ] and the other one [ passiveMode = false ]
 
 -- This script is considered experimental. Please use it only if you
 -- understand it's purpose.
 
 
-local status = {}
-local passiveMode = false
-local pathJson = "/path/to/PlayerExchangeLock/"
+local statusLocal = {}
+local statusRemote = {}
+local jsonLocal = "/path/to/local.json"
+local jsonRemote = "/path/to/remote.json"
 local timerUpdate = tes3mp.CreateTimerEx("TimerUpdateExpired", 500, "i", 0)
 
 
@@ -45,30 +45,23 @@ end
 
 
 function Update()
-    if passiveMode == false then
-        for pid, player in pairs(Players) do
-            local playerName = Players[pid].name
+    statusRemote = JsonLoad(jsonRemote)
 
-            if player:IsLoggedIn() then
-                status[playerName] = {}
-                status[playerName].online = true
-            end
+    for pid, player in pairs(Players) do
+        local playerName = Players[pid].name
+
+        if player:IsLoggedIn() then
+            statusLocal[playerName] = {}
+            statusLocal[playerName].online = true
         end
-        JsonSave(pathJson .. "status.json", status)
-    else
-        status = JsonLoad(pathData .. "status.json")
-        for pid, player in pairs(Players) do
-            local playerName = Players[pid].name
 
-            if player:IsLoggedIn() then
-                if status[playerName] ~= nil then
-                    if status[playerName].online == true then
-                        Players[pid]:Kick()
-                    end
-                end
+        if statusRemote[playerName] ~= nil then
+            if statusRemote[playerName].online == true then
+                Players[pid]:Kick()
             end
         end
     end
+    JsonSave(jsonLocal, statusLocal)
 
     tes3mp.StartTimer(timerUpdate)
 end
