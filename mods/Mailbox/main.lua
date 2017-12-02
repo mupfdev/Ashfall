@@ -30,47 +30,34 @@ end
 
 function CommandHandler(player, args)
     if #args < 1 then
-        if InboxGUI(player) == false then
-            return false
-        end
+        InboxGUI(player)
         return true
     end
 
     if args[1] == "check" then
-        if InboxCheck(player) == false then
-            return false
-        end
+        InboxCheck(player)
         return true
     end
 
     if args[1] == "delete" then
-        if args[2] == nil then
-            return false
+        if args[2] ~= nil then
+            MessageDelete(player, args[2])
+            return true
         end
-        if MessageDelete(player, args[2]) == false then
-            return false
-        end
-        return true
     end
 
     if args[1] == "read" then
-        if args[2] == nil or args[3] == true then
-            return false
+        if args[2] ~= nil or args[3] ~= true then
+            MessageRead(player, args[2])
+            return true
         end
-        if MessageRead(player, args[2]) == false then
-            return false
-        end
-        return true
     end
 
     if args[1] == "send" then
-        if args[3] == nil then
-            return false
+        if args[3] ~= nil then
+            MessageSend(player, args[2], args[3])
+            return true
         end
-        if MessageSend(player, args[2], args[3]) == false then
-            return false
-        end
-        return true
     end
 
     Help(player)
