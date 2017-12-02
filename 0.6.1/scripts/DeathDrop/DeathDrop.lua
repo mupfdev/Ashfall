@@ -45,7 +45,7 @@ Methods.Drop = function(pid)
 
             tes3mp.SetObjectPosition(location.posX, location.posY, location.posZ)
             tes3mp.AddWorldObject()
-            tes3mp.SendObjectSpawn()
+            tes3mp.SendObjectPlace()
 
             Players[pid].data.inventory[index] = nil
         end
